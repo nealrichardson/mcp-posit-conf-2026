@@ -33,72 +33,6 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-    /* CSS for syntax highlighting */
-    html { -webkit-text-size-adjust: 100%; }
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      { color: #003b4f; background-color: #f1f3f5; }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span { color: #003b4f; } /* Normal */
-    code span.al { color: #ad0000; } /* Alert */
-    code span.an { color: #5e5e5e; } /* Annotation */
-    code span.at { color: #657422; } /* Attribute */
-    code span.bn { color: #ad0000; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #20794d; } /* Char */
-    code span.cn { color: #8f5902; } /* Constant */
-    code span.co { color: #5e5e5e; } /* Comment */
-    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
-    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
-    code span.dt { color: #ad0000; } /* DataType */
-    code span.dv { color: #ad0000; } /* DecVal */
-    code span.er { color: #ad0000; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #ad0000; } /* Float */
-    code span.fu { color: #4758ab; } /* Function */
-    code span.im { color: #00769e; } /* Import */
-    code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
-    code span.op { color: #5e5e5e; } /* Operator */
-    code span.ot { color: #003b4f; } /* Other */
-    code span.pp { color: #ad0000; } /* Preprocessor */
-    code span.sc { color: #5e5e5e; } /* SpecialChar */
-    code span.ss { color: #20794d; } /* SpecialString */
-    code span.st { color: #20794d; } /* String */
-    code span.va { color: #111111; } /* Variable */
-    code span.vs { color: #20794d; } /* VerbatimString */
-    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-b2736e9fcda83c748fd63b6e579550ef.css">
   <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -431,27 +365,6 @@ For context, I should introduce myself
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
-<!-- 
-## Problems
-
-* Authentication
-
-* Authorization needs to be restricted
-
-* REST API is too verbose
-
-* Sensitive data
-
-* Distribution
-
-::: {.notes}
-
-* Authentication is needed. Claude can't read my environment variables, and I don't want to paste my API key or password into the context--that's dangerous.
-* Authorization needs to be scoped. I don't want Claude to be able to do everything I can do.
-* (assume we could solve those) API is too verbose: context pollution from unnecessary fields.
-* Sensitive data: there is PII in there. I may not want that pulled into my agent session. I might not be allowed by company policy to use it. There may be regulations that say I can't. I don't really know and *really* don't want to find out.
-* (assume we get all of that right!) How do I make this available to my team? They would all benefit from this tool. And then others outside my team, like the support team, who may not live in Claude Code?
-::: -->
 </section>
 <section id="mcp-is-designed-to-solve-this" class="slide level2 center">
 <h2>MCP is designed to solve this</h2>
@@ -617,7 +530,6 @@ For context, I should introduce myself
 </section>
 <section id="section-8" class="slide level2" data-background-image="img/unix-system.jpg">
 <h2></h2>
-<!-- ![](img/unix-system.gif) -->
 <aside class="notes">
 <p>You know what this is too. And your coding agents do too.</p>
 <style type="text/css">
@@ -676,13 +588,6 @@ For context, I should introduce myself
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
-<!-- ## Security
-
-### Untrusted code
-
-* Arbitrary code execution--problem for local MCP if the command to run it is `npx some-random-github-repo` 
-
-* "tool poisoning": malicious actors putting instructions into tool definition that exfil  -->
 </section>
 <section id="mcp-cli-or-skill" class="slide level2">
 <h2>MCP, CLI, or Skill?</h2>
@@ -771,7 +676,6 @@ For context, I should introduce myself
 <section id="best-practices" class="slide level2 center">
 <h2>Best practices</h2>
 <h3 id="brevity-is-the-soul-of-wit">Brevity is the soul of wit</h3>
-<!-- For longer talk: introduce these three points, then switch to code -->
 </section>
 <section id="best-practices-1" class="slide level2 center">
 <h2>Best practices</h2>
@@ -833,11 +737,6 @@ For context, I should introduce myself
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
-<!-- first walk through the points I hit at the beginning: auth, manage permissions, trim responses, do exactly what you want 
-
-See also https://chrlschn.dev/blog/2026/03/mcp-is-dead-long-live-mcp/
-
--->
 </section>
 <section id="mcp-or-not-mcp" class="slide level2">
 <h2>MCP, or not MCP?</h2>
@@ -852,18 +751,6 @@ See also https://chrlschn.dev/blog/2026/03/mcp-is-dead-long-live-mcp/
 <h2>Thank you</h2>
 <div class="columns">
 <div class="column" style="text-align: center;">
-<p><a href="https://modelcontextprotocol.io/">MCP spec</a></p>
-<a href="https://modelcontextprotocol.io/" class="qrcode"><div id="" class="qrcode"></div></a>
-<script type="text/javascript">
-(function() {
-  var script = document.currentScript;
-  var qrcode = script.previousElementSibling;
-  qrcode.qrcode = new QRCode(qrcode, {"colorDark":"#000000","colorLight":"#ffffff","height":"300","text":"https://modelcontextprotocol.io/","width":"300"});
-  script.remove();
-})();
-</script>
-    
-</div><div class="column" style="text-align: center;">
 <p><a href="https://enpiar.com/mcp-newcastle-2026/">These slides</a></p>
 <a href="https://enpiar.com/mcp-newcastle-2026/" class="qrcode"><div id="" class="qrcode"></div></a>
 <script type="text/javascript">
@@ -875,175 +762,20 @@ See also https://chrlschn.dev/blog/2026/03/mcp-is-dead-long-live-mcp/
 })();
 </script>
     
+</div><div class="column" style="text-align: center;">
+<p><a href="https://github.com/nealrichardson/zendesk-mcp-server">Zendesk MCP repo</a></p>
+<a href="https://github.com/nealrichardson/zendesk-mcp-server" class="qrcode"><div id="" class="qrcode"></div></a>
+<script type="text/javascript">
+(function() {
+  var script = document.currentScript;
+  var qrcode = script.previousElementSibling;
+  qrcode.qrcode = new QRCode(qrcode, {"colorDark":"#000000","colorLight":"#ffffff","height":"300","text":"https://github.com/nealrichardson/zendesk-mcp-server","width":"300"});
+  script.remove();
+})();
+</script>
+    
 </div></div>
-</section>
-<section id="section-11" class="slide level2">
-<h2></h2>
-</section>
-<section id="what-do-we-need" class="slide level2">
-<h2>What do we need?</h2>
-<ul>
-<li><p>Code</p></li>
-<li><p>A place to deploy it</p></li>
-</ul>
-<aside class="notes">
-<p>Let’s start with code. For code, MCP servers are most commonly written in JavaScript or Python. We’re at PyData, so let’s go with Python!</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="mcp-libraries" class="slide level2">
-<h2>MCP libraries</h2>
-<!-- make this progressive? -->
-<p>Official MCP SDK</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="im">from</span> mcp.server.fastmcp <span class="im">import</span> FastMCP</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><code>fastmcp</code> library</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="im">from</span> fastmcp <span class="im">import</span> FastMCP</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<aside class="notes">
-<p>There is an official <code>mcp</code> SDK, and then there is the <code>fastmcp</code> library. Confusingly, the <code>mcp</code> SDK incorporated the v1 of <code>fastmcp</code> as a submodule within it, but <code>fastmcp</code> the separate project has moved on from there. So you may see a <code>FastMCP</code> class in your code and need to be clear about which module it’s coming from.</p>
-<p>FastMCP has lots of good examples and syntactic sugar for making it simple to start a project.</p>
-<p>Really, just ask your agent to bootstrap your project. Just watch out in case it gets confused with the different fastmcp versions.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="section-12" class="slide level2">
-<h2></h2>
-<pre><code> ▐▛███▜▌   Claude Code v2.1.158
-▝▜█████▛▘  Opus 4.8 (1M context) · Claude Enterprise
-  ▘▘ ▝▝    ~/code
 
-   Opus 4.8 is here! Now defaults to high effort · /effort xhigh for your hardest tasks
-
-❯ please use the fastmcp library to help me start an MCP server for ...
-</code></pre>
-<aside class="notes">
-<p>I’m going to walk through some example code to illustrate the best practices I mentioned at the top.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="httpsgithub.comnealrichardsonzendesk-mcp-server-2" class="slide level2 center">
-<h2>https://github.com/nealrichardson/zendesk-mcp-server</h2>
-<aside class="notes">
-<p>These come from the Zendesk MCP server that I talked about writing at the start. I should note that to get this, I started with a JavaScript project someone else had on GitHub, forked it, and asked Claude to port to Python. And to be honest, I don’t write much code by hand these days, so the code in there is all Claude-assisted and may not meet our highest aesthetic, Pythonic standards. But it works!</p>
-<section id="section-13" class="slide level2">
-<h2></h2>
-<aside class="notes">
-<p>Let’s start with a simple tool example. This is the tool definition for getting the Zendesk ticket. It’s just a Python function with decorator that makes it a tool, kinda like how you would set up routes in FastAPI or Flask. And the function itself doesn’t do much other than pass the ticket ID along to the REST API and return the resulting JSON</p>
-<p>Why would we do this? Why don’t we talk directly to the REST API?</p>
-<p>First is auth: we’ve encapsulated the auth to Zendesk into this “client” object, which we’re managing in the MCP server. You can take your API key and set it in the server, and now you don’t have to expose that somehow in your agent session: it just calls <code>get_ticket</code> and never sees the API key.</p>
-<p>the example references a <code>client</code> object, which is a pretty standard looking REST API client class. It holds your credentials, passes them in the right way to the REST API, and it knows how to handle the usual API responses, etc. The important thing to notice here is that the auth to that API, to Zendesk, does not appear in the MCP tool–it’s all handled by the server. You put your API key in an environment variable or secret on the server, and then you don’t have to pass that around to anyone that wants to access Zendesk.</p>
-<p>You may be thinking: this could be a risk, you need your server hosted somewhere secure and not open to the internet. hold that thought.</p>
-<!-- reframe around the first bullet: limiting tools available, both for context and for what capabilities are given to the agent -->
-<ul>
-<li>managing context: right now we only have one tool! that’s a lot less than the whole REST API. so a lot less information to confuse your model. So we can selectively include tools that we need, and leave off the things that we don’t.</li>
-</ul>
-<p>Second is so that we can limit which tools are available to the agent. So that we can manage the context: both which resources are available at all, and the contents of the response. We wouldn’t want to just give Claude the OpenAPI spec for the Zendesk API and say “figure it out”. That’s way too many endpoints, too much context consumed.</p>
-<p>This was really important in this case because, like many other APIs out there, Zendesk doesn’t let you make fine-grained access tokens, so the API key you would use here has full read and write access to everything in Zendesk. I don’t want to turn an AI agent, non-deterministic and wacky as they can be, wild on our entire support system. So, back to the previous point, the fact that I can selectively expose the tools I want allows me to limit the security exposure.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a>    <span class="at">@mcp.tool</span>()</span>
-<span id="cb6-2"><a href=""></a>    <span class="cf">async</span> <span class="kw">def</span> get_ticket(<span class="bu">id</span>: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
-<span id="cb6-3"><a href=""></a>        <span class="co">"""Get a specific ticket by ID.</span></span>
-<span id="cb6-4"><a href=""></a></span>
-<span id="cb6-5"><a href=""></a><span class="co">        Args:</span></span>
-<span id="cb6-6"><a href=""></a><span class="co">            id: Ticket ID</span></span>
-<span id="cb6-7"><a href=""></a><span class="co">        """</span></span>
-<span id="cb6-8"><a href=""></a>        <span class="cf">try</span>:</span>
-<span id="cb6-9"><a href=""></a>            result <span class="op">=</span> <span class="cf">await</span> client.get_ticket(<span class="bu">id</span>)</span>
-<span id="cb6-10"><a href=""></a>            <span class="cf">return</span> json.dumps(result, indent<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb6-11"><a href=""></a>        <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
-<span id="cb6-12"><a href=""></a>            <span class="cf">return</span> <span class="ss">f"Error getting ticket: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<!-- 
-
-Next: trimming responses, also sanitizing.
-
-You could serve this locally and it would solve many of the challenges I outlined at the top: you keep auth out of the AI agent, you limit what tools are available, and you can be smart about what you include in the responses so that you both minimize the context you're consuming with the tool responses, and so that you avoid exposing sensitive data. 
- -->
-<!-- 
-## Deploying MCP servers
-
-Need to talk somewhere about hosting and deployment, Connect but also others, or just self host in docker or whatever inside your network, maybe that means you don't implement auth, but you can still benefit from the custom tools 
-
-For hosting, you have a few options. I, of course, deployed mine on Posit Connect because (a) it's available to me! and (b) it has some nice features that support MCP. I'll point those out as I go but I promise I'm not going to make this a sales pitch. 
-
-There are other solutions out there for general API hosting, and including some that are tailored to MCP as well. Prefect, which supports the `fastmcp` library, has a hosting service, for example.
-
-You can also deploy on any cloud platform or service that your company has available. Remember, at the root, this is just an API over HTTP, so you don't technically *need* a service that is purpose built for MCP. But going this route, you may have to do a bit more in your code for things like authentication and observability. 
-
-(connect)
-(mention oauth flow supported in MCP standard, so clients like Claude Code know how to authenticate to an MCP server.)
-(fastmcp, and other hosting products can offer solutions for auth too)
-
-
-## Couldn't you just write a CLI instead?
-
-you could, and sure, go for it!--but:
-* Only useful to developers, using an agent that has shell. Can't use in other AI applications (confirm claude desktop can't)
-* Requires running code on the user's machine: has some advantages, but may not always be allowed (Windows??) or may not have access to private resources
-* Distribution problem: everyone has to download and install and update. Takes what is a security risk when using other people's MCP servers and turns it into an asset (you can push updates eagerly)
-* the real win for CLIs are those that are already in the training data for the models. Your CLI isn't, so the agent will have to hit --help on your commands to learn how to use it, and now it's consuming the same context window that your MCP tool definitions are
- -->
-<!-- Call back to MCP vs CLI in heading to the conclusion? -->
-</section>
-<section id="when-you-should-use-mcp" class="slide level2">
-<h2>When you should use MCP</h2>
-<!-- call back to the title? -->
-</section>
-<section id="when-you-should-not" class="slide level2">
-<h2>When you should not</h2>
-<ul>
-<li><p>You’re in a coding agent that has <code>bash</code> and there is a widely available CLI for your task (like <code>gh</code>)</p></li>
-<li><p>You can express what you want the agent to do in plain text (markdown), building on other tools it already has</p></li>
-<li><p>You don’t have somewhere secure to deploy a remote MCP server</p></li>
-</ul>
-
-</section>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
 </section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
