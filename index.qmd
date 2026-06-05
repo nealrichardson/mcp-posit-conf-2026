@@ -281,8 +281,6 @@ For a few reasons, I'm going to focus on remote MCP, and in particular on remote
 ## MCP is an API standard {.center}
 
 :::{.notes}
-* Originally created by Anthropic in late 2024, and then put under a consortium under the Linux Foundation
-
 * It's a standard for how to design APIs that AI applications can use
 
 * Remote MCP servers communicate over HTTP, basically JSON RPC with a set of well known endpoints and a schema for how tools are defined. 
@@ -301,6 +299,10 @@ You know what this is too. And your coding agents do too.
 ![](img/mind-blown-with-mcp.png)
 
 https://www.reddit.com/r/mcp/comments/1jn3ykp/mind_blown_with_mcp/
+
+:::{.notes}
+* Originally created by Anthropic in late 2024, and then put under a consortium under the Linux Foundation
+:::
 
 :::{.notes}
 Then, a backlash
