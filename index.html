@@ -6,12 +6,11 @@
 <script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="index_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="index_files/libs/quarto-contrib/qrcodejs-v1.0.0/qrcode.js"></script><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.37">
+  <meta name="generator" content="quarto-1.9.38">
 
   <meta name="author" content="Neal Richardson">
-  <meta name="dcterms.date" content="2026-06-05">
   <title>MCP, or not MCP?</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -34,7 +33,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-b2736e9fcda83c748fd63b6e579550ef.css">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-0f1bf931d834a9e41ceef7aea143d3fe.css">
   <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -126,69 +125,15 @@
       margin-right: 0; 
     }
   </style>
-  <style>
-  .container {
-      height: 100%;
-      width: 100%;
-      display: table;
-      table-layout: fixed;
-      text-align: center;
-  }
-
-  .inside {
-      vertical-align: middle;
-      display: table-cell;
-  }
-
-  .really-big {
-      font-size: 256px;
-  }
-
-  .extrapad {
-      margin-top:1em  !important;
-  }
-  .v-spacier {
-      margin-bottom: 2em;
-      margin-top: 2em;
-  }
-
-  div.my-footer {
-      position: absolute;
-      bottom: 0px;
-      left: 0px;
-      height: 20px;
-      width: 100%;
-  }
-  div.my-footer span {
-      font-size: 16pt;
-      font-family: "Roboto", sans-serif;
-      position: absolute;
-      color: #777;
-      left: 16px;
-      bottom: 16px;
-  }
-
-  .qrcode {
-      display: flex;
-      justify-content: center;
-  }
-
-  .blink_me {
-      animation: blinker 1s linear infinite;
-  }
-
-  @keyframes blinker {
-      50% {
-          opacity: 0;
-      }
-  }
-  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..700;1,400..700&amp;family=IM+Fell+English:ital@0;1&amp;family=IM+Fell+English+SC&amp;family=Source+Sans+3:ital,wght@0,300..700;1,300..700&amp;display=swap" rel="stylesheet">
 </head>
 <body class="quarto-light">
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" data-background-image="img/torii.jpg" data-background-opacity="0.20" class="quarto-title-block center">
+<section id="title-slide" data-background-color="#f5efe1" class="quarto-title-block center">
   <h1 class="title">MCP, or not MCP?</h1>
 
 <div class="quarto-title-authors">
@@ -197,37 +142,33 @@
 Neal Richardson 
 </div>
         <p class="quarto-title-affiliation">
-            AI in Production
+            posit::conf(2026)
           </p>
     </div>
 </div>
 
-  <p class="date">June 5, 2026</p>
 </section>
-<section id="section" class="slide level2">
-<h2></h2>
-<!-- ::: {.notes}
-(ask who has used an MCP server before. who has written an MCP server)
+<section class="slide level2">
 
-I want to start with a story about how I came to understand what MCP was and what it was for. 
+<!-- (ask who has used an MCP server before. who has written an MCP server)
 
-For context, I should introduce myself
-::: -->
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><img data-src="img/neal-with-book.jpg"></p>
-</div><div class="column" style="width:50%;">
-<p>Hi, I’m Neal 👋</p>
-<ul>
-<li><p>Open source and data</p></li>
-<li><p>Apache Arrow PMC member</p></li>
-<li><p>Currently VP Engineering at Posit</p></li>
-<li><p>enpiar.com</p></li>
-<li><p>arrowrbook.com</p></li>
-</ul>
-</div></div>
+I want to start with a story about how I came to understand what MCP was and what it was for.
+
+For context, I should introduce myself -->
+</section>
+<section id="dramatis-personæ" class="slide level2 folio" data-background-color="#f5efe1">
+<h2>Dramatis Personæ</h2>
+<div class="dramatis">
+<p><span class="name">Neal</span>, <em>your narrator; VP of Engineering at Posit, Apache Arrow PMC member</em> — <em>enpiar.com, arrowrbook.com</em></p>
+<p><span class="name">Posit Connect</span>, <em>a platform; where things are hosted</em></p>
+<p><span class="name">Claude</span>, <em>an agent; capable, willing, credulous</em></p>
+<p><span class="name">Zendesk</span>, <em>a ticketing system; offstage, behind a locked door</em></p>
+<p><span class="name">A Prompt Injection</span>, <em>disguised as a GitHub issue</em></p>
+<p><span class="name">Polonius</span>, <em>a courtier; cannot get to the point</em></p>
+</div>
 <aside class="notes">
-<p>I’ve done a few things etc. Open source, Apache Arrow for many years, was chair of project management committee last year. Currently at Posit, and one of the teams I oversee is Posit Connect. (any Connect users out there?)</p>
+<p>Hi, I’m Neal. Open source and data, Apache Arrow for many years, was chair of the project management committee last year. Currently at Posit, and one of the teams I oversee is Posit Connect. (any Connect users out there?)</p>
+<p>The rest of the cast will introduce themselves as we go. Two of them are villains.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -240,7 +181,7 @@ For context, I should introduce myself
           display:block!important;
       }</style></aside>
 </section>
-<section id="section-1" class="slide level2">
+<section id="section" class="slide level2">
 <h2></h2>
 
 <img data-src="img/logo_connecttag-fullcolor.svg" class="r-stretch"><aside class="notes">
@@ -257,7 +198,25 @@ For context, I should introduce myself
           display:block!important;
       }</style></aside>
 </section>
-<section id="section-2" class="slide level2" data-background-image="img/kermit-typing.gif">
+<section id="act-i-the-ghost" class="slide level2 center folio" data-background-color="#f5efe1">
+<h2>Act I: The Ghost</h2>
+<h3 id="something-is-rotten-in-the-state-of-denmark"><em>Something is rotten in the state of Denmark</em></h3>
+<aside class="notes">
+<p>(Act card. The title of this talk is a Hamlet joke, so we may as well commit: five acts.)</p>
+<p>Act I is the setup: here’s the world, and here’s the thing that’s wrong with it.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="section-1" class="slide level2" data-background-image="img/kermit-typing.gif">
 <h2></h2>
 <aside class="notes">
 <p>Last year, we found ourselves getting more and more into using Claude Code. One of the great things about our current moment in the industry is that so many things that may have seemed hard or out of reach before are now available for us to do. It lets us be much more responsive to new ideas and requests–now we can just fire off Claude on a git worktree without having to do all of the context switching to consider it, and many times it just gets it done, or pretty close.</p>
@@ -273,7 +232,7 @@ For context, I should introduce myself
           display:block!important;
       }</style></aside>
 </section>
-<section id="section-3" class="slide level2" data-background-image="img/kermit-thinking-cropped.jpg">
+<section id="section-2" class="slide level2" data-background-image="img/kermit-thinking-cropped.jpg">
 <h2></h2>
 <aside class="notes">
 <p>So, increasingly, I kept seeing problems and thinking, how can I use Claude to solve it? What else out there have we learned to be hard and painful that maybe isn’t anymore?</p>
@@ -289,7 +248,7 @@ For context, I should introduce myself
           display:block!important;
       }</style></aside>
 </section>
-<section id="section-4" class="slide level2" data-background-image="img/kermit-phone.gif">
+<section id="section-3" class="slide level2" data-background-image="img/kermit-phone.gif">
 <h2></h2>
 <aside class="notes">
 <p>Responding to support escalations became one of them. Posit uses Zendesk for support, customers can file tickets there and they get fielded by our support team. When they get a clear bug report, or something that they can’t answer on their own, it escalates to the engineers.</p>
@@ -307,7 +266,7 @@ For context, I should introduce myself
           display:block!important;
       }</style></aside>
 </section>
-<section id="section-5" class="slide level2">
+<section id="section-4" class="slide level2">
 <h2></h2>
 <pre><code> ▐▛███▜▌   Claude Code v2.1.158
 ▝▜█████▛▘  Opus 4.8 (1M context) · Claude Enterprise
@@ -331,7 +290,7 @@ For context, I should introduce myself
           display:block!important;
       }</style></aside>
 </section>
-<section id="section-6" class="slide level2">
+<section id="section-5" class="slide level2">
 <h2></h2>
 <pre><code> ▐▛███▜▌   Claude Code v2.1.158
 ▝▜█████▛▘  Opus 4.8 (1M context) · Claude Enterprise
@@ -368,7 +327,7 @@ For context, I should introduce myself
 </section>
 <section id="mcp-is-designed-to-solve-this" class="slide level2 center">
 <h2>MCP is designed to solve this</h2>
-<h3 id="space"><span style="color: white;">space</span></h3>
+<h3 id="space"><span class="ghost">space</span></h3>
 <aside class="notes">
 <p>MCP offers a solution to this.</p>
 <p>It provides a way for you to authenticate securely to APIs, without giving your credentials to the agent.</p>
@@ -390,7 +349,10 @@ For context, I should introduce myself
 </section>
 <section id="you-can-write-and-host-your-own-mcp-servers" class="slide level2 center">
 <h2>You can write and host your own MCP servers</h2>
-<h3 id="httpsgithub.comnealrichardsonzendesk-mcp-server"><span style="color: white;">https://github.com/nealrichardson/zendesk-mcp-server</span></h3>
+<h3 id="httpsgithub.comnealrichardsonzendesk-mcp-server"><span class="ghost">https://github.com/nealrichardson/zendesk-mcp-server</span></h3>
+<div class="epigraph">
+<p>This above all: to thine own self be true</p>
+</div>
 <aside class="notes">
 <p>To do exactly what you need. Because code is now cheap. So my talk is going to be oriented about writing your own, not about whether or not you should use an MCP server that someone else provides. Even when someone else’s hosted MCP server is available to you, you may have reasons for wanting to customize it, as I will show. And thanks to AI, this is all available to you now.</p>
 <style type="text/css">
@@ -408,8 +370,29 @@ For context, I should introduce myself
 <section id="you-can-write-and-host-your-own-mcp-servers-1" class="slide level2 center">
 <h2>You can write and host your own MCP servers</h2>
 <h3 id="httpsgithub.comnealrichardsonzendesk-mcp-server-1">https://github.com/nealrichardson/zendesk-mcp-server</h3>
+<div class="epigraph">
+<p>This above all: to thine own self be true</p>
+</div>
 <aside class="notes">
 <p>To do exactly what you need. Because code is now cheap. So my talk is going to be oriented about writing your own, not about whether or not you should use an MCP server that someone else provides. Even when someone else’s hosted MCP server is available to you, you may have reasons for wanting to customize it, as I will show. And thanks to AI, this is all available to you now.</p>
+<p>(Polonius, giving his son advice. The whole thesis of the talk in one line: build the thing that does exactly what <em>you</em> need.)</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="act-ii-the-plays-the-thing" class="slide level2 center folio" data-background-color="#f5efe1">
+<h2>Act II: The Play’s the Thing</h2>
+<h3 id="there-are-more-things-in-heaven-and-earth-horatio-than-are-dreamt-of-in-your-philosophy"><em>There are more things in heaven and earth, Horatio,<br>than are dreamt of in your philosophy</em></h3>
+<aside class="notes">
+<p>Act II: what this thing actually is.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -438,8 +421,8 @@ For context, I should introduce myself
           display:block!important;
       }</style></aside>
 </section>
-<section id="section-7" class="slide level2" data-background-image="img/gob.gif">
-<h2></h2>
+<section id="though-this-be-madness-yet-there-is-method-int" class="slide level2 folio" data-background-image="img/gob.gif">
+<h2>Though this be madness, yet there is method in’t</h2>
 <!-- :::{.notes}
 * AI
 
@@ -527,7 +510,7 @@ For context, I should introduce myself
           display:block!important;
       }</style></aside>
 </section>
-<section id="section-8" class="slide level2" data-background-image="img/unix-system.jpg">
+<section id="section-6" class="slide level2" data-background-image="img/unix-system.jpg">
 <h2></h2>
 <aside class="notes">
 <p>You know what this is too. And your coding agents do too.</p>
@@ -543,8 +526,25 @@ For context, I should introduce myself
           display:block!important;
       }</style></aside>
 </section>
-<section id="there-was-a-lot-of-excitement" class="slide level2">
-<h2>There was a lot of excitement</h2>
+<section id="act-iii-mcp-or-not-mcp" class="slide level2 center folio" data-background-color="#f5efe1">
+<h2>Act III: MCP, or not MCP?</h2>
+<h3 id="thus-conscience-does-make-cowards-of-us-all"><em>Thus conscience does make cowards of us all</em></h3>
+<aside class="notes">
+<p>Act III. The title slide comes back, because this is where we actually deliberate the question.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="what-a-piece-of-work-is-a-man-how-infinite-in-faculty" class="slide level2 folio">
+<h2>What a piece of work is a man, how infinite in faculty</h2>
 
 <img data-src="img/mind-blown-with-mcp.png" class="r-stretch"><p>https://www.reddit.com/r/mcp/comments/1jn3ykp/mind_blown_with_mcp/</p>
 <aside class="notes">
@@ -576,11 +576,24 @@ For context, I should introduce myself
           display:block!important;
       }</style></aside>
 </section>
-<section id="section-9" class="slide level2" data-background-image="img/distracted-boyfriend.jpg">
-<h2></h2>
+<section id="the-funeral-bakd-meats-did-coldly-furnish-forth-the-marriage-tables" class="slide level2 folio" data-background-image="img/distracted-boyfriend.jpg">
+<h2>The funeral bak’d meats did coldly furnish forth the marriage tables</h2>
+<aside class="notes">
+<p>Hamlet on his mother remarrying a month after the funeral: they used the leftovers from the wake to cater the wedding. Which is roughly the industry’s relationship with any given technology.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
-<section id="section-10" class="slide level2">
-<h2></h2>
+<section id="alas-poor-yorick" class="slide level2 folio">
+<h2>Alas, poor Yorick</h2>
 
 <img data-src="img/mcp-is-dead.png" class="r-stretch"><p>https://uxplanet.org/mcp-is-dead-cf16b667ba6d</p>
 <aside class="notes">
@@ -609,6 +622,24 @@ For context, I should introduce myself
 <li><p>If the agent can do everything with tools it already has (Bash, Fetch, etc.) then a Skill is probably enough</p></li>
 <li><p>Otherwise, Skill is complement: we’re talking (MCP + Skill) vs.&nbsp;(CLI + Skill)</p></li>
 </ul>
+</section>
+<section id="words-words-words" class="slide level2 center folio" data-background-color="#f5efe1">
+<h2>Words, words, words</h2>
+<h3 id="every-tool-definition-is-loaded-up-front-whether-you-use-it-or-not">Every tool definition is loaded up front, whether you use it or not</h3>
+<aside class="notes">
+<p>Polonius asks Hamlet what he’s reading. “Words, words, words.”</p>
+<p>That’s the context critique in three words: it all goes in, it all costs tokens, and most of it is not what you’re here for.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="mcp-skill-vs.-cli-skill" class="slide level2">
 <h2>(MCP + Skill) vs.&nbsp;(CLI + Skill)</h2>
@@ -662,6 +693,24 @@ For context, I should introduce myself
           display:block!important;
       }</style></aside>
 </section>
+<section id="act-iv-murder-most-foul" class="slide level2 center folio" data-background-color="#f5efe1">
+<h2>Act IV: Murder Most Foul</h2>
+<h3 id="one-may-smile-and-smile-and-be-a-villain"><em>One may smile, and smile, and be a villain</em></h3>
+<aside class="notes">
+<p>Act IV: the part where it turns out someone has been poisoning people this whole time.</p>
+<p>Claudius is charming, agreeable, and entirely happy to kill you. So is a GitHub issue with a prompt injection in it.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
 <section id="security" class="slide level2">
 <h2>Security</h2>
 <h3 id="lethal-trifecta">Lethal Trifecta</h3>
@@ -687,11 +736,24 @@ For context, I should introduce myself
           display:block!important;
       }</style></aside>
 </section>
-<section id="best-practices" class="slide level2 center">
-<h2>Best practices</h2>
-<h3 id="brevity-is-the-soul-of-wit">Brevity is the soul of wit</h3>
+<section id="act-v-advice-to-the-players" class="slide level2 center folio" data-background-color="#f5efe1">
+<h2>Act V: Advice to the Players</h2>
+<h3 id="suit-the-action-to-the-word-the-word-to-the-action"><em>Suit the action to the word, the word to the action</em></h3>
+<aside class="notes">
+<p>Act V. Hamlet’s advice-to-the-players speech is, genuinely, a best practices list: a guy telling working professionals how to do their job, at length, unprompted. So I’m in good company.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
-<section id="best-practices-1" class="slide level2 center">
+<section id="best-practices" class="slide level2 center">
 <h2>Best practices</h2>
 <h3 id="only-define-the-tools-you-need">1. Only define the tools you need</h3>
 <aside class="notes">
@@ -713,11 +775,51 @@ For context, I should introduce myself
           display:block!important;
       }</style></aside>
 </section>
-<section id="best-practices-2" class="slide level2 center">
+<section id="best-practices-1" class="slide level2 center">
 <h2>Best practices</h2>
 <h3 id="make-responses-concise">2. Make responses concise</h3>
 <aside class="notes">
-<p>Brevity is the soul of wit (had to get one Hamlet reference in here, given the title)</p>
+<p>Brevity is the soul of wit. Which, in the play, is said by…</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="section-7" class="slide level2 center folio" data-background-color="#f5efe1">
+<h2></h2>
+<blockquote>
+<p>My liege, and madam, to expostulate<br> What majesty should be, what duty is,<br> Why day is day, night night, and time is time,<br> Were nothing but to waste night, day, and time.<br> Therefore, since <strong>brevity is the soul of wit</strong>,<br> And tediousness the limbs and outward flourishes,<br> I will be brief.</p>
+</blockquote>
+<div class="attribution">
+<p>— Polonius, taking 43 words to say “I will be brief”</p>
+</div>
+<aside class="notes">
+<p>The joke in the play is that the man who says “brevity is the soul of wit” is the most tedious character in it. He cannot get to the point.</p>
+<p>This is every API response you are about to pipe into your agent’s context window.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="more-matter-with-less-art" class="slide level2 center folio" data-background-color="#f5efe1">
+<h2>More matter, with less art</h2>
+<h3 id="gertrude-cutting-him-off"><span class="ghost">Gertrude, cutting him off</span></h3>
+<aside class="notes">
+<p>Gertrude’s reply. Cut him off mid-flourish. That is the design principle.</p>
 <p>When you’re working with an API that’s designed for developers to work with, or web apps to build on, the API responses for a given record can include lots of details. And that makes sense when you’re a (human) developer, you can select out the bits you want and ignore the rest.</p>
 <p>But with LLMs, everything you return goes into the context. Again, that’s more tokens, and more confusion. So we want to scope our MCP tools to only return the pieces that matter for the task you’re asking the agent to do.</p>
 <p>For example, in the Zendesk API for ticket comments, every comment entry includes metadata about whether the comment was sent through the web portal or email or whatever, and potentially things like the user agent string and location of the browser where the person typed their comment. Could be useful for something, I guess, but not for answering the kinds of questions I’m asking. So we can cut it.</p>
@@ -733,7 +835,7 @@ For context, I should introduce myself
           display:block!important;
       }</style></aside>
 </section>
-<section id="best-practices-3" class="slide level2 center">
+<section id="best-practices-2" class="slide level2 center">
 <h2>Best practices</h2>
 <h3 id="sanitize-sensitive-data">3. Sanitize sensitive data</h3>
 <p><code>n***@posit.co</code></p>
@@ -760,6 +862,23 @@ For context, I should introduce myself
 <li><p>AI brings inherent security risks, but a well designed MCP server can mitigate them</p></li>
 <li><p>You (or your agent) can easily write custom MCP servers</p></li>
 </ul>
+</section>
+<section id="the-rest-is-silence" class="slide level2 center folio" data-background-color="#f5efe1">
+<h2>The rest is silence</h2>
+<h3 id="space-1"><span class="ghost">space</span></h3>
+<aside class="notes">
+<p>Hamlet’s last line. Also: stop talking, Neal.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="thank-you" class="slide level2">
 <h2>Thank you</h2>
@@ -847,7 +966,7 @@ For context, I should introduce myself
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: 'c/t',
+        slideNumber: false,
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',

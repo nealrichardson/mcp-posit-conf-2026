@@ -1,113 +1,54 @@
 ---
 title: "MCP, or not MCP?"
 author: "Neal Richardson"
-institute: "AI in Production"
-date: "5 June 2026"
+institute: "posit::conf(2026)"
+# TODO: add back the date
+# date: "5 June 2026"
 title-slide-attributes:
-    data-background-image: img/torii.jpg
-    data-background-opacity: "0.20"
+    # The title page is the one slide that's in the folio register by default.
+    data-background-color: "#f5efe1"
 format:
-  clean-revealjs:
+  revealjs:
+    theme: theme.scss
     include-in-header:
       text: |
-        <style>
-        .container {
-            height: 100%;
-            width: 100%;
-            display: table;
-            table-layout: fixed;
-            text-align: center;
-        }
-
-        .inside {
-            vertical-align: middle;
-            display: table-cell;
-        }
-
-        .really-big {
-            font-size: 256px;
-        }
-
-        .extrapad {
-            margin-top:1em  !important;
-        }
-        .v-spacier {
-            margin-bottom: 2em;
-            margin-top: 2em;
-        }
-
-        div.my-footer {
-            position: absolute;
-            bottom: 0px;
-            left: 0px;
-            height: 20px;
-            width: 100%;
-        }
-        div.my-footer span {
-            font-size: 16pt;
-            font-family: "Roboto", sans-serif;
-            position: absolute;
-            color: #777;
-            left: 16px;
-            bottom: 16px;
-        }
-
-        .qrcode {
-            display: flex;
-            justify-content: center;
-        }
-
-        .blink_me {
-            animation: blinker 1s linear infinite;
-        }
-
-        @keyframes blinker {
-            50% {
-                opacity: 0;
-            }
-        }
-        </style>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..700;1,400..700&family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&family=Source+Sans+3:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
 editor:
   render-on-save: true
 ---
 
-##
 
-<!-- ::: {.notes}
-(ask who has used an MCP server before. who has written an MCP server)
+<!-- (ask who has used an MCP server before. who has written an MCP server)
 
-I want to start with a story about how I came to understand what MCP was and what it was for. 
+I want to start with a story about how I came to understand what MCP was and what it was for.
 
-For context, I should introduce myself
-::: -->
+For context, I should introduce myself -->
 
-::: {.columns}
+## Dramatis Personæ {.folio background-color="#f5efe1"}
 
-:::: {.column width="50%"}
+::: {.dramatis}
 
-![](img/neal-with-book.jpg)
-:::
+[Neal]{.name}, *your narrator; VP of Engineering at Posit, Apache Arrow PMC member* — *enpiar.com, arrowrbook.com*
 
-:::: {.column width="50%"}
-Hi, I'm Neal 👋
+[Posit Connect]{.name}, *a platform; where things are hosted*
 
-* Open source and data
+[Claude]{.name}, *an agent; capable, willing, credulous*
 
-* Apache Arrow PMC member
+[Zendesk]{.name}, *a ticketing system; offstage, behind a locked door*
 
-* Currently VP Engineering at Posit
+[A Prompt Injection]{.name}, *disguised as a GitHub issue*
 
-* enpiar.com
-
-* arrowrbook.com
-::::
+[Polonius]{.name}, *a courtier; cannot get to the point*
 
 :::
 
 ::: {.notes}
-I've done a few things etc.
-Open source, Apache Arrow for many years, was chair of project management committee last year. 
+Hi, I'm Neal. Open source and data, Apache Arrow for many years, was chair of the project management committee last year.
 Currently at Posit, and one of the teams I oversee is Posit Connect. (any Connect users out there?)
+
+The rest of the cast will introduce themselves as we go. Two of them are villains.
 :::
 
 ##
@@ -116,8 +57,18 @@ Currently at Posit, and one of the teams I oversee is Posit Connect. (any Connec
 
 
 ::: {.notes}
-Connect is a platform for deploying and sharing custom apps, dashboards, reports, and APIs, things you write in the language or framework of your choice, whether that's Streamlit, Shiny, FastAPI, nodejs, quarto, and so on. 
+Connect is a platform for deploying and sharing custom apps, dashboards, reports, and APIs, things you write in the language or framework of your choice, whether that's Streamlit, Shiny, FastAPI, nodejs, quarto, and so on.
 And, you can host MCP servers on it.
+:::
+
+## Act I: The Ghost {.center .folio background-color="#f5efe1"}
+
+### *Something is rotten in the state of Denmark*
+
+::: {.notes}
+(Act card. The title of this talk is a Hamlet joke, so we may as well commit: five acts.)
+
+Act I is the setup: here's the world, and here's the thing that's wrong with it.
 :::
 
 ## {background-image="img/kermit-typing.gif"}
@@ -190,7 +141,7 @@ The first piece is authentication--I can't provide my credentials to connect to 
 
 ## MCP is designed to solve this {.center}
 
-### [space]{style="color: white;"}
+### [space]{.ghost}
 
 ::: {.notes}
 MCP offers a solution to this. 
@@ -208,7 +159,11 @@ A central point I want to land, and that really underlies everything in the talk
 
 ## You can write and host your own MCP servers {.center}
 
-### [https://github.com/nealrichardson/zendesk-mcp-server]{style="color: white;"}
+### [https://github.com/nealrichardson/zendesk-mcp-server]{.ghost}
+
+::: {.epigraph}
+This above all: to thine own self be true
+:::
 
 :::{.notes}
 To do exactly what you need. Because code is now cheap. So my talk is going to be oriented about writing your own, not about whether or not you should use an MCP server that someone else provides. Even when someone else's hosted MCP server is available to you, you may have reasons for wanting to customize it, as I will show. And thanks to AI, this is all available to you now.
@@ -218,10 +173,23 @@ To do exactly what you need. Because code is now cheap. So my talk is going to b
 
 ### https://github.com/nealrichardson/zendesk-mcp-server
 
-:::{.notes}
-To do exactly what you need. Because code is now cheap. So my talk is going to be oriented about writing your own, not about whether or not you should use an MCP server that someone else provides. Even when someone else's hosted MCP server is available to you, you may have reasons for wanting to customize it, as I will show. And thanks to AI, this is all available to you now.
+::: {.epigraph}
+This above all: to thine own self be true
 :::
 
+:::{.notes}
+To do exactly what you need. Because code is now cheap. So my talk is going to be oriented about writing your own, not about whether or not you should use an MCP server that someone else provides. Even when someone else's hosted MCP server is available to you, you may have reasons for wanting to customize it, as I will show. And thanks to AI, this is all available to you now.
+
+(Polonius, giving his son advice. The whole thesis of the talk in one line: build the thing that does exactly what *you* need.)
+:::
+
+## Act II: The Play's the Thing {.center .folio background-color="#f5efe1"}
+
+### *There are more things in heaven and earth, Horatio,<br>than are dreamt of in your philosophy*
+
+::: {.notes}
+Act II: what this thing actually is.
+:::
 
 ## What is MCP? {.center}
 
@@ -229,7 +197,7 @@ To do exactly what you need. Because code is now cheap. So my talk is going to b
 first want to say what it is not
 :::
 
-## {background-image="img/gob.gif"}
+## Though this be madness, yet there is method in't {.folio background-image="img/gob.gif"}
 
 <!-- :::{.notes}
 * AI
@@ -294,7 +262,15 @@ For a few reasons, I'm going to focus on remote MCP, and in particular on remote
 You know what this is too. And your coding agents do too.
 :::
 
-## There was a lot of excitement
+## Act III: MCP, or not MCP? {.center .folio background-color="#f5efe1"}
+
+### *Thus conscience does make cowards of us all*
+
+::: {.notes}
+Act III. The title slide comes back, because this is where we actually deliberate the question.
+:::
+
+## What a piece of work is a man, how infinite in faculty {.folio}
 
 ![](img/mind-blown-with-mcp.png)
 
@@ -308,9 +284,13 @@ https://www.reddit.com/r/mcp/comments/1jn3ykp/mind_blown_with_mcp/
 Then, a backlash
 :::
 
-## {background-image="img/distracted-boyfriend.jpg"}
+## The funeral bak'd meats did coldly furnish forth the marriage tables {.folio background-image="img/distracted-boyfriend.jpg"}
 
-## 
+::: {.notes}
+Hamlet on his mother remarrying a month after the funeral: they used the leftovers from the wake to cater the wedding. Which is roughly the industry's relationship with any given technology.
+:::
+
+## Alas, poor Yorick {.folio}
 
 ![](img/mcp-is-dead.png)
 
@@ -334,6 +314,16 @@ Critiques
 * If the agent can do everything with tools it already has (Bash, Fetch, etc.) then a Skill is probably enough
 
 * Otherwise, Skill is complement: we're talking (MCP + Skill) vs. (CLI + Skill)
+
+## Words, words, words {.center .folio background-color="#f5efe1"}
+
+### Every tool definition is loaded up front, whether you use it or not
+
+::: {.notes}
+Polonius asks Hamlet what he's reading. "Words, words, words."
+
+That's the context critique in three words: it all goes in, it all costs tokens, and most of it is not what you're here for.
+:::
 
 ## (MCP + Skill) vs. (CLI + Skill)
 
@@ -379,6 +369,16 @@ Distribution for remote MCP is also easier: single command to add a server by UR
 You (or your agent) could build these into your server, or you could deploy on a platform (like Connect) that gives you these for free.
 :::
 
+## Act IV: Murder Most Foul {.center .folio background-color="#f5efe1"}
+
+### *One may smile, and smile, and be a villain*
+
+::: {.notes}
+Act IV: the part where it turns out someone has been poisoning people this whole time.
+
+Claudius is charming, agreeable, and entirely happy to kill you. So is a GitHub issue with a prompt injection in it.
+:::
+
 ## Security
 
 ### Lethal Trifecta
@@ -399,9 +399,13 @@ Opening your agent up to external resources and code creates the opportunity for
 It's not just that the MCP server itself may be malicious. Suppose you're reading GitHub issues on a public repo, whether with GitHub MCP or the `gh` CLI. Someone could write a prompt injection into an issue, and that gives you one of the three of the trifecta. Presumably you're doing something with private data already so that's two. So if your agent has any ability to send data out, some other tool that lets it, you've got the trifecta.
 :::
 
-## Best practices {.center}
+## Act V: Advice to the Players {.center .folio background-color="#f5efe1"}
 
-### Brevity is the soul of wit
+### *Suit the action to the word, the word to the action*
+
+::: {.notes}
+Act V. Hamlet's advice-to-the-players speech is, genuinely, a best practices list: a guy telling working professionals how to do their job, at length, unprompted. So I'm in good company.
+:::
 
 ## Best practices {.center}
 
@@ -426,7 +430,35 @@ If the answer is "sometimes", make more than one server, or make it configurable
 ### 2. Make responses concise
 
 :::{.notes}
-Brevity is the soul of wit (had to get one Hamlet reference in here, given the title)
+Brevity is the soul of wit. Which, in the play, is said by...
+:::
+
+## {.center .folio background-color="#f5efe1"}
+
+> My liege, and madam, to expostulate<br>
+> What majesty should be, what duty is,<br>
+> Why day is day, night night, and time is time,<br>
+> Were nothing but to waste night, day, and time.<br>
+> Therefore, since **brevity is the soul of wit**,<br>
+> And tediousness the limbs and outward flourishes,<br>
+> I will be brief.
+
+::: {.attribution}
+— Polonius, taking 43 words to say "I will be brief"
+:::
+
+:::{.notes}
+The joke in the play is that the man who says "brevity is the soul of wit" is the most tedious character in it. He cannot get to the point.
+
+This is every API response you are about to pipe into your agent's context window.
+:::
+
+## More matter, with less art {.center .folio background-color="#f5efe1"}
+
+### [Gertrude, cutting him off]{.ghost}
+
+::: {.notes}
+Gertrude's reply. Cut him off mid-flourish. That is the design principle.
 
 When you're working with an API that's designed for developers to work with, or web apps to build on, the API responses for a given record can include lots of details. And that makes sense when you're a (human) developer, you can select out the bits you want and ignore the rest.
 
@@ -457,6 +489,14 @@ In this example, we can keep the information that a user from Posit reported thi
 * AI brings inherent security risks, but a well designed MCP server can mitigate them
 
 * You (or your agent) can easily write custom MCP servers
+
+## The rest is silence {.center .folio background-color="#f5efe1"}
+
+### [space]{.ghost}
+
+::: {.notes}
+Hamlet's last line. Also: stop talking, Neal.
+:::
 
 ## Thank you
 

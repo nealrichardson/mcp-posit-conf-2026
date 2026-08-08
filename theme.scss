@@ -1,0 +1,506 @@
+/*-- scss:defaults --*/
+
+// =============================================================
+//  Two registers, one deck.
+//
+//  PLAIN is the default: a modern technical talk. Most slides.
+//
+//  FOLIO is opt-in, for the Shakespeare beats: a printed page
+//  c. 1600 -- parchment, the Fell types, rubric red.
+//
+//  To put a slide in the folio register:
+//
+//    ## Alas, poor Yorick {.folio background-color="#f5efe1"}
+//
+//  The class does the typography; the background-color attribute
+//  does the paper. Reveal paints slide backgrounds from its own
+//  element, which CSS can't reach from the section, so both are
+//  needed. Omit background-color on slides that already carry a
+//  background-image -- the photo should win.
+//
+//  The one thing both registers share is the rubric red. That's
+//  deliberate: it's what keeps this reading as a single deck
+//  rather than two decks stapled together.
+// =============================================================
+
+// ---- Plain register -----------------------------------------
+$plain-bg:       #fbfbf9;  // a hair warm, so parchment isn't a jolt
+$plain-ink:      #1c1c1a;
+$plain-ink-soft: #5c5c56;
+$plain-rule:     #dedcd4;
+$plain-panel:    #f2f1ec;
+
+// ---- Folio register -----------------------------------------
+$parchment:      #f5efe1;  // laid paper
+$parchment-deep: #eadfc6;  // sunk panels
+$parchment-edge: #d9cbab;  // rules
+$ink:            #211b14;  // warm black; printers never had pure
+$ink-soft:       #5f5343;
+
+// ---- Shared ---------------------------------------------------
+$rubric:       #8f2b1c;  // the red in red-and-black printing
+$rubric-light: #b5503d;
+
+// ---- Type -----------------------------------------------------
+$font-plain: "Source Sans 3", -apple-system, BlinkMacSystemFont, "Segoe UI",
+             Helvetica, Arial, sans-serif;
+// IM Fell English SC = the Fell types, cut for Oxford in the 1600s.
+// EB Garamond = a Garamond revival, contemporary with Shakespeare.
+$font-display: "IM Fell English SC", "EB Garamond", Georgia, serif;
+$font-body:    "EB Garamond", "IM Fell English", Georgia, serif;
+$font-quote:   "IM Fell English", "EB Garamond", Georgia, serif;
+// System mono in both registers: the Claude Code banner uses
+// box-drawing glyphs that most webfonts lack, and per-glyph
+// fallback would break its alignment.
+$font-mono:    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+$font-family-sans-serif:       $font-plain !default;
+$presentation-font-size-root:  33px !default;
+$presentation-heading-font:    $font-plain !default;
+$presentation-heading-color:   $plain-ink !default;
+$presentation-heading-font-weight: 600 !default;
+$presentation-h1-font-size:    1.9em !default;
+$presentation-h2-font-size:    1.4em !default;
+$presentation-h3-font-size:    1.05em !default;
+$presentation-line-height:     1.4 !default;
+
+$body-bg:          $plain-bg !default;
+$body-color:       $plain-ink !default;
+$link-color:       $rubric !default;
+$link-color-hover: $rubric-light !default;
+$selection-bg:     rgba(143, 43, 28, 0.20) !default;
+
+$code-block-bg:           $plain-panel !default;
+$code-block-border-color: $plain-rule !default;
+$code-color:              #33322e !default;
+$code-block-font-size:    0.62em !default;
+
+/*-- scss:rules --*/
+
+// =============================================================
+//  PLAIN REGISTER  (the default)
+// =============================================================
+
+.reveal-viewport { background-color: $plain-bg; }
+
+.reveal {
+  font-family: $font-plain;
+  color: $plain-ink;
+  font-weight: 400;
+}
+
+.reveal h1,
+.reveal h2 {
+  font-family: $font-plain;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  color: $plain-ink;
+  text-wrap: balance;
+}
+
+.reveal h3,
+.reveal h4 {
+  font-family: $font-plain;
+  font-weight: 400;
+  color: $plain-ink-soft;
+  text-wrap: balance;
+}
+
+// Statement slides get a short rubric rule instead of a full border.
+.reveal .slides section.center > h2:first-child::after {
+  content: "";
+  display: block;
+  width: 2.2em;
+  height: 3px;
+  background: $rubric;
+  margin: 0.5em auto 0;
+}
+
+.reveal .slides ul {
+  list-style: none;
+  margin-left: 0.7em;
+}
+
+.reveal .slides ul > li {
+  margin-bottom: 0.55em;
+}
+
+.reveal .slides ul > li::before {
+  content: "\2014"; // em dash
+  color: $rubric;
+  display: inline-block;
+  width: 1.1em;
+  margin-left: -1.1em;
+}
+
+.reveal .slides ul ul > li::before { content: "\2013"; }
+
+.reveal .slides ol > li { margin-bottom: 0.55em; }
+.reveal .slides ol > li::marker { color: $rubric; font-weight: 600; }
+
+.reveal pre {
+  box-shadow: none;
+  background: $plain-panel;
+  border: 1px solid $plain-rule;
+  border-radius: 4px;
+  width: 94%;
+  margin: 0.5em auto;
+  padding: 0.7em 0.9em;
+}
+
+.reveal pre code {
+  font-family: $font-mono;
+  font-size: 1em;
+  line-height: 1.18; // tight, so the Claude Code banner stays continuous
+  color: $code-color;
+  background: none;
+  padding: 0;
+  max-height: none;
+}
+
+.reveal code {
+  font-family: $font-mono;
+  font-size: 0.82em;
+  color: $rubric;
+  background: rgba(143, 43, 28, 0.07);
+  padding: 0.06em 0.3em;
+  border-radius: 3px;
+}
+
+.reveal a {
+  color: $rubric;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(143, 43, 28, 0.35);
+}
+
+.reveal a:hover {
+  color: $rubric-light;
+  border-bottom-color: $rubric-light;
+}
+
+.reveal table { font-size: 0.8em; border-collapse: collapse; }
+.reveal table th {
+  font-weight: 600;
+  border-bottom: 2px solid $plain-ink;
+  color: $plain-ink;
+}
+.reveal table td { border-bottom: 1px solid $plain-rule; }
+
+.reveal blockquote {
+  background: none;
+  box-shadow: none;
+  border: none;
+  border-left: 3px solid $rubric;
+  padding: 0.1em 0 0.1em 1em;
+  margin: 0.5em auto;
+  width: 86%;
+  text-align: left;
+  font-style: normal;
+}
+
+.reveal blockquote p { margin: 0; }
+
+// Titles over a photograph, in either register.
+.reveal .slides section[data-background-image] > h2 {
+  color: #fff;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.85), 0 0 4px rgba(0, 0, 0, 0.9);
+}
+
+// ---- Chrome -------------------------------------------------
+.reveal .progress { color: $rubric; height: 3px; }
+.reveal .controls { color: $rubric; }
+.reveal .slide-number {
+  background: none;
+  color: $plain-ink-soft;
+  font-size: 0.6em;
+}
+
+// =============================================================
+//  FOLIO REGISTER  (.folio, plus the title page)
+// =============================================================
+
+.reveal .slides section.folio,
+.reveal .slides section#title-slide {
+
+  font-family: $font-body;
+  color: $ink;
+
+  h1, h2 {
+    font-family: $font-display;
+    font-weight: 400;
+    letter-spacing: 0.045em;
+    color: $ink;
+  }
+
+  h3, h4 {
+    font-family: $font-quote;
+    font-style: italic;
+    font-weight: 400;
+    color: $ink-soft;
+  }
+
+  // Chapter head: double rule above, fleuron below.
+  > h2:first-child {
+    border-top: 3px double $parchment-edge;
+    padding-top: 0.5em;
+    margin-top: 0;
+  }
+
+  // Replace the plain register's rubric bar with a floral heart.
+  > h2:first-child::after {
+    content: "\2766"; // ❦
+    display: block;
+    width: auto;
+    height: auto;
+    background: none;
+    color: $rubric;
+    font-size: 0.5em;
+    line-height: 1;
+    letter-spacing: 0;
+    margin: 0.5em 0 0.15em;
+  }
+
+  a {
+    color: $rubric;
+    border-bottom-color: rgba(143, 43, 28, 0.4);
+  }
+
+  // Rubricated paraphs rather than dashes.
+  ul > li::before {
+    content: "\00B6"; // ¶
+    width: 1em;
+    margin-left: -1em;
+    font-size: 0.78em;
+    opacity: 0.85;
+  }
+
+  ul ul > li::before { content: "\2013"; }
+
+  blockquote {
+    font-family: $font-quote;
+    font-style: italic;
+    font-size: 0.95em;
+    line-height: 1.55;
+    color: $ink;
+    border-left: 2px solid $rubric;
+    width: 84%;
+  }
+
+  blockquote strong {
+    font-weight: 400;
+    font-style: italic;
+    color: $rubric;
+  }
+
+  pre {
+    background: $parchment-deep;
+    border-color: $parchment-edge;
+    border-radius: 2px;
+  }
+
+  code { background: rgba(217, 203, 171, 0.4); }
+
+  hr {
+    border: none;
+    border-top: 3px double $parchment-edge;
+    margin: 0.9em auto;
+    width: 60%;
+  }
+}
+
+// Photo-backed folio slides: keep the rule visible against the image.
+.reveal .slides section.folio[data-background-image] > h2 {
+  border-top-color: rgba(255, 255, 255, 0.55);
+}
+
+// ---- Title page ---------------------------------------------
+// Set as an actual title page: rules, small caps, a colophon.
+#title-slide .title {
+  font-family: $font-display;
+  font-size: 2.2em;
+  line-height: 1.15;
+  letter-spacing: 0.05em;
+  color: $ink;
+  border-top: 3px double $ink;
+  border-bottom: 3px double $ink;
+  padding: 0.35em 0 0.3em;
+  margin-bottom: 0.55em;
+}
+
+#title-slide .subtitle {
+  font-family: $font-quote;
+  font-style: italic;
+  color: $rubric;
+  font-size: 1.05em;
+  margin-bottom: 0.8em;
+}
+
+#title-slide .author,
+#title-slide .quarto-title-author-name {
+  font-family: $font-display;
+  font-size: 1em;
+  letter-spacing: 0.09em;
+  color: $ink;
+  margin-bottom: 0.15em;
+}
+
+#title-slide .institute,
+#title-slide .quarto-title-affiliation,
+#title-slide .date {
+  font-family: $font-quote;
+  font-style: italic;
+  font-size: 0.72em;
+  color: $ink-soft;
+  line-height: 1.5;
+}
+
+// Printers signed off with one of these. Hung off the slide rather
+// than the date line, so it survives the date being commented out.
+#title-slide::after {
+  content: "\2042"; // ⁂
+  display: block;
+  color: $rubric;
+  font-style: normal;
+  font-size: 1.3em;
+  line-height: 1;
+  margin-top: 0.9em;
+}
+
+// =============================================================
+//  FOLIO COMPONENTS
+// =============================================================
+
+// ---- Dramatis Personae --------------------------------------
+.dramatis {
+  font-family: $font-body;
+  font-size: 0.78em;
+  line-height: 1.6;
+  max-width: 88%;
+  margin: 0.6em auto 0;
+  text-align: left;
+  border-top: 1px solid $parchment-edge;
+  border-bottom: 1px solid $parchment-edge;
+  padding: 0.7em 0;
+}
+
+.dramatis p {
+  margin: 0 0 0.62em 0;
+  padding-left: 1.6em;
+  text-indent: -1.6em; // hanging indent, as in a printed cast list
+}
+
+.dramatis p:last-child { margin-bottom: 0; }
+
+.dramatis .name {
+  font-family: $font-display;
+  font-variant: small-caps;
+  letter-spacing: 0.07em;
+  color: $rubric;
+  white-space: nowrap;
+}
+
+.dramatis em {
+  font-family: $font-quote;
+  font-style: italic;
+  color: $ink-soft;
+}
+
+// ---- Attribution under a quotation --------------------------
+.attribution {
+  font-family: $font-quote;
+  font-style: italic;
+  font-size: 0.72em;
+  color: $ink-soft;
+  text-align: right;
+  width: 84%;
+  margin: 0.4em auto 0;
+}
+
+// ---- Epigraph: a quiet line set under a statement -----------
+.epigraph {
+  font-family: $font-quote;
+  font-style: italic;
+  text-align: center;
+  color: $ink-soft;
+  font-size: 0.8em;
+  margin-top: 1.4em;
+}
+
+.epigraph::before {
+  content: "\2766";
+  display: block;
+  color: $rubric;
+  font-style: normal;
+  font-size: 0.9em;
+  margin-bottom: 0.35em;
+}
+
+// ---- Drop cap -----------------------------------------------
+.dropcap::first-letter {
+  font-family: $font-display;
+  float: left;
+  font-size: 3.1em;
+  line-height: 0.82;
+  padding: 0.05em 0.09em 0 0;
+  color: $rubric;
+}
+
+// ---- Ornament -----------------------------------------------
+.fleuron {
+  text-align: center;
+  color: $rubric;
+  font-size: 1.4em;
+  line-height: 1;
+  margin: 0.6em 0;
+}
+
+.fleuron::before { content: "\2766"; }
+
+// =============================================================
+//  UTILITIES
+// =============================================================
+
+// Invisible spacer that holds a heading's height on the first of a
+// pair of slides, so the reveal on the second doesn't shift the page.
+.ghost { visibility: hidden; }
+
+.container {
+  height: 100%;
+  width: 100%;
+  display: table;
+  table-layout: fixed;
+  text-align: center;
+}
+
+.inside {
+  vertical-align: middle;
+  display: table-cell;
+}
+
+.really-big { font-size: 256px; }
+
+.extrapad { margin-top: 1em !important; }
+
+.v-spacier { margin-bottom: 2em; margin-top: 2em; }
+
+div.my-footer {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  height: 20px;
+  width: 100%;
+}
+
+div.my-footer span {
+  position: absolute;
+  font-size: 16pt;
+  color: $plain-ink-soft;
+  left: 16px;
+  bottom: 16px;
+}
+
+.qrcode { display: flex; justify-content: center; }
+
+.blink_me { animation: blinker 1s linear infinite; }
+
+@keyframes blinker { 50% { opacity: 0; } }
