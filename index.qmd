@@ -197,12 +197,14 @@ To do exactly what you need. Because code is now cheap. So my talk is going to b
 (Polonius, giving his son advice. The whole thesis of the talk in one line: build the thing that does exactly what *you* need.)
 :::
 
-## Act II: The Play's the Thing {.center .folio background-color="#f5efe1"}
+## Act II: What's in a Name? {.center .folio background-color="#f5efe1"}
 
-### *There are more things in heaven and earth, Horatio,<br>than are dreamt of in your philosophy*
+### *That which we call a rose<br>by any other name would smell as sweet*
 
 ::: {.notes}
 Act II: what this thing actually is.
+
+Juliet's argument is that a name has put a barrier between her and something that is plainly right there. That's this act. "MCP" sounds like a new discipline you have to go learn. Strip the name off it and it's an HTTP API with a schema for describing functions, and you already know how to build and serve those.
 :::
 
 ## What is MCP? {.center}
@@ -284,7 +286,7 @@ You know what this is too. And your coding agents do too.
 Act III. The title slide comes back, because this is where we actually deliberate the question.
 :::
 
-## What a piece of work is a man, how infinite in faculty {.folio}
+## There are more things in heaven and earth, Horatio {.folio}
 
 ![](img/mind-blown-with-mcp.png)
 
@@ -304,13 +306,17 @@ Then, a backlash
 Hamlet on his mother remarrying a month after the funeral: they used the leftovers from the wake to cater the wedding. Which is roughly the industry's relationship with any given technology.
 :::
 
-## Alas, poor Yorick {.folio}
+## I come to bury MCP, not to praise him {.folio}
 
 ![](img/mcp-is-dead.png)
 
 https://uxplanet.org/mcp-is-dead-cf16b667ba6d
 
 ::: {.notes}
+Antony, over Caesar's body. He says "I come to bury Caesar, not to praise him" and then spends the whole speech turning the crowd back around. Which is what I'm about to do, so it's fair to tell you now.
+
+The Forum scene is also the best picture anyone has of a hype cycle: a crowd swung hard one way and then hard the other, by rhetoric rather than by any new facts.
+
 Like most things, there is truth in both the initial excitement for MCP and the hard backlash against it. There weren't good alternatives to MCP when it came out, so people used it for all kinds of things and in questionable ways that today don't make sense. It's ideal for some use cases, and for others you are better off using a CLI. 
 
 Critiques
@@ -365,37 +371,37 @@ Use CLI when:
 CLI not and option if the AI application can't run shell commands
 :::
 
-## More things you can do with remote MCP
+## Things a CLI cannot do for you
 
-* Authentication: OAuth 2.1 flow, or via HTTP header
+* Authenticate on your behalf, without handing the agent your credentials
 
-* Accessing resources not available locally
+* Reach resources your machine can't
 
-* Monitoring
-
-* Easy distribution via URL
+* Get added by URL, in one command
 
 :::{.notes}
-These are things you just can't do with a CLI
+So that's the case for the CLI. Here's what it can't do, and this is where remote MCP earns its place.
 
-Distribution for remote MCP is also easier: single command to add a server by URL, rather than install CLI (and authenticate etc.) out of band
+A CLI runs as you, with your credentials, on your machine. If the thing you need is behind an auth boundary, or simply isn't reachable from your laptop, the CLI has nowhere to go. And distributing one means everybody installs and authenticates it out of band, where a remote server is a single command with a URL.
 
-You (or your agent) could build these into your server, or you could deploy on a platform (like Connect) that gives you these for free.
+Which is the answer to the question this act asked. Hold onto it: in Act V I'll show you it actually working.
 :::
 
-## Act IV: Murder Most Foul {.center .folio background-color="#f5efe1"}
+## Act IV: Something Wicked This Way Comes {.center .folio background-color="#f5efe1"}
 
-### *One may smile, and smile, and be a villain*
+### *Oftentimes, to win us to our harm,<br>the instruments of darkness tell us truths*
 
 ::: {.notes}
-Act IV: the part where it turns out someone has been poisoning people this whole time.
+Act IV: the danger, and then the discipline.
 
-Claudius is charming, agreeable, and entirely happy to kill you. So is a GitHub issue with a prompt injection in it.
+Banquo, on the witches. The word that matters is *instruments* — tools. Note what he doesn't say: he doesn't say they lie to you. Macbeth is destroyed by prophecies that all come true. No man of woman born; Birnam Wood will never move. Every one of them accurate, and every one of them fatal, because someone else chose which truths he got to hear.
+
+That is the failure mode. Not a tool that lies. A tool that returns nothing but true things, and takes you somewhere you would never have gone.
 :::
 
-## Security
+## Double, double, toil and trouble {.folio background-color="#f5efe1"}
 
-### Lethal Trifecta
+### The lethal trifecta
 
 * Access to private data
 
@@ -408,17 +414,35 @@ https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/
 :::{.notes}
 "If your agent combines these three features, an attacker can easily trick it into accessing your private data and sending it to that attacker."
 
-Opening your agent up to external resources and code creates the opportunity for the lethal trifecta. This is not specific to MCP but there were some very public examples of exploits in the early months of MCP. 
+The reason this is a cauldron and not a list: no single one of these is a vulnerability. Reading private data is your job. Reading a GitHub issue is your job. Sending a web request is your job. Each ingredient is inert. It's the combining that conjures something, and that's the part people miss when they audit these one at a time.
 
-It's not just that the MCP server itself may be malicious. Suppose you're reading GitHub issues on a public repo, whether with GitHub MCP or the `gh` CLI. Someone could write a prompt injection into an issue, and that gives you one of the three of the trifecta. Presumably you're doing something with private data already so that's two. So if your agent has any ability to send data out, some other tool that lets it, you've got the trifecta.
+Not specific to MCP, either — but there were some very public examples in the early months of MCP.
 :::
 
-## Act V: Advice to the Players {.center .folio background-color="#f5efe1"}
+## Look like the innocent flower,<br>but be the serpent under't {.center .folio background-color="#f5efe1"}
 
-### *Suit the action to the word, the word to the action*
+### A prompt injection, disguised as a GitHub issue
 
 ::: {.notes}
-Act V. Hamlet's advice-to-the-players speech is, genuinely, a best practices list: a guy telling working professionals how to do their job, at length, unprompted. So I'm in good company.
+Lady Macbeth, coaching her husband on how to host a murder.
+
+It's not just that the MCP server itself may be malicious. Suppose you're reading GitHub issues on a public repo — whether with GitHub's MCP server or the `gh` CLI, doesn't matter. Someone writes a prompt injection into an issue. That's ingredient two, and it arrived looking like ordinary work.
+
+Presumably you're already doing something with private data, so that's two. And if your agent has any tool at all that can send data outward, you have all three, and you assembled it yourself out of three reasonable decisions.
+
+(This is the character from the cast list. It has been waiting since the beginning.)
+:::
+
+## Suit the action to the word,<br>the word to the action {.center .folio background-color="#f5efe1"}
+
+### [space]{.ghost}
+
+::: {.notes}
+So: the counter-spell.
+
+Hamlet's advice-to-the-players speech is, genuinely, a best practices list — a guy telling working professionals how to do their job, at length, unprompted. So I'm in good company.
+
+And these are mostly about the cauldron. Every one of them is a way of not putting an ingredient in.
 :::
 
 ## Best practices {.center}
@@ -493,6 +517,80 @@ Finally, thinking back to the lethal trifecta, or even just good data goverance 
 In this example, we can keep the information that a user from Posit reported this issue, which could be useful--maybe I want to look up other issues reported by this company--but the personal identity does not leak out.
 :::
 
+## We have scorch'd the snake, not kill'd it {.center .folio background-color="#f5efe1"}
+
+### [space]{.ghost}
+
+::: {.notes}
+Macbeth, and it's the honest caveat on everything I just said.
+
+These practices shrink what you're exposed to. They don't make an agent safe, and I don't want anybody leaving here thinking that a small tool surface is the same thing as a trust boundary.
+
+Which is the other half of the answer, and it's not in your server code. It's in where the thing runs.
+:::
+
+## Act V: All's Well That Ends Well {.center .folio background-color="#f5efe1"}
+
+### *All's well that ends well yet,<br>though time seem so adverse and means unfit*
+
+::: {.notes}
+Act V. We opened with a ticket I couldn't read. Let's go back and read it.
+:::
+
+##
+
+```
+ ▐▛███▜▌   Claude Code v2.1.158
+▝▜█████▛▘  Opus 4.8 (1M context) · Claude Enterprise
+  ▘▘ ▝▝    ~/code
+
+❯ please help me with https://posit.zendesk.com/agent/tickets/129426
+
+⏺ I'll pull that ticket up.
+
+⏺ zendesk - get_ticket (MCP)(ticket_id: 129426)
+  ⎿  #129426  Connect won't start after upgrade to 2026.03.0
+     open · urgent · requester: n***@posit.co (Acme Corp)
+
+⏺ zendesk - list_ticket_comments (MCP)(ticket_id: 129426)
+  ⎿  6 comments (4 public, 2 internal)
+
+⏺ Read(services/launcher.go)
+  ⎿  Read 210 lines
+
+⏺ The upgrade moved the launcher's default socket path, and their config
+  still pins the old one. That's why it comes up on 2025.12 and not on
+  2026.03. Want me to draft the reply?
+
+```
+
+::: {.notes}
+REPLACE ME with a real transcript before the talk -- the tool calls are
+real (`get_ticket`, `list_ticket_comments`) but the ticket and the
+diagnosis here are invented.
+
+Same prompt as Act I. Same ticket. This time it just goes and reads it.
+
+Two things worth pointing at on the way past: it took two tool calls, not twenty, because those are the only tools I gave it. And look at the requester line -- `n***@posit.co`. That's the third best practice, doing its job, in the middle of the answer.
+:::
+
+## Deployed on Posit Connect
+
+* **Authentication** — a Zendesk OAuth integration, so the credentials live in Connect. Not in the agent, not in my `.env`
+
+* **Hosting** — the server runs somewhere that can actually reach Zendesk
+
+* **Monitoring** — I can see what it did, and who asked
+
+* **Distribution** — `claude mcp add --transport http zendesk https://connect.example.com/zendesk/mcp`
+
+:::{.notes}
+This is where the three things a CLI couldn't do get done, and none of them are in my server code.
+
+The auth one is the one I'd underline. Connect has a Zendesk OAuth integration, so the server picks up credentials from the logged-in user's OAuth session. There's no API token in an env var, and there's nothing for the agent to leak, because the agent never had it. That's an ingredient removed from the cauldron rather than a rule about not stirring it.
+
+And the last line is the whole distribution story: colleagues don't install anything or get their own token. They get a URL.
+:::
 
 ## MCP, or not MCP?
 
@@ -504,12 +602,14 @@ In this example, we can keep the information that a user from Posit reported thi
 
 * You (or your agent) can easily write custom MCP servers
 
-## The rest is silence {.center .folio background-color="#f5efe1"}
+## Epilogue {.center .folio background-color="#f5efe1"}
 
-### [space]{.ghost}
+### *Give me your hands, if we be friends*
 
 ::: {.notes}
-Hamlet's last line. Also: stop talking, Neal.
+Puck, stepping out of A Midsummer Night's Dream to ask the audience for applause. Every Shakespeare comedy ends with somebody doing this, and since we put "comedy" on the title page, it's the right way to get off the stage. ("The rest is silence" was here before, but that's Hamlet's death line -- wrong genre for this playbill.)
+
+Also: stop talking, Neal. And: questions.
 :::
 
 ## Thank you

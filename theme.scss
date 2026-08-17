@@ -133,6 +133,12 @@ $code-block-font-size:    0.62em !default;
   margin-left: -1.1em;
 }
 
+// Markdown lists with a blank line between the items are "loose", and
+// pandoc wraps each item's text in <p>. That block-level <p> lands the
+// hanging marker above on a line of its own. Pull it back up. (Applies
+// to every list in the deck -- most of ours are written loose.)
+.reveal .slides li > p:first-child { display: inline; }
+
 .reveal .slides ul ul > li::before { content: "\2013"; }
 
 .reveal .slides ol > li { margin-bottom: 0.55em; }

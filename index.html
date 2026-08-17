@@ -32,7 +32,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-754dab3c17aa494cce29e451c01e06a5.css">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-dc03ac9785c2c769b42b5f1d5e94db50.css">
   <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -418,11 +418,12 @@ For context, I should introduce myself -->
           display:block!important;
       }</style></aside>
 </section>
-<section id="act-ii-the-plays-the-thing" class="slide level2 center folio" data-background-color="#f5efe1">
-<h2>Act II: The Play’s the Thing</h2>
-<h3 id="there-are-more-things-in-heaven-and-earth-horatio-than-are-dreamt-of-in-your-philosophy"><em>There are more things in heaven and earth, Horatio,<br>than are dreamt of in your philosophy</em></h3>
+<section id="act-ii-whats-in-a-name" class="slide level2 center folio" data-background-color="#f5efe1">
+<h2>Act II: What’s in a Name?</h2>
+<h3 id="that-which-we-call-a-rose-by-any-other-name-would-smell-as-sweet"><em>That which we call a rose<br>by any other name would smell as sweet</em></h3>
 <aside class="notes">
 <p>Act II: what this thing actually is.</p>
+<p>Juliet’s argument is that a name has put a barrier between her and something that is plainly right there. That’s this act. “MCP” sounds like a new discipline you have to go learn. Strip the name off it and it’s an HTTP API with a schema for describing functions, and you already know how to build and serve those.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -573,8 +574,8 @@ For context, I should introduce myself -->
           display:block!important;
       }</style></aside>
 </section>
-<section id="what-a-piece-of-work-is-a-man-how-infinite-in-faculty" class="slide level2 folio">
-<h2>What a piece of work is a man, how infinite in faculty</h2>
+<section id="there-are-more-things-in-heaven-and-earth-horatio" class="slide level2 folio">
+<h2>There are more things in heaven and earth, Horatio</h2>
 
 <img data-src="img/mind-blown-with-mcp.png" class="r-stretch"><p>https://www.reddit.com/r/mcp/comments/1jn3ykp/mind_blown_with_mcp/</p>
 <aside class="notes">
@@ -622,11 +623,13 @@ For context, I should introduce myself -->
           display:block!important;
       }</style></aside>
 </section>
-<section id="alas-poor-yorick" class="slide level2 folio">
-<h2>Alas, poor Yorick</h2>
+<section id="i-come-to-bury-mcp-not-to-praise-him" class="slide level2 folio">
+<h2>I come to bury MCP, not to praise him</h2>
 
 <img data-src="img/mcp-is-dead.png" class="r-stretch"><p>https://uxplanet.org/mcp-is-dead-cf16b667ba6d</p>
 <aside class="notes">
+<p>Antony, over Caesar’s body. He says “I come to bury Caesar, not to praise him” and then spends the whole speech turning the crowd back around. Which is what I’m about to do, so it’s fair to tell you now.</p>
+<p>The Forum scene is also the best picture anyone has of a hype cycle: a crowd swung hard one way and then hard the other, by rhetoric rather than by any new facts.</p>
 <p>Like most things, there is truth in both the initial excitement for MCP and the hard backlash against it. There weren’t good alternatives to MCP when it came out, so people used it for all kinds of things and in questionable ways that today don’t make sense. It’s ideal for some use cases, and for others you are better off using a CLI.</p>
 <p>Critiques</p>
 <ul>
@@ -699,18 +702,17 @@ For context, I should introduce myself -->
           display:block!important;
       }</style></aside>
 </section>
-<section id="more-things-you-can-do-with-remote-mcp" class="slide level2">
-<h2>More things you can do with remote MCP</h2>
+<section id="things-a-cli-cannot-do-for-you" class="slide level2">
+<h2>Things a CLI cannot do for you</h2>
 <ul>
-<li><p>Authentication: OAuth 2.1 flow, or via HTTP header</p></li>
-<li><p>Accessing resources not available locally</p></li>
-<li><p>Monitoring</p></li>
-<li><p>Easy distribution via URL</p></li>
+<li><p>Authenticate on your behalf, without handing the agent your credentials</p></li>
+<li><p>Reach resources your machine can’t</p></li>
+<li><p>Get added by URL, in one command</p></li>
 </ul>
 <aside class="notes">
-<p>These are things you just can’t do with a CLI</p>
-<p>Distribution for remote MCP is also easier: single command to add a server by URL, rather than install CLI (and authenticate etc.) out of band</p>
-<p>You (or your agent) could build these into your server, or you could deploy on a platform (like Connect) that gives you these for free.</p>
+<p>So that’s the case for the CLI. Here’s what it can’t do, and this is where remote MCP earns its place.</p>
+<p>A CLI runs as you, with your credentials, on your machine. If the thing you need is behind an auth boundary, or simply isn’t reachable from your laptop, the CLI has nowhere to go. And distributing one means everybody installs and authenticates it out of band, where a remote server is a single command with a URL.</p>
+<p>Which is the answer to the question this act asked. Hold onto it: in Act V I’ll show you it actually working.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -723,12 +725,13 @@ For context, I should introduce myself -->
           display:block!important;
       }</style></aside>
 </section>
-<section id="act-iv-murder-most-foul" class="slide level2 center folio" data-background-color="#f5efe1">
-<h2>Act IV: Murder Most Foul</h2>
-<h3 id="one-may-smile-and-smile-and-be-a-villain"><em>One may smile, and smile, and be a villain</em></h3>
+<section id="act-iv-something-wicked-this-way-comes" class="slide level2 center folio" data-background-color="#f5efe1">
+<h2>Act IV: Something Wicked This Way Comes</h2>
+<h3 id="oftentimes-to-win-us-to-our-harm-the-instruments-of-darkness-tell-us-truths"><em>Oftentimes, to win us to our harm,<br>the instruments of darkness tell us truths</em></h3>
 <aside class="notes">
-<p>Act IV: the part where it turns out someone has been poisoning people this whole time.</p>
-<p>Claudius is charming, agreeable, and entirely happy to kill you. So is a GitHub issue with a prompt injection in it.</p>
+<p>Act IV: the danger, and then the discipline.</p>
+<p>Banquo, on the witches. The word that matters is <em>instruments</em> — tools. Note what he doesn’t say: he doesn’t say they lie to you. Macbeth is destroyed by prophecies that all come true. No man of woman born; Birnam Wood will never move. Every one of them accurate, and every one of them fatal, because someone else chose which truths he got to hear.</p>
+<p>That is the failure mode. Not a tool that lies. A tool that returns nothing but true things, and takes you somewhere you would never have gone.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -741,9 +744,9 @@ For context, I should introduce myself -->
           display:block!important;
       }</style></aside>
 </section>
-<section id="security" class="slide level2">
-<h2>Security</h2>
-<h3 id="lethal-trifecta">Lethal Trifecta</h3>
+<section id="double-double-toil-and-trouble" class="slide level2 folio" data-background-color="#f5efe1">
+<h2>Double, double, toil and trouble</h2>
+<h3 id="the-lethal-trifecta">The lethal trifecta</h3>
 <ul>
 <li><p>Access to private data</p></li>
 <li><p>Exposure to untrusted content</p></li>
@@ -752,8 +755,8 @@ For context, I should introduce myself -->
 <p>https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/</p>
 <aside class="notes">
 <p>“If your agent combines these three features, an attacker can easily trick it into accessing your private data and sending it to that attacker.”</p>
-<p>Opening your agent up to external resources and code creates the opportunity for the lethal trifecta. This is not specific to MCP but there were some very public examples of exploits in the early months of MCP.</p>
-<p>It’s not just that the MCP server itself may be malicious. Suppose you’re reading GitHub issues on a public repo, whether with GitHub MCP or the <code>gh</code> CLI. Someone could write a prompt injection into an issue, and that gives you one of the three of the trifecta. Presumably you’re doing something with private data already so that’s two. So if your agent has any ability to send data out, some other tool that lets it, you’ve got the trifecta.</p>
+<p>The reason this is a cauldron and not a list: no single one of these is a vulnerability. Reading private data is your job. Reading a GitHub issue is your job. Sending a web request is your job. Each ingredient is inert. It’s the combining that conjures something, and that’s the part people miss when they audit these one at a time.</p>
+<p>Not specific to MCP, either — but there were some very public examples in the early months of MCP.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -766,11 +769,33 @@ For context, I should introduce myself -->
           display:block!important;
       }</style></aside>
 </section>
-<section id="act-v-advice-to-the-players" class="slide level2 center folio" data-background-color="#f5efe1">
-<h2>Act V: Advice to the Players</h2>
-<h3 id="suit-the-action-to-the-word-the-word-to-the-action"><em>Suit the action to the word, the word to the action</em></h3>
+<section id="look-like-the-innocent-flower-but-be-the-serpent-undert" class="slide level2 center folio" data-background-color="#f5efe1">
+<h2>Look like the innocent flower,<br>but be the serpent under’t</h2>
+<h3 id="a-prompt-injection-disguised-as-a-github-issue">A prompt injection, disguised as a GitHub issue</h3>
 <aside class="notes">
-<p>Act V. Hamlet’s advice-to-the-players speech is, genuinely, a best practices list: a guy telling working professionals how to do their job, at length, unprompted. So I’m in good company.</p>
+<p>Lady Macbeth, coaching her husband on how to host a murder.</p>
+<p>It’s not just that the MCP server itself may be malicious. Suppose you’re reading GitHub issues on a public repo — whether with GitHub’s MCP server or the <code>gh</code> CLI, doesn’t matter. Someone writes a prompt injection into an issue. That’s ingredient two, and it arrived looking like ordinary work.</p>
+<p>Presumably you’re already doing something with private data, so that’s two. And if your agent has any tool at all that can send data outward, you have all three, and you assembled it yourself out of three reasonable decisions.</p>
+<p>(This is the character from the cast list. It has been waiting since the beginning.)</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="suit-the-action-to-the-word-the-word-to-the-action" class="slide level2 center folio" data-background-color="#f5efe1">
+<h2>Suit the action to the word,<br>the word to the action</h2>
+<h3 id="space-1"><span class="ghost">space</span></h3>
+<aside class="notes">
+<p>So: the counter-spell.</p>
+<p>Hamlet’s advice-to-the-players speech is, genuinely, a best practices list — a guy telling working professionals how to do their job, at length, unprompted. So I’m in good company.</p>
+<p>And these are mostly about the cauldron. Every one of them is a way of not putting an ingredient in.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -884,6 +909,106 @@ For context, I should introduce myself -->
           display:block!important;
       }</style></aside>
 </section>
+<section id="we-have-scorchd-the-snake-not-killd-it" class="slide level2 center folio" data-background-color="#f5efe1">
+<h2>We have scorch’d the snake, not kill’d it</h2>
+<h3 id="space-2"><span class="ghost">space</span></h3>
+<aside class="notes">
+<p>Macbeth, and it’s the honest caveat on everything I just said.</p>
+<p>These practices shrink what you’re exposed to. They don’t make an agent safe, and I don’t want anybody leaving here thinking that a small tool surface is the same thing as a trust boundary.</p>
+<p>Which is the other half of the answer, and it’s not in your server code. It’s in where the thing runs.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="act-v-alls-well-that-ends-well" class="slide level2 center folio" data-background-color="#f5efe1">
+<h2>Act V: All’s Well That Ends Well</h2>
+<h3 id="alls-well-that-ends-well-yet-though-time-seem-so-adverse-and-means-unfit"><em>All’s well that ends well yet,<br>though time seem so adverse and means unfit</em></h3>
+<aside class="notes">
+<p>Act V. We opened with a ticket I couldn’t read. Let’s go back and read it.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="section-9" class="slide level2">
+<h2></h2>
+<pre><code> ▐▛███▜▌   Claude Code v2.1.158
+▝▜█████▛▘  Opus 4.8 (1M context) · Claude Enterprise
+  ▘▘ ▝▝    ~/code
+
+❯ please help me with https://posit.zendesk.com/agent/tickets/129426
+
+⏺ I'll pull that ticket up.
+
+⏺ zendesk - get_ticket (MCP)(ticket_id: 129426)
+  ⎿  #129426  Connect won't start after upgrade to 2026.03.0
+     open · urgent · requester: n***@posit.co (Acme Corp)
+
+⏺ zendesk - list_ticket_comments (MCP)(ticket_id: 129426)
+  ⎿  6 comments (4 public, 2 internal)
+
+⏺ Read(services/launcher.go)
+  ⎿  Read 210 lines
+
+⏺ The upgrade moved the launcher's default socket path, and their config
+  still pins the old one. That's why it comes up on 2025.12 and not on
+  2026.03. Want me to draft the reply?
+</code></pre>
+<aside class="notes">
+<p>REPLACE ME with a real transcript before the talk – the tool calls are real (<code>get_ticket</code>, <code>list_ticket_comments</code>) but the ticket and the diagnosis here are invented.</p>
+<p>Same prompt as Act I. Same ticket. This time it just goes and reads it.</p>
+<p>Two things worth pointing at on the way past: it took two tool calls, not twenty, because those are the only tools I gave it. And look at the requester line – <code>n***@posit.co</code>. That’s the third best practice, doing its job, in the middle of the answer.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="deployed-on-posit-connect" class="slide level2">
+<h2>Deployed on Posit Connect</h2>
+<ul>
+<li><p><strong>Authentication</strong> — a Zendesk OAuth integration, so the credentials live in Connect. Not in the agent, not in my <code>.env</code></p></li>
+<li><p><strong>Hosting</strong> — the server runs somewhere that can actually reach Zendesk</p></li>
+<li><p><strong>Monitoring</strong> — I can see what it did, and who asked</p></li>
+<li><p><strong>Distribution</strong> — <code>claude mcp add --transport http zendesk https://connect.example.com/zendesk/mcp</code></p></li>
+</ul>
+<aside class="notes">
+<p>This is where the three things a CLI couldn’t do get done, and none of them are in my server code.</p>
+<p>The auth one is the one I’d underline. Connect has a Zendesk OAuth integration, so the server picks up credentials from the logged-in user’s OAuth session. There’s no API token in an env var, and there’s nothing for the agent to leak, because the agent never had it. That’s an ingredient removed from the cauldron rather than a rule about not stirring it.</p>
+<p>And the last line is the whole distribution story: colleagues don’t install anything or get their own token. They get a URL.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
 <section id="mcp-or-not-mcp" class="slide level2">
 <h2>MCP, or not MCP?</h2>
 <ul>
@@ -893,11 +1018,12 @@ For context, I should introduce myself -->
 <li><p>You (or your agent) can easily write custom MCP servers</p></li>
 </ul>
 </section>
-<section id="the-rest-is-silence" class="slide level2 center folio" data-background-color="#f5efe1">
-<h2>The rest is silence</h2>
-<h3 id="space-1"><span class="ghost">space</span></h3>
+<section id="epilogue" class="slide level2 center folio" data-background-color="#f5efe1">
+<h2>Epilogue</h2>
+<h3 id="give-me-your-hands-if-we-be-friends"><em>Give me your hands, if we be friends</em></h3>
 <aside class="notes">
-<p>Hamlet’s last line. Also: stop talking, Neal.</p>
+<p>Puck, stepping out of A Midsummer Night’s Dream to ask the audience for applause. Every Shakespeare comedy ends with somebody doing this, and since we put “comedy” on the title page, it’s the right way to get off the stage. (“The rest is silence” was here before, but that’s Hamlet’s death line – wrong genre for this playbill.)</p>
+<p>Also: stop talking, Neal. And: questions.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
