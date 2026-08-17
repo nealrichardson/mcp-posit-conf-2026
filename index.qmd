@@ -1,12 +1,8 @@
 ---
-title: "MCP, or not MCP?"
-author: "Neal Richardson"
-institute: "posit::conf(2026)"
-# TODO: add back the date
-# date: "5 June 2026"
-title-slide-attributes:
-    # The title page is the one slide that's in the folio register by default.
-    data-background-color: "#f5efe1"
+# No title/author/institute on purpose: those are what make Quarto
+# generate its own title slide. Ours is hand-set below, as a quarto
+# (the 1631 kind) -- see the .titlepage block in theme.scss.
+pagetitle: "MCP, or not MCP?"
 format:
   revealjs:
     theme: theme.scss
@@ -19,6 +15,24 @@ editor:
   render-on-save: true
 ---
 
+## {.titlepage background-color="#f5efe1"}
+
+::: {.tp}
+<p class="tp-line1">A WITTIE</p>
+<p class="tp-line2">AND PLEASANT</p>
+<p class="tp-line3">COMEDIE</p>
+<p class="tp-called">Called</p>
+<p class="tp-play">MCP, or not MCP?</p>
+<p class="tp-note">Miſplac'd among the Tragedies.</p>
+<p class="tp-cast">As it is to be acted by his Maieſties Ser-<br>uants at the poſit::conf and in the Cloud.</p>
+<p class="tp-author">VVritten and Acted by NEAL RICHARDSON.</p>
+<p class="tp-imprint"><span class="tp-place">Houston</span>,<br>Printed for the Author, and are to be had at<br><em>enpiar.com/mcp-posit-conf-2026</em></p>
+<p class="tp-year">2026.</p>
+:::
+
+::: {.notes}
+The First Folio sorted the plays into Comedies, Histories, and Tragedies. This is a comedy: nobody dies, the plot turns on somebody being fooled by a disguise, and it ends in best practices.
+:::
 
 <!-- (ask who has used an MCP server before. who has written an MCP server)
 

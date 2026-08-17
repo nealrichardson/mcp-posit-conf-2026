@@ -216,11 +216,11 @@ $code-block-font-size:    0.62em !default;
 }
 
 // =============================================================
-//  FOLIO REGISTER  (.folio, plus the title page)
+//  FOLIO REGISTER  (.folio, plus .titlepage)
 // =============================================================
 
 .reveal .slides section.folio,
-.reveal .slides section#title-slide {
+.reveal .slides section.titlepage {
 
   font-family: $font-body;
   color: $ink;
@@ -314,56 +314,114 @@ $code-block-font-size:    0.62em !default;
 }
 
 // ---- Title page ---------------------------------------------
-// Set as an actual title page: rules, small caps, a colophon.
-#title-slide .title {
-  font-family: $font-display;
-  font-size: 2.2em;
-  line-height: 1.15;
-  letter-spacing: 0.05em;
-  color: $ink;
-  border-top: 3px double $ink;
-  border-bottom: 3px double $ink;
-  padding: 0.35em 0 0.3em;
-  margin-bottom: 0.55em;
-}
+//  Set as a playbook quarto c. 1631, after the title page of
+//  "A Wittie and Pleasant Comedie called The Taming of the Shrew."
+//
+//  Two things make those pages read as what they are, and both are
+//  worth more than any amount of ornament:
+//
+//  1. The display lines step DOWN in size, line by line, as a
+//     compositor working from one case of type would set them. So
+//     the sizes below are a hand-set sequence, not a modular scale
+//     -- don't "regularise" them.
+//  2. Everything is centred and ragged, with the measure narrowing
+//     toward the foot of the page.
+//
+//  Quarto builds its own title slide only when `title`/`author` are
+//  in the front matter. They aren't, so this styles the hand-written
+//  slide at the top of index.qmd instead.
+.reveal .slides section.titlepage {
+  text-align: center;
 
-#title-slide .subtitle {
-  font-family: $font-quote;
-  font-style: italic;
-  color: $rubric;
-  font-size: 1.05em;
-  margin-bottom: 0.8em;
-}
+  // The slide is deliberately headingless; pandoc emits the h2 anyway.
+  > h2:first-child { display: none; }
 
-#title-slide .author,
-#title-slide .quarto-title-author-name {
-  font-family: $font-display;
-  font-size: 1em;
-  letter-spacing: 0.09em;
-  color: $ink;
-  margin-bottom: 0.15em;
-}
+  .tp {
+    max-width: 78%;
+    margin: 0 auto;
+  }
 
-#title-slide .institute,
-#title-slide .quarto-title-affiliation,
-#title-slide .date {
-  font-family: $font-quote;
-  font-style: italic;
-  font-size: 0.72em;
-  color: $ink-soft;
-  line-height: 1.5;
-}
+  p { margin: 0; }
 
-// Printers signed off with one of these. Hung off the slide rather
-// than the date line, so it survives the date being commented out.
-#title-slide::after {
-  content: "\2042"; // ⁂
-  display: block;
-  color: $rubric;
-  font-style: normal;
-  font-size: 1.3em;
-  line-height: 1;
-  margin-top: 0.9em;
+  // ---- The display stack, largest to smallest ----------------
+  .tp-line1,
+  .tp-line2,
+  .tp-line3 {
+    font-family: $font-display;
+    letter-spacing: 0.055em;
+    line-height: 1.04;
+    color: $ink;
+  }
+
+  .tp-line1 { font-size: 2.3em; }
+  .tp-line2 { font-size: 1.86em; }
+  .tp-line3 { font-size: 1.6em; }
+
+  // "Called" -- the hinge between the description and the play.
+  .tp-called {
+    font-family: $font-quote;
+    font-size: 0.95em;
+    color: $ink-soft;
+    margin: 0.2em 0 0.1em;
+  }
+
+  .tp-play {
+    font-family: $font-quote;
+    font-style: italic;
+    font-size: 2.25em;
+    line-height: 1.1;
+    color: $rubric;
+  }
+
+  .tp-note {
+    font-family: $font-quote;
+    font-style: italic;
+    font-size: 0.78em;
+    color: $ink-soft;
+    margin-top: 0.3em;
+  }
+
+  // ---- Company, playhouse, author ----------------------------
+  .tp-cast,
+  .tp-author {
+    font-family: $font-quote;
+    font-style: italic;
+    color: $ink;
+  }
+
+  .tp-cast {
+    font-size: 0.7em;
+    line-height: 1.45;
+    margin-top: 1.1em;
+  }
+
+  .tp-author {
+    font-size: 0.9em;
+    margin-top: 0.8em;
+  }
+
+  // ---- Imprint ------------------------------------------------
+  // Roman, with the names in italic, as the printers set it.
+  .tp-imprint {
+    font-family: $font-quote;
+    font-size: 0.56em;
+    line-height: 1.5;
+    color: $ink;
+    margin-top: 1.4em;
+  }
+
+  .tp-place {
+    font-variant: small-caps;
+    letter-spacing: 0.1em;
+  }
+
+  .tp-year {
+    font-family: $font-quote;
+    font-size: 0.62em;
+    letter-spacing: 0.07em;
+    color: $ink;
+    margin-top: 0.1em;
+  }
 }
 
 // =============================================================

@@ -10,7 +10,6 @@
 <script src="index_files/libs/quarto-contrib/qrcodejs-v1.0.0/qrcode.js"></script><meta charset="utf-8">
   <meta name="generator" content="quarto-1.9.38">
 
-  <meta name="author" content="Neal Richardson">
   <title>MCP, or not MCP?</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -33,7 +32,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-0f1bf931d834a9e41ceef7aea143d3fe.css">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-754dab3c17aa494cce29e451c01e06a5.css">
   <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -133,23 +132,54 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" data-background-color="#f5efe1" class="quarto-title-block center">
-  <h1 class="title">MCP, or not MCP?</h1>
 
-<div class="quarto-title-authors">
-<div class="quarto-title-author">
-<div class="quarto-title-author-name">
-Neal Richardson 
+<section id="section" class="slide level2 titlepage" data-background-color="#f5efe1">
+<h2></h2>
+<div class="tp">
+<p class="tp-line1">
+A WITTIE
+</p>
+<p class="tp-line2">
+AND PLEASANT
+</p>
+<p class="tp-line3">
+COMEDIE
+</p>
+<p class="tp-called">
+Called
+</p>
+<p class="tp-play">
+MCP, or not MCP?
+</p>
+<p class="tp-note">
+Miſplac’d among the Tragedies.
+</p>
+<p class="tp-cast">
+As it is to be acted by his Maieſties Ser-<br>uants at the poſit::conf and in the Cloud.
+</p>
+<p class="tp-author">
+VVritten and Acted by NEAL RICHARDSON.
+</p>
+<p class="tp-imprint">
+<span class="tp-place">Houston</span>,<br>Printed for the Author, and are to be had at<br><em>enpiar.com/mcp-posit-conf-2026</em>
+</p>
+<p class="tp-year">
+2026.
+</p>
 </div>
-        <p class="quarto-title-affiliation">
-            posit::conf(2026)
-          </p>
-    </div>
-</div>
-
-</section>
-<section class="slide level2">
-
+<aside class="notes">
+<p>The First Folio sorted the plays into Comedies, Histories, and Tragedies. This is a comedy: nobody dies, the plot turns on somebody being fooled by a disguise, and it ends in best practices.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 <!-- (ask who has used an MCP server before. who has written an MCP server)
 
 I want to start with a story about how I came to understand what MCP was and what it was for.
@@ -181,7 +211,7 @@ For context, I should introduce myself -->
           display:block!important;
       }</style></aside>
 </section>
-<section id="section" class="slide level2">
+<section id="section-1" class="slide level2">
 <h2></h2>
 
 <img data-src="img/logo_connecttag-fullcolor.svg" class="r-stretch"><aside class="notes">
@@ -216,7 +246,7 @@ For context, I should introduce myself -->
           display:block!important;
       }</style></aside>
 </section>
-<section id="section-1" class="slide level2" data-background-image="img/kermit-typing.gif">
+<section id="section-2" class="slide level2" data-background-image="img/kermit-typing.gif">
 <h2></h2>
 <aside class="notes">
 <p>Last year, we found ourselves getting more and more into using Claude Code. One of the great things about our current moment in the industry is that so many things that may have seemed hard or out of reach before are now available for us to do. It lets us be much more responsive to new ideas and requests–now we can just fire off Claude on a git worktree without having to do all of the context switching to consider it, and many times it just gets it done, or pretty close.</p>
@@ -232,7 +262,7 @@ For context, I should introduce myself -->
           display:block!important;
       }</style></aside>
 </section>
-<section id="section-2" class="slide level2" data-background-image="img/kermit-thinking-cropped.jpg">
+<section id="section-3" class="slide level2" data-background-image="img/kermit-thinking-cropped.jpg">
 <h2></h2>
 <aside class="notes">
 <p>So, increasingly, I kept seeing problems and thinking, how can I use Claude to solve it? What else out there have we learned to be hard and painful that maybe isn’t anymore?</p>
@@ -248,7 +278,7 @@ For context, I should introduce myself -->
           display:block!important;
       }</style></aside>
 </section>
-<section id="section-3" class="slide level2" data-background-image="img/kermit-phone.gif">
+<section id="section-4" class="slide level2" data-background-image="img/kermit-phone.gif">
 <h2></h2>
 <aside class="notes">
 <p>Responding to support escalations became one of them. Posit uses Zendesk for support, customers can file tickets there and they get fielded by our support team. When they get a clear bug report, or something that they can’t answer on their own, it escalates to the engineers.</p>
@@ -266,7 +296,7 @@ For context, I should introduce myself -->
           display:block!important;
       }</style></aside>
 </section>
-<section id="section-4" class="slide level2">
+<section id="section-5" class="slide level2">
 <h2></h2>
 <pre><code> ▐▛███▜▌   Claude Code v2.1.158
 ▝▜█████▛▘  Opus 4.8 (1M context) · Claude Enterprise
@@ -290,7 +320,7 @@ For context, I should introduce myself -->
           display:block!important;
       }</style></aside>
 </section>
-<section id="section-5" class="slide level2">
+<section id="section-6" class="slide level2">
 <h2></h2>
 <pre><code> ▐▛███▜▌   Claude Code v2.1.158
 ▝▜█████▛▘  Opus 4.8 (1M context) · Claude Enterprise
@@ -510,7 +540,7 @@ For context, I should introduce myself -->
           display:block!important;
       }</style></aside>
 </section>
-<section id="section-6" class="slide level2" data-background-image="img/unix-system.jpg">
+<section id="section-7" class="slide level2" data-background-image="img/unix-system.jpg">
 <h2></h2>
 <aside class="notes">
 <p>You know what this is too. And your coding agents do too.</p>
@@ -792,7 +822,7 @@ For context, I should introduce myself -->
           display:block!important;
       }</style></aside>
 </section>
-<section id="section-7" class="slide level2 center folio" data-background-color="#f5efe1">
+<section id="section-8" class="slide level2 center folio" data-background-color="#f5efe1">
 <h2></h2>
 <blockquote>
 <p>My liege, and madam, to expostulate<br> What majesty should be, what duty is,<br> Why day is day, night night, and time is time,<br> Were nothing but to waste night, day, and time.<br> Therefore, since <strong>brevity is the soul of wit</strong>,<br> And tediousness the limbs and outward flourishes,<br> I will be brief.</p>
