@@ -30,9 +30,6 @@ editor:
 <p class="tp-year">2026.</p>
 :::
 
-::: {.notes}
-The First Folio sorted the plays into Comedies, Histories, and Tragedies. This is a comedy: nobody dies, the plot turns on somebody being fooled by a disguise, and it ends in best practices.
-:::
 
 <!-- (ask who has used an MCP server before. who has written an MCP server)
 
@@ -41,6 +38,14 @@ I want to start with a story about how I came to understand what MCP was and wha
 For context, I should introduce myself -->
 
 ## Dramatis Personæ {.folio background-color="#f5efe1"}
+<!-- TODO: instead of this, have a bio slide with an image that is the Shakespeare First Folio print but with my head, and then some bullets to the side.
+
+Then get to the story: two houses, both alike in dignity, in fair Posit where we make our scene. 
+
+(cue Act I (maybe the Hamlet reference doesn't work here? but also I don't want to say that there is a conflict between these two houses))
+On one side, the Posit engineering team who seeks to build useful products. On the other, our customers, who sometimes have questions or find issues in those products.
+
+We use Zendesk as a tool for support requests, which come in from customers and get fielded by our support engineers. ... -->
 
 ::: {.dramatis}
 
@@ -201,12 +206,6 @@ To do exactly what you need. Because code is now cheap. So my talk is going to b
 
 ### *That which we call a rose<br>by any other name would smell as sweet*
 
-::: {.notes}
-Act II: what this thing actually is.
-
-Juliet's argument is that a name has put a barrier between her and something that is plainly right there. That's this act. "MCP" sounds like a new discipline you have to go learn. Strip the name off it and it's an HTTP API with a schema for describing functions, and you already know how to build and serve those.
-:::
-
 ## What is MCP? {.center}
 
 ::: {.notes}
@@ -278,13 +277,8 @@ For a few reasons, I'm going to focus on remote MCP, and in particular on remote
 You know what this is too. And your coding agents do too.
 :::
 
+
 ## Act III: MCP, or not MCP? {.center .folio background-color="#f5efe1"}
-
-### *Thus conscience does make cowards of us all*
-
-::: {.notes}
-Act III. The title slide comes back, because this is where we actually deliberate the question.
-:::
 
 ## There are more things in heaven and earth, Horatio {.folio}
 
@@ -300,33 +294,14 @@ https://www.reddit.com/r/mcp/comments/1jn3ykp/mind_blown_with_mcp/
 Then, a backlash
 :::
 
-## The funeral bak'd meats did coldly furnish forth the marriage tables {.folio background-image="img/distracted-boyfriend.jpg"}
-
-::: {.notes}
-Hamlet on his mother remarrying a month after the funeral: they used the leftovers from the wake to cater the wedding. Which is roughly the industry's relationship with any given technology.
-:::
-
-## I come to bury MCP, not to praise him {.folio}
+## I come to bury MCP, not to praise it {.folio}
 
 ![](img/mcp-is-dead.png)
 
 https://uxplanet.org/mcp-is-dead-cf16b667ba6d
 
 ::: {.notes}
-Antony, over Caesar's body. He says "I come to bury Caesar, not to praise him" and then spends the whole speech turning the crowd back around. Which is what I'm about to do, so it's fair to tell you now.
-
-The Forum scene is also the best picture anyone has of a hype cycle: a crowd swung hard one way and then hard the other, by rhetoric rather than by any new facts.
-
 Like most things, there is truth in both the initial excitement for MCP and the hard backlash against it. There weren't good alternatives to MCP when it came out, so people used it for all kinds of things and in questionable ways that today don't make sense. It's ideal for some use cases, and for others you are better off using a CLI. 
-
-Critiques
-
-* Best tool for the job
-
-* Inherent risks with agentic AI
-
-* Best practices
-
 :::
 
 ## MCP, CLI, or Skill?
@@ -334,16 +309,6 @@ Critiques
 * If the agent can do everything with tools it already has (Bash, Fetch, etc.) then a Skill is probably enough
 
 * Otherwise, Skill is complement: we're talking (MCP + Skill) vs. (CLI + Skill)
-
-## Words, words, words {.center .folio background-color="#f5efe1"}
-
-### Every tool definition is loaded up front, whether you use it or not
-
-::: {.notes}
-Polonius asks Hamlet what he's reading. "Words, words, words."
-
-That's the context critique in three words: it all goes in, it all costs tokens, and most of it is not what you're here for.
-:::
 
 ## (MCP + Skill) vs. (CLI + Skill)
 
@@ -355,7 +320,8 @@ That's the context critique in three words: it all goes in, it all costs tokens,
 
 :::: {.column width="60%"}
 
-Critique that MCP takes up too much context: all tool definitions are loaded up front and take up tokens
+Critique that MCP takes up too much context: all tool definitions are loaded up front and take up tokens^* 
+<!-- TODO: asterisk on that: Claude Code for instance has ToolSearch now, so this is less of a thing -->
 
 Claude Code is good with CLIs: why use GitHub's MCP if `gh` is already right there?
 
@@ -377,7 +343,7 @@ CLI not and option if the AI application can't run shell commands
 
 * Reach resources your machine can't
 
-* Get added by URL, in one command
+<!-- CLI is also usually general purpose. It's not simple to allow an agent to only access some parts of it--you're logged in with `gh`, it can run bash commands to do anything with `gh`. Trying to sanitize bash commands with pre-tool hooks is possible but hard to truly lock down and prevent the agent from working around. That's a good segue to the security concerns in the next Act. -->
 
 :::{.notes}
 So that's the case for the CLI. Here's what it can't do, and this is where remote MCP earns its place.
@@ -429,8 +395,6 @@ Lady Macbeth, coaching her husband on how to host a murder.
 It's not just that the MCP server itself may be malicious. Suppose you're reading GitHub issues on a public repo — whether with GitHub's MCP server or the `gh` CLI, doesn't matter. Someone writes a prompt injection into an issue. That's ingredient two, and it arrived looking like ordinary work.
 
 Presumably you're already doing something with private data, so that's two. And if your agent has any tool at all that can send data outward, you have all three, and you assembled it yourself out of three reasonable decisions.
-
-(This is the character from the cast list. It has been waiting since the beginning.)
 :::
 
 ## Suit the action to the word,<br>the word to the action {.center .folio background-color="#f5efe1"}
@@ -439,8 +403,6 @@ Presumably you're already doing something with private data, so that's two. And 
 
 ::: {.notes}
 So: the counter-spell.
-
-Hamlet's advice-to-the-players speech is, genuinely, a best practices list — a guy telling working professionals how to do their job, at length, unprompted. So I'm in good company.
 
 And these are mostly about the cauldron. Every one of them is a way of not putting an ingredient in.
 :::
@@ -486,8 +448,6 @@ Brevity is the soul of wit. Which, in the play, is said by...
 :::
 
 :::{.notes}
-The joke in the play is that the man who says "brevity is the soul of wit" is the most tedious character in it. He cannot get to the point.
-
 This is every API response you are about to pipe into your agent's context window.
 :::
 
@@ -522,16 +482,13 @@ In this example, we can keep the information that a user from Posit reported thi
 ### [space]{.ghost}
 
 ::: {.notes}
-Macbeth, and it's the honest caveat on everything I just said.
-
 These practices shrink what you're exposed to. They don't make an agent safe, and I don't want anybody leaving here thinking that a small tool surface is the same thing as a trust boundary.
 
+<!-- This isn't right -->
 Which is the other half of the answer, and it's not in your server code. It's in where the thing runs.
 :::
 
 ## Act V: All's Well That Ends Well {.center .folio background-color="#f5efe1"}
-
-### *All's well that ends well yet,<br>though time seem so adverse and means unfit*
 
 ::: {.notes}
 Act V. We opened with a ticket I couldn't read. Let's go back and read it.
@@ -565,6 +522,7 @@ Act V. We opened with a ticket I couldn't read. Let's go back and read it.
 ```
 
 ::: {.notes}
+<!-- TODO: do a real example and use an output style to make it do iambic pentameter? -->
 REPLACE ME with a real transcript before the talk -- the tool calls are
 real (`get_ticket`, `list_ticket_comments`) but the ticket and the
 diagnosis here are invented.
@@ -576,6 +534,7 @@ Two things worth pointing at on the way past: it took two tool calls, not twenty
 
 ## Deployed on Posit Connect
 
+<!-- Two auth bits: OAuth flow to Connect, then an integration to Zendesk -->
 * **Authentication** — a Zendesk OAuth integration, so the credentials live in Connect. Not in the agent, not in my `.env`
 
 * **Hosting** — the server runs somewhere that can actually reach Zendesk
@@ -602,15 +561,7 @@ And the last line is the whole distribution story: colleagues don't install anyt
 
 * You (or your agent) can easily write custom MCP servers
 
-## Epilogue {.center .folio background-color="#f5efe1"}
-
-### *Give me your hands, if we be friends*
-
-::: {.notes}
-Puck, stepping out of A Midsummer Night's Dream to ask the audience for applause. Every Shakespeare comedy ends with somebody doing this, and since we put "comedy" on the title page, it's the right way to get off the stage. ("The rest is silence" was here before, but that's Hamlet's death line -- wrong genre for this playbill.)
-
-Also: stop talking, Neal. And: questions.
-:::
+* Posit Connect is a great place to host them
 
 ## Thank you
 
@@ -618,9 +569,9 @@ Also: stop talking, Neal. And: questions.
 
 :::: {.column width="50%" style="text-align: center;"}
 
-[These slides](https://enpiar.com/mcp-newcastle-2026/)
+[These slides](https://enpiar.com/mcp-posit-conf-2026/)
 
-{{< qrcode https://enpiar.com/mcp-newcastle-2026/ width=300 height=300 >}}
+{{< qrcode https://enpiar.com/mcp-posit-conf-2026/ width=300 height=300 >}}
 
 ::::
 :::: {.column width="50%" style="text-align: center;"}
