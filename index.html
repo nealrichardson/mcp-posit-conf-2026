@@ -32,7 +32,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-e5c6429b5e5792dc3d9a3ae038a8af5d.css">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-08f0216f6b9a3fecbef4316ee77d679a.css">
   <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -126,14 +126,14 @@
   </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..700;1,400..700&amp;family=IM+Fell+English:ital@0;1&amp;family=IM+Fell+English+SC&amp;family=Source+Sans+3:ital,wght@0,300..700;1,300..700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..700;1,400..700&amp;family=IM+Fell+English:ital@0;1&amp;family=IM+Fell+English+SC&amp;display=swap" rel="stylesheet">
 </head>
 <body class="quarto-light">
   <div class="reveal">
     <div class="slides">
 
 
-<section id="section" class="slide level2 titlepage" data-background-color="#f5efe1">
+<section id="section" class="slide level2 titlepage">
 <h2></h2>
 <div class="tp">
 <p class="tp-line1">
@@ -155,10 +155,10 @@ MCP, or not MCP?
 Miſplac’d among the Tragedies.
 </p>
 <p class="tp-cast">
-As it is to be acted by his Maieſties Ser-<br>uants at the poſit::conf and in the Cloud.
+As it is to be acted at the poſit::conf and in the Cloud.
 </p>
 <p class="tp-author">
-VVritten and Acted by NEAL RICHARDSON.
+VVritten by NEAL RICHARDSON.
 </p>
 <p class="tp-imprint">
 <span class="tp-place">Houston</span>,<br>Printed for the Author, and are to be had at<br><em>enpiar.com/mcp-posit-conf-2026</em>
@@ -167,33 +167,10 @@ VVritten and Acted by NEAL RICHARDSON.
 2026.
 </p>
 </div>
-<!-- (ask who has used an MCP server before. who has written an MCP server)
-
-I want to start with a story about how I came to understand what MCP was and what it was for.
-
-For context, I should introduce myself -->
-</section>
-<section id="dramatis-personæ" class="slide level2 folio" data-background-color="#f5efe1">
-<h2>Dramatis Personæ</h2>
-<!-- TODO: instead of this, have a bio slide with an image that is the Shakespeare First Folio print but with my head, and then some bullets to the side.
-
-Then get to the story: two houses, both alike in dignity, in fair Posit where we make our scene. 
-
-(cue Act I (maybe the Hamlet reference doesn't work here? but also I don't want to say that there is a conflict between these two houses))
-On one side, the Posit engineering team who seeks to build useful products. On the other, our customers, who sometimes have questions or find issues in those products.
-
-We use Zendesk as a tool for support requests, which come in from customers and get fielded by our support engineers. ... -->
-<div class="dramatis">
-<p><span class="name">Neal</span>, <em>your narrator; VP of Engineering at Posit, Apache Arrow PMC member</em> — <em>enpiar.com, arrowrbook.com</em></p>
-<p><span class="name">Posit Connect</span>, <em>a platform; where things are hosted</em></p>
-<p><span class="name">Claude</span>, <em>an agent; capable, willing, credulous</em></p>
-<p><span class="name">Zendesk</span>, <em>a ticketing system; offstage, behind a locked door</em></p>
-<p><span class="name">A Prompt Injection</span>, <em>disguised as a GitHub issue</em></p>
-<p><span class="name">Polonius</span>, <em>a courtier; cannot get to the point</em></p>
-</div>
 <aside class="notes">
-<p>Hi, I’m Neal. Open source and data, Apache Arrow for many years, was chair of the project management committee last year. Currently at Posit, and one of the teams I oversee is Posit Connect. (any Connect users out there?)</p>
-<p>The rest of the cast will introduce themselves as we go. Two of them are villains.</p>
+<p>Friends, Romans, countrymen, lend me your ears!</p>
+<p>I’m here today to talk to you about MCP: what it is, what it’s good for, and how best to use it.</p>
+<p>I want to start with a story about how I learned what MCP was for.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -206,29 +183,10 @@ We use Zendesk as a tool for support requests, which come in from customers and 
           display:block!important;
       }</style></aside>
 </section>
-<section id="section-1" class="slide level2">
-<h2></h2>
-
-<img data-src="img/logo_connecttag-fullcolor.svg" class="r-stretch"><aside class="notes">
-<p>Connect is a platform for deploying and sharing custom apps, dashboards, reports, and APIs, things you write in the language or framework of your choice, whether that’s Streamlit, Shiny, FastAPI, nodejs, quarto, and so on. And, you can host MCP servers on it.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="act-i-the-ghost" class="slide level2 center folio" data-background-color="#f5efe1">
-<h2>Act I: The Ghost</h2>
-<h3 id="something-is-rotten-in-the-state-of-denmark"><em>Something is rotten in the state of Denmark</em></h3>
+<section id="act-i" class="slide level2 center">
+<h2>Act I</h2>
 <aside class="notes">
-<p>(Act card. The title of this talk is a Hamlet joke, so we may as well commit: five acts.)</p>
-<p>Act I is the setup: here’s the world, and here’s the thing that’s wrong with it.</p>
+<p>Two houses, both alike in dignity, in fair Posit where we make our scene</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -241,10 +199,12 @@ We use Zendesk as a tool for support requests, which come in from customers and 
           display:block!important;
       }</style></aside>
 </section>
-<section id="section-2" class="slide level2" data-background-image="img/kermit-typing.gif">
+<section id="section-1" class="slide level2" data-background-image="img/diptych-1.jpeg">
 <h2></h2>
 <aside class="notes">
-<p>Last year, we found ourselves getting more and more into using Claude Code. One of the great things about our current moment in the industry is that so many things that may have seemed hard or out of reach before are now available for us to do. It lets us be much more responsive to new ideas and requests–now we can just fire off Claude on a git worktree without having to do all of the context switching to consider it, and many times it just gets it done, or pretty close.</p>
+<p>One one side, we have the Posit engineering team, where I work. On the other, our users, our customers.</p>
+<p>Now, these are not rival clans, but fate, or technology, has conspired to keep them apart.</p>
+<p>Posit’s enterprise products run on-premises, which means that if something goes wrong, or if a product user wants to request an feature, the engineers can’t see what’s going on directly.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -257,10 +217,10 @@ We use Zendesk as a tool for support requests, which come in from customers and 
           display:block!important;
       }</style></aside>
 </section>
-<section id="section-3" class="slide level2" data-background-image="img/kermit-thinking-cropped.jpg">
+<section id="section-2" class="slide level2" data-background-image="img/diptych-2.jpeg">
 <h2></h2>
 <aside class="notes">
-<p>So, increasingly, I kept seeing problems and thinking, how can I use Claude to solve it? What else out there have we learned to be hard and painful that maybe isn’t anymore?</p>
+<p>The user needs to write a everything down in a support ticket and send it to us. Then the engineers need to try to reconstruct what happened from that information, dig through the code base, and try to understand.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -273,11 +233,28 @@ We use Zendesk as a tool for support requests, which come in from customers and 
           display:block!important;
       }</style></aside>
 </section>
-<section id="section-4" class="slide level2" data-background-image="img/kermit-phone.gif">
+<section id="section-3" class="slide level2" data-background-image="img/balthasar-1.jpeg">
 <h2></h2>
 <aside class="notes">
-<p>Responding to support escalations became one of them. Posit uses Zendesk for support, customers can file tickets there and they get fielded by our support team. When they get a clear bug report, or something that they can’t answer on their own, it escalates to the engineers.</p>
-<p>I thought, Claude is good at reading the codebase, developing an understanding of how it works, and pinpointing bugs. But when fielding a support escalation, a human engineer still has to read the full Zendesk ticket history, sometimes download and extract server diagnostics that were uploaded, and synthesize that. How can I just plug Zendesk into Claude and let it figure it out?</p>
+<p>Posit uses Zendesk for support, customers can file tickets there and they get fielded by our support team. When they get a clear bug report, or something that they can’t answer on their own, it escalates to the engineers.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="section-4" class="slide level2" data-background-image="img/balthasar-2.jpeg">
+<h2></h2>
+<aside class="notes">
+<p>By the time the engineers get it, the ticket can be quite long, lots of back and forth, and there can be large attachments with diagnostic data in them.</p>
+<p>By the end of last year, engineering was heavily using AI for lots of things, and one thing we found that models like Claude were good at was reading the codebase, developing an understanding of how it works, and pinpointing bugs. But to use it for support issues, we first had to do all of the analysis of the ticket discussion and diagnostics, and that can be a lot of work.</p>
+<p>I thought, how can I just plug Zendesk into Claude and let it figure it out?</p>
 <p>I want to just take the ticket URL and give it to Claude Code like this:</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -297,9 +274,8 @@ We use Zendesk as a tool for support requests, which come in from customers and 
 ▝▜█████▛▘  Opus 4.8 (1M context) · Claude Enterprise
   ▘▘ ▝▝    ~/code
 
-   Opus 4.8 is here! Now defaults to high effort · /effort xhigh for your hardest tasks
 
-❯ please help me with https://posit.zendesk.com/agent/tickets/129426
+❯ I prithee, friend, bestow thy help with https://posit.zendesk.com/agent/tickets/129426
 </code></pre>
 <aside class="notes">
 <p>However, this doesn’t work.</p>
@@ -321,20 +297,22 @@ We use Zendesk as a tool for support requests, which come in from customers and 
 ▝▜█████▛▘  Opus 4.8 (1M context) · Claude Enterprise
   ▘▘ ▝▝    ~/code
 
-   Opus 4.8 is here! Now defaults to high effort · /effort xhigh for your hardest tasks
 
-❯ please help me with https://posit.zendesk.com/agent/tickets/129426
-
-⏺ I'll help with that Zendesk ticket. Let me fetch its contents.
+❯ I prithee, friend, bestow thy help with https://posit.zendesk.com/agent/tickets/129426
 
 ⏺ Fetch(https://posit.zendesk.com/agent/tickets/129426)
   ⎿ &nbsp;Received 259 bytes (200 OK)
 
-⏺ The ticket is behind Zendesk's authentication, so I can't fetch it directly — WebFetch only works on public URLs, and
-  I don't have a Zendesk integration available in this session.
+⏺ Alas, that door is locked against my hand:
+  the agent view demands a login first,
+  and <strong>I have neither token, key, nor tool</strong>
+  <strong>that speaks to Zendesk on thy warrant here.</strong>
+  I fetched the page; it gave an empty shell.
 
-  Could you paste the ticket contents here?
-
+  Wilt thou paste the ticket's text to me
+  (the subject, body, and the comment thread),
+  and say what aid thou seekest: triage, or
+  a bug to reproduce, or answer drafted.
 </code></pre>
 <aside class="notes">
 <p>The first piece is authentication–I can’t provide my credentials to connect to the Zendesk API. But even if I could, I would run into other challenges: the Zendesk REST API is not designed for AI agents to make efficient and secure use of it.</p>
@@ -352,13 +330,12 @@ We use Zendesk as a tool for support requests, which come in from customers and 
 </section>
 <section id="mcp-is-designed-to-solve-this" class="slide level2 center">
 <h2>MCP is designed to solve this</h2>
-<h3 id="space"><span class="ghost">space</span></h3>
 <aside class="notes">
 <p>MCP offers a solution to this.</p>
 <p>It provides a way for you to authenticate securely to APIs, without giving your credentials to the agent.</p>
 <p>By writing a custom MCP server, you can control exactly what tools are made available and what capabilities they expose. This improves your agent’s performance, and it also allows you to protect against a range of security vulnerabilties.</p>
 <p>And by hosting an MCP server, you can easily share it with others.</p>
-<p>So today I’m going to talk about MCP, what it’s good for and what it’s less suited for, and some best practices from my experience. When it’s the right tool for the job, MCP can unlock superpowers for your agentic workflows. And when done well, it can actually improve your security posture, which is especially important for AI agents.</p>
+<!-- So today I'm going to talk about MCP, what it's good for and what it's less suited for, and some best practices from my experience. When it's the right tool for the job, MCP can unlock superpowers for your agentic workflows. And when done well, it can actually improve your security posture, which is especially important for AI agents. -->
 <p>A central point I want to land, and that really underlies everything in the talk:</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -374,12 +351,9 @@ We use Zendesk as a tool for support requests, which come in from customers and 
 </section>
 <section id="you-can-write-and-host-your-own-mcp-servers" class="slide level2 center">
 <h2>You can write and host your own MCP servers</h2>
-<h3 id="httpsgithub.comnealrichardsonzendesk-mcp-server"><span class="ghost">https://github.com/nealrichardson/zendesk-mcp-server</span></h3>
-<div class="epigraph">
-<p>This above all: to thine own self be true</p>
-</div>
 <aside class="notes">
-<p>To do exactly what you need. Because code is now cheap. So my talk is going to be oriented about writing your own, not about whether or not you should use an MCP server that someone else provides. Even when someone else’s hosted MCP server is available to you, you may have reasons for wanting to customize it, as I will show. And thanks to AI, this is all available to you now.</p>
+<p>To do exactly what you need. Because code is now cheap. So my talk is going to be oriented about writing your own, not about whether or not you should use an MCP server that someone else provides. <!-- Even when someone else's hosted MCP server is available to you, you may have reasons for wanting to customize it, as I will show. And thanks to AI, this is all available to you now. --></p>
+<p>If you use Posit Connect, hosting and managing MCP servers is straightforward, and Connect solves authentication, governance, and monitoring for you, as I will touch on at the end. But even if you don’t have Connect, the ideas and concepts I’ll discuss still apply, you just may need to do a bit more work yourself on the hosting side.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -392,63 +366,13 @@ We use Zendesk as a tool for support requests, which come in from customers and 
           display:block!important;
       }</style></aside>
 </section>
-<section id="you-can-write-and-host-your-own-mcp-servers-1" class="slide level2 center">
-<h2>You can write and host your own MCP servers</h2>
-<h3 id="httpsgithub.comnealrichardsonzendesk-mcp-server-1">https://github.com/nealrichardson/zendesk-mcp-server</h3>
-<div class="epigraph">
-<p>This above all: to thine own self be true</p>
-</div>
-<aside class="notes">
-<p>To do exactly what you need. Because code is now cheap. So my talk is going to be oriented about writing your own, not about whether or not you should use an MCP server that someone else provides. Even when someone else’s hosted MCP server is available to you, you may have reasons for wanting to customize it, as I will show. And thanks to AI, this is all available to you now.</p>
-<p>(Polonius, giving his son advice. The whole thesis of the talk in one line: build the thing that does exactly what <em>you</em> need.)</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="act-ii-whats-in-a-name" class="slide level2 center folio" data-background-color="#f5efe1">
+<section id="act-ii-whats-in-a-name" class="slide level2 center">
 <h2>Act II: What’s in a Name?</h2>
-<h3 id="that-which-we-call-a-rose-by-any-other-name-would-smell-as-sweet"><em>That which we call a rose<br>by any other name would smell as sweet</em></h3>
-</section>
-<section id="what-is-mcp" class="slide level2 center">
-<h2>What is MCP?</h2>
-<aside class="notes">
-<p>first want to say what it is not</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="though-this-be-madness-yet-there-is-method-int" class="slide level2 folio" data-background-image="img/gob.gif">
-<h2>Though this be madness, yet there is method in’t</h2>
-<!-- :::{.notes}
-* AI
-
-* Vector database/RAG
-
-* Magic
-
-... but you can put any of those behind an MCP server, if you want
-::: -->
 </section>
 <section id="mcp-is-specification-for-providing-tools-to-llms" class="slide level2">
 <h2>MCP is specification for providing tools to LLMs</h2>
 
-<img data-src="img/ikea.png" class="r-stretch"><aside class="notes">
+<img data-src="img/ikea-old.jpeg" class="r-stretch"><aside class="notes">
 <ul>
 <li><p>Tools: functions that LLMs can call, the model “sees” that function exists, with a description telling it what it does, what the inputs are, and what the outputs are.</p></li>
 <li><p>MCP defines a standard for servers that host tools, and how to register them in your client, any AI application</p></li>
@@ -489,7 +413,7 @@ We use Zendesk as a tool for support requests, which come in from customers and 
 <li><strong>Cannot</strong> access your local file system but can access whatever you give the server</li>
 </ul>
 <aside class="notes">
-<p>For a few reasons, I’m going to focus on remote MCP, and in particular on remote MCP servers that you write to do exactly what you need. I think this is the use case that has the most real value today.</p>
+<p>I’m going to focus on remote MCP, and in particular on remote MCP servers that you write to do exactly what you need. I think this is the use case that has the most real value today. <!-- TODO say something here about how I'm focusing on the problem of connecting to remote services, particularly things that require authentication. A self-contained local utility is not what I'm talking about --></p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -522,7 +446,7 @@ We use Zendesk as a tool for support requests, which come in from customers and 
           display:block!important;
       }</style></aside>
 </section>
-<section id="section-7" class="slide level2" data-background-image="img/unix-system.jpg">
+<section id="section-7" class="slide level2" data-background-image="img/unix-system-old.jpeg">
 <h2></h2>
 <aside class="notes">
 <p>You know what this is too. And your coding agents do too.</p>
@@ -538,17 +462,14 @@ We use Zendesk as a tool for support requests, which come in from customers and 
           display:block!important;
       }</style></aside>
 </section>
-<section id="act-iii-mcp-or-not-mcp" class="slide level2 center folio" data-background-color="#f5efe1">
+<section id="act-iii-mcp-or-not-mcp" class="slide level2 center">
 <h2>Act III: MCP, or not MCP?</h2>
-</section>
-<section id="there-are-more-things-in-heaven-and-earth-horatio" class="slide level2 folio">
-<h2>There are more things in heaven and earth, Horatio</h2>
-
-<img data-src="img/mind-blown-with-mcp.png" class="r-stretch"><p>https://www.reddit.com/r/mcp/comments/1jn3ykp/mind_blown_with_mcp/</p>
 <aside class="notes">
 <ul>
-<li>Originally created by Anthropic in late 2024, and then put under a consortium under the Linux Foundation</li>
+<li>Originally created by Anthropic in late 2024, and then put under a consortium under the Linux Foundation.</li>
 </ul>
+<p>There was a lot of enthusiasm when it first came out because it was really the first standardized way to give external tools to agents.</p>
+<p>But, some of this enthusiasm was extreme, and people started to find alternatives.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -560,8 +481,14 @@ We use Zendesk as a tool for support requests, which come in from customers and 
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
+<!-- TODO meme type over this -->
+</section>
+<section id="section-8" class="slide level2" data-background-image="img/distracted-boyfriend-old.jpeg">
+<h2></h2>
 <aside class="notes">
-<p>Then, a backlash</p>
+<p>Critique that MCP takes up too much context: all tool definitions are loaded up front and take up tokens</p>
+<p>Rather than registering a bunch of MCP tools, one for every thing you might ever want to do, you could give your agent a <code>Bash</code> tool, and it could run anything it could find at the command line.</p>
+<p>Some took that to the other extreme and declared that MCP is dead, that CLIs were always the way to go.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -574,12 +501,12 @@ We use Zendesk as a tool for support requests, which come in from customers and 
           display:block!important;
       }</style></aside>
 </section>
-<section id="i-come-to-bury-mcp-not-to-praise-it" class="slide level2 folio">
+<section id="i-come-to-bury-mcp-not-to-praise-it" class="slide level2">
 <h2>I come to bury MCP, not to praise it</h2>
 
 <img data-src="img/mcp-is-dead.png" class="r-stretch"><p>https://uxplanet.org/mcp-is-dead-cf16b667ba6d</p>
 <aside class="notes">
-<p>Like most things, there is truth in both the initial excitement for MCP and the hard backlash against it. There weren’t good alternatives to MCP when it came out, so people used it for all kinds of things and in questionable ways that today don’t make sense. It’s ideal for some use cases, and for others you are better off using a CLI.</p>
+<p>Of course, Like most things, there is truth in both the initial excitement for MCP and the hard backlash against it. There weren’t good alternatives to MCP when it came out, so people used it for all kinds of things and in questionable ways that today don’t make sense. It’s ideal for some use cases, and for others you are better off using a CLI.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -602,19 +529,18 @@ We use Zendesk as a tool for support requests, which come in from customers and 
 <section id="mcp-skill-vs.-cli-skill" class="slide level2">
 <h2>(MCP + Skill) vs.&nbsp;(CLI + Skill)</h2>
 <div class="columns">
-<div class="column" style="width:40%;">
-<p><img data-src="img/Two-Buttons.jpg"></p>
+<!-- TODO meme type over this --><div class="column" style="width:40%;">
+<p><img data-src="img/two-buttons-old.jpeg"></p>
 </div><div class="column" style="width:60%;">
-<p>Critique that MCP takes up too much context: all tool definitions are loaded up front and take up tokens^* <!-- TODO: asterisk on that: Claude Code for instance has ToolSearch now, so this is less of a thing --></p>
-<p>Claude Code is good with CLIs: why use GitHub’s MCP if <code>gh</code> is already right there?</p>
+<p>Why use GitHub’s MCP if <code>gh</code> is already right there?</p>
 <p>Use CLI when:</p>
 <ul>
-<li><p>CLI already exists, is widely available and in the training data</p></li>
+<li><p>CLI already exists, is widely available, and in the training data</p></li>
 <li><p>Your agent has Bash available to call the CLI</p></li>
 </ul>
 </div></div>
 <aside class="notes">
-<p>CLI not and option if the AI application can’t run shell commands</p>
+<p>CLI not an option if the AI application can’t run shell commands</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -627,17 +553,15 @@ We use Zendesk as a tool for support requests, which come in from customers and 
           display:block!important;
       }</style></aside>
 </section>
-<section id="things-a-cli-cannot-do-for-you" class="slide level2">
-<h2>Things a CLI cannot do for you</h2>
+<section id="but-even-so" class="slide level2">
+<h2>But even so…</h2>
 <ul>
-<li><p>Authenticate on your behalf, without handing the agent your credentials</p></li>
-<li><p>Reach resources your machine can’t</p></li>
+<li><p>To use a CLI, you have to give your agent shell access. Now we have to worry about what shell commands are allowed.</p></li>
+<li><p>CLIs typically are general purpose. Hard to definitively enforce that agent can use it for some commands but not others.</p></li>
 </ul>
+<aside class="notes">
+<p>Something like <code>gh</code> that can communicate to a remote service, sure it can read issues, but it can also act on your behalf with anything else that you can do in GitHub. It is very difficult to allow the agent to do some things with <code>gh</code> but prevent the agent from doing other things. Prompting doesn’t work, PreToolHooks are not robust to a motivated malicious actor.</p>
 <!-- CLI is also usually general purpose. It's not simple to allow an agent to only access some parts of it--you're logged in with `gh`, it can run bash commands to do anything with `gh`. Trying to sanitize bash commands with pre-tool hooks is possible but hard to truly lock down and prevent the agent from working around. That's a good segue to the security concerns in the next Act. -->
-<aside class="notes">
-<p>So that’s the case for the CLI. Here’s what it can’t do, and this is where remote MCP earns its place.</p>
-<p>A CLI runs as you, with your credentials, on your machine. If the thing you need is behind an auth boundary, or simply isn’t reachable from your laptop, the CLI has nowhere to go. And distributing one means everybody installs and authenticates it out of band, where a remote server is a single command with a URL.</p>
-<p>Which is the answer to the question this act asked. Hold onto it: in Act V I’ll show you it actually working.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -650,28 +574,11 @@ We use Zendesk as a tool for support requests, which come in from customers and 
           display:block!important;
       }</style></aside>
 </section>
-<section id="act-iv-something-wicked-this-way-comes" class="slide level2 center folio" data-background-color="#f5efe1">
+<section id="act-iv-something-wicked-this-way-comes" class="slide level2 center">
 <h2>Act IV: Something Wicked This Way Comes</h2>
-<h3 id="oftentimes-to-win-us-to-our-harm-the-instruments-of-darkness-tell-us-truths"><em>Oftentimes, to win us to our harm,<br>the instruments of darkness tell us truths</em></h3>
-<aside class="notes">
-<p>Act IV: the danger, and then the discipline.</p>
-<p>Banquo, on the witches. The word that matters is <em>instruments</em> — tools. Note what he doesn’t say: he doesn’t say they lie to you. Macbeth is destroyed by prophecies that all come true. No man of woman born; Birnam Wood will never move. Every one of them accurate, and every one of them fatal, because someone else chose which truths he got to hear.</p>
-<p>That is the failure mode. Not a tool that lies. A tool that returns nothing but true things, and takes you somewhere you would never have gone.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
 </section>
-<section id="double-double-toil-and-trouble" class="slide level2 folio" data-background-color="#f5efe1">
-<h2>Double, double, toil and trouble</h2>
-<h3 id="the-lethal-trifecta">The lethal trifecta</h3>
+<section id="the-lethal-trifecta" class="slide level2">
+<h2>The lethal trifecta</h2>
 <ul>
 <li><p>Access to private data</p></li>
 <li><p>Exposure to untrusted content</p></li>
@@ -680,45 +587,8 @@ We use Zendesk as a tool for support requests, which come in from customers and 
 <p>https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/</p>
 <aside class="notes">
 <p>“If your agent combines these three features, an attacker can easily trick it into accessing your private data and sending it to that attacker.”</p>
-<p>The reason this is a cauldron and not a list: no single one of these is a vulnerability. Reading private data is your job. Reading a GitHub issue is your job. Sending a web request is your job. Each ingredient is inert. It’s the combining that conjures something, and that’s the part people miss when they audit these one at a time.</p>
-<p>Not specific to MCP, either — but there were some very public examples in the early months of MCP.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="look-like-the-innocent-flower-but-be-the-serpent-undert" class="slide level2 center folio" data-background-color="#f5efe1">
-<h2>Look like the innocent flower,<br>but be the serpent under’t</h2>
-<h3 id="a-prompt-injection-disguised-as-a-github-issue">A prompt injection, disguised as a GitHub issue</h3>
-<aside class="notes">
-<p>Lady Macbeth, coaching her husband on how to host a murder.</p>
-<p>It’s not just that the MCP server itself may be malicious. Suppose you’re reading GitHub issues on a public repo — whether with GitHub’s MCP server or the <code>gh</code> CLI, doesn’t matter. Someone writes a prompt injection into an issue. That’s ingredient two, and it arrived looking like ordinary work.</p>
-<p>Presumably you’re already doing something with private data, so that’s two. And if your agent has any tool at all that can send data outward, you have all three, and you assembled it yourself out of three reasonable decisions.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="suit-the-action-to-the-word-the-word-to-the-action" class="slide level2 center folio" data-background-color="#f5efe1">
-<h2>Suit the action to the word,<br>the word to the action</h2>
-<h3 id="space-1"><span class="ghost">space</span></h3>
-<aside class="notes">
-<p>So: the counter-spell.</p>
-<p>And these are mostly about the cauldron. Every one of them is a way of not putting an ingredient in.</p>
+<p>This isn’t just about MCP versus CLIs, but writing your own MCP server gives you the ability to manage the risks here.</p>
+<p>Suppose you’re reading GitHub issues on a public repo, whether with GitHub MCP or the <code>gh</code> CLI. Someone could write a prompt injection into an issue, and that gives you one of the three of the trifecta. So if your agent has any ability to send data out, some other tool that lets it, you’ve got the trifecta.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -732,6 +602,23 @@ We use Zendesk as a tool for support requests, which come in from customers and 
       }</style></aside>
 </section>
 <section id="best-practices" class="slide level2 center">
+<h2>Best practices</h2>
+<h3 id="space"><span class="ghost">space</span></h3>
+<aside class="notes">
+<p>These best practices are relevant for security, but also help you be more efficient with your agent, which is cheaper and gets better results.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="best-practices-1" class="slide level2 center">
 <h2>Best practices</h2>
 <h3 id="only-define-the-tools-you-need">1. Only define the tools you need</h3>
 <aside class="notes">
@@ -753,50 +640,11 @@ We use Zendesk as a tool for support requests, which come in from customers and 
           display:block!important;
       }</style></aside>
 </section>
-<section id="best-practices-1" class="slide level2 center">
+<section id="best-practices-2" class="slide level2 center">
 <h2>Best practices</h2>
 <h3 id="make-responses-concise">2. Make responses concise</h3>
 <aside class="notes">
-<p>Brevity is the soul of wit. Which, in the play, is said by…</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="section-8" class="slide level2 center folio" data-background-color="#f5efe1">
-<h2></h2>
-<blockquote>
-<p>My liege, and madam, to expostulate<br> What majesty should be, what duty is,<br> Why day is day, night night, and time is time,<br> Were nothing but to waste night, day, and time.<br> Therefore, since <strong>brevity is the soul of wit</strong>,<br> And tediousness the limbs and outward flourishes,<br> I will be brief.</p>
-</blockquote>
-<div class="attribution">
-<p>— Polonius, taking 43 words to say “I will be brief”</p>
-</div>
-<aside class="notes">
-<p>This is every API response you are about to pipe into your agent’s context window.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="more-matter-with-less-art" class="slide level2 center folio" data-background-color="#f5efe1">
-<h2>More matter, with less art</h2>
-<h3 id="gertrude-cutting-him-off"><span class="ghost">Gertrude, cutting him off</span></h3>
-<aside class="notes">
-<p>Gertrude’s reply. Cut him off mid-flourish. That is the design principle.</p>
+<p>Brevity is the soul of wit.</p>
 <p>When you’re working with an API that’s designed for developers to work with, or web apps to build on, the API responses for a given record can include lots of details. And that makes sense when you’re a (human) developer, you can select out the bits you want and ignore the rest.</p>
 <p>But with LLMs, everything you return goes into the context. Again, that’s more tokens, and more confusion. So we want to scope our MCP tools to only return the pieces that matter for the task you’re asking the agent to do.</p>
 <p>For example, in the Zendesk API for ticket comments, every comment entry includes metadata about whether the comment was sent through the web portal or email or whatever, and potentially things like the user agent string and location of the browser where the person typed their comment. Could be useful for something, I guess, but not for answering the kinds of questions I’m asking. So we can cut it.</p>
@@ -812,7 +660,7 @@ We use Zendesk as a tool for support requests, which come in from customers and 
           display:block!important;
       }</style></aside>
 </section>
-<section id="best-practices-2" class="slide level2 center">
+<section id="best-practices-3" class="slide level2 center">
 <h2>Best practices</h2>
 <h3 id="sanitize-sensitive-data">3. Sanitize sensitive data</h3>
 <p><code>n***@posit.co</code></p>
@@ -831,13 +679,15 @@ We use Zendesk as a tool for support requests, which come in from customers and 
           display:block!important;
       }</style></aside>
 </section>
-<section id="we-have-scorchd-the-snake-not-killd-it" class="slide level2 center folio" data-background-color="#f5efe1">
-<h2>We have scorch’d the snake, not kill’d it</h2>
-<h3 id="space-2"><span class="ghost">space</span></h3>
+<section id="if-youre-going-to-write-your-own-make-it-remote-mcp" class="slide level2">
+<h2>If you’re going to write your own, make it remote MCP</h2>
+<ul>
+<li><p>Easy distribution: just send the URL, nothing to download and run locally</p></li>
+<li><p>No shell access required</p></li>
+<li><p>Easy authentication: MCP standard supports OAuth, so no long-lived credentials, no passwords in the agent context</p></li>
+</ul>
 <aside class="notes">
-<p>These practices shrink what you’re exposed to. They don’t make an agent safe, and I don’t want anybody leaving here thinking that a small tool surface is the same thing as a trust boundary.</p>
-<!-- This isn't right -->
-<p>Which is the other half of the answer, and it’s not in your server code. It’s in where the thing runs.</p>
+<p>Writing your own helps. And if you’re going to write your own, make it a remote MCP server that you host somewhere secure like Posit Connect.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -850,10 +700,91 @@ We use Zendesk as a tool for support requests, which come in from customers and 
           display:block!important;
       }</style></aside>
 </section>
-<section id="act-v-alls-well-that-ends-well" class="slide level2 center folio" data-background-color="#f5efe1">
+<section id="act-v-alls-well-that-ends-well" class="slide level2 center">
 <h2>Act V: All’s Well That Ends Well</h2>
 <aside class="notes">
 <p>Act V. We opened with a ticket I couldn’t read. Let’s go back and read it.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="slide-with-prompt-in-claude-code-to-make-it" class="slide level2">
+<h2>Slide with prompt in Claude Code to make it</h2>
+</section>
+<section id="slide-with-deploy-skill" class="slide level2">
+<h2>Slide with deploy skill?</h2>
+<p>(which, side note, uses a CLI! because it needs local file system access)</p>
+</section>
+<section id="slide-with-content-list-showing-mcp-servers" class="slide level2">
+<h2>Slide with content list showing MCP servers</h2>
+</section>
+<section id="slide-showing-the-landing-page-with-tools-animated" class="slide level2">
+<h2>Slide showing the landing page with tools, animated</h2>
+<!-- ## Slide showing the Zendesk OAuth integration? -->
+</section>
+<section id="show-copying-the-command-to-add-to-claude-code" class="slide level2">
+<h2>Show copying the command to add to Claude Code</h2>
+</section>
+<section id="show-the-mcp-command-and-autenticate-option" class="slide level2">
+<h2>Show the <code>/mcp</code> command and autenticate option</h2>
+</section>
+<section id="flash-the-authentication-successful" class="slide level2">
+<h2>Flash the “Authentication successful”</h2>
+</section>
+<section id="show-the-successful-query-result" class="slide level2">
+<h2>Show the successful query result</h2>
+<!-- TODO show this working
+
+Show here a prompt in Claude Code? Point to Zendesk API reference, Connect user guide? Or hand wave over that
+
+Start with the Connect content list, showing MCP servers. Select one and show the landing page with tools. 
+
+Show that it is using an OAuth integration: Connect manages the auth with Zendesk for me, no long-lived API key needed, and access is scoped to what we need. Could also (if the service you're connecting to supports it) use the credentials of the visitor to the MCP server's credentials. Not required for MCP but is worth calling out here as a benefit of deploying on Connect.
+
+Copy the command, add it to Claude Code. Do /mcp and authenticate, show the browser flow. Then ask the question again, with the output format style on.
+
+:::{.notes}
+In the past, I would be wary of giving a talk and telling you to "just go do this" or that it is "easy" to do something, because skill and experience varies a lot. And it would be rough for me to tell you to do something without showing you how, or showing any code. But really 
+:::
+
+##
+
+```
+ ▐▛███▜▌   Claude Code v2.1.158
+▝▜█████▛▘  Opus 4.8 (1M context) · Claude Enterprise
+  ▘▘ ▝▝    ~/code
+
+
+❯ Please use `fastmcp` to make an MCP server that ...
+```
+
+:::{.notes}
+And if you look at the code it produces, it's going to look like regular Python code, and just some functions will have decorators declaring them to be MCP tools. That's it. It's weird to give a technical talk where I tell you to just go write your own servers and not show any code, but here we are in 2026, it's not the year 1600 like my slides appear to be from.
+:::
+
+-->
+</section>
+<section id="deployed-on-posit-connect" class="slide level2">
+<h2>Deployed on Posit Connect</h2>
+<!-- Two auth bits: OAuth flow to Connect, then an integration to Zendesk -->
+<ul>
+<li><p><strong>Authentication</strong> — a Zendesk OAuth integration, so the credentials live in Connect. Not in the agent, not in my <code>.env</code></p></li>
+<li><p><strong>Hosting</strong> — the server runs somewhere that can actually reach Zendesk</p></li>
+<li><p><strong>Monitoring</strong> — I can see what it did, and who asked</p></li>
+<li><p><strong>Distribution</strong> — <code>claude mcp add --transport http zendesk https://connect.example.com/zendesk/mcp</code></p></li>
+</ul>
+<aside class="notes">
+<p>This is where the three things a CLI couldn’t do get done, and none of them are in my server code.</p>
+<p>The auth one is the one I’d underline. Connect has a Zendesk OAuth integration, so the server picks up credentials from the logged-in user’s OAuth session. There’s no API token in an env var, and there’s nothing for the agent to leak, because the agent never had it. That’s an ingredient removed from the cauldron rather than a rule about not stirring it.</p>
+<p>And the last line is the whole distribution story: colleagues don’t install anything or get their own token. They get a URL.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -907,31 +838,6 @@ We use Zendesk as a tool for support requests, which come in from customers and 
           display:block!important;
       }</style></aside>
 </section>
-<section id="deployed-on-posit-connect" class="slide level2">
-<h2>Deployed on Posit Connect</h2>
-<!-- Two auth bits: OAuth flow to Connect, then an integration to Zendesk -->
-<ul>
-<li><p><strong>Authentication</strong> — a Zendesk OAuth integration, so the credentials live in Connect. Not in the agent, not in my <code>.env</code></p></li>
-<li><p><strong>Hosting</strong> — the server runs somewhere that can actually reach Zendesk</p></li>
-<li><p><strong>Monitoring</strong> — I can see what it did, and who asked</p></li>
-<li><p><strong>Distribution</strong> — <code>claude mcp add --transport http zendesk https://connect.example.com/zendesk/mcp</code></p></li>
-</ul>
-<aside class="notes">
-<p>This is where the three things a CLI couldn’t do get done, and none of them are in my server code.</p>
-<p>The auth one is the one I’d underline. Connect has a Zendesk OAuth integration, so the server picks up credentials from the logged-in user’s OAuth session. There’s no API token in an env var, and there’s nothing for the agent to leak, because the agent never had it. That’s an ingredient removed from the cauldron rather than a rule about not stirring it.</p>
-<p>And the last line is the whole distribution story: colleagues don’t install anything or get their own token. They get a URL.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
 <section id="mcp-or-not-mcp" class="slide level2">
 <h2>MCP, or not MCP?</h2>
 <ul>
@@ -945,26 +851,27 @@ We use Zendesk as a tool for support requests, which come in from customers and 
 <section id="thank-you" class="slide level2">
 <h2>Thank you</h2>
 <div class="columns">
-<div class="column" style="text-align: center;">
+<div class="column" style="width:50%;">
+<p><img data-src="img/npr-first-folio.jpeg"></p>
+</div><div class="column" style="text-align: center;">
 <p><a href="https://enpiar.com/mcp-posit-conf-2026/">These slides</a></p>
 <a href="https://enpiar.com/mcp-posit-conf-2026/" class="qrcode"><div id="" class="qrcode"></div></a>
 <script type="text/javascript">
 (function() {
   var script = document.currentScript;
   var qrcode = script.previousElementSibling;
-  qrcode.qrcode = new QRCode(qrcode, {"colorDark":"#000000","colorLight":"#ffffff","height":"300","text":"https://enpiar.com/mcp-posit-conf-2026/","width":"300"});
+  qrcode.qrcode = new QRCode(qrcode, {"colorDark":"#211b14","colorLight":"#f5efe1","height":"200","text":"https://enpiar.com/mcp-posit-conf-2026/","width":"200"});
   script.remove();
 })();
 </script>
     
-</div><div class="column" style="text-align: center;">
-<p><a href="https://github.com/nealrichardson/zendesk-mcp-server">Zendesk MCP repo</a></p>
-<a href="https://github.com/nealrichardson/zendesk-mcp-server" class="qrcode"><div id="" class="qrcode"></div></a>
+<p><a href="https://docs.posit.co/connect/user/mcp-servers/">Connect MCP user guide</a></p>
+<a href="https://docs.posit.co/connect/user/mcp-servers/" class="qrcode"><div id="" class="qrcode"></div></a>
 <script type="text/javascript">
 (function() {
   var script = document.currentScript;
   var qrcode = script.previousElementSibling;
-  qrcode.qrcode = new QRCode(qrcode, {"colorDark":"#000000","colorLight":"#ffffff","height":"300","text":"https://github.com/nealrichardson/zendesk-mcp-server","width":"300"});
+  qrcode.qrcode = new QRCode(qrcode, {"colorDark":"#211b14","colorLight":"#f5efe1","height":"200","text":"https://docs.posit.co/connect/user/mcp-servers/","width":"200"});
   script.remove();
 })();
 </script>

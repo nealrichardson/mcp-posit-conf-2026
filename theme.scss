@@ -1,121 +1,118 @@
 /*-- scss:defaults --*/
 
 // =============================================================
-//  Two registers, one deck.
+//  One register, one deck: FOLIO.
 //
-//  PLAIN is the default: a modern technical talk. Most slides.
+//  Every slide is a printed page c. 1600 -- parchment, the Fell
+//  types, rubric red. There is nothing to opt into: no .folio
+//  class, no per-slide background-color. The paper comes from the
+//  viewport, so slides that carry a background-image simply paint
+//  over it and the photo wins.
 //
-//  FOLIO is opt-in, for the Shakespeare beats: a printed page
-//  c. 1600 -- parchment, the Fell types, rubric red.
-//
-//  To put a slide in the folio register:
-//
-//    ## Alas, poor Yorick {.folio background-color="#f5efe1"}
-//
-//  The class does the typography; the background-color attribute
-//  does the paper. Reveal paints slide backgrounds from its own
-//  element, which CSS can't reach from the section, so both are
-//  needed. Omit background-color on slides that already carry a
-//  background-image -- the photo should win.
-//
-//  The one thing both registers share is the rubric red. That's
-//  deliberate: it's what keeps this reading as a single deck
-//  rather than two decks stapled together.
+//  The title page (.titlepage) is the one slide with its own
+//  layout on top of this; see the block further down.
 // =============================================================
 
-// ---- Plain register -----------------------------------------
-$plain-bg:       #fbfbf9;  // a hair warm, so parchment isn't a jolt
-$plain-ink:      #1c1c1a;
-$plain-ink-soft: #5c5c56;
-$plain-rule:     #dedcd4;
-$plain-panel:    #f2f1ec;
-
-// ---- Folio register -----------------------------------------
+// ---- Folio palette ------------------------------------------
 $parchment:      #f5efe1;  // laid paper
 $parchment-deep: #eadfc6;  // sunk panels
 $parchment-edge: #d9cbab;  // rules
 $ink:            #211b14;  // warm black; printers never had pure
 $ink-soft:       #5f5343;
 
-// ---- Shared ---------------------------------------------------
 $rubric:       #8f2b1c;  // the red in red-and-black printing
 $rubric-light: #b5503d;
 
 // ---- Type -----------------------------------------------------
-$font-plain: "Source Sans 3", -apple-system, BlinkMacSystemFont, "Segoe UI",
-             Helvetica, Arial, sans-serif;
 // IM Fell English = the Fell types, cut for Oxford in the 1600s.
 // EB Garamond = a Garamond revival, contemporary with Shakespeare.
 $font-display: "IM Fell English", "EB Garamond", Georgia, serif;
 $font-body:    "EB Garamond", "IM Fell English", Georgia, serif;
 $font-quote:   "IM Fell English", "EB Garamond", Georgia, serif;
-// System mono in both registers: the Claude Code banner uses
-// box-drawing glyphs that most webfonts lack, and per-glyph
-// fallback would break its alignment.
+// System mono: the Claude Code banner uses box-drawing glyphs that
+// most webfonts lack, and per-glyph fallback would break its
+// alignment.
 $font-mono:    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 
-$font-family-sans-serif:       $font-plain !default;
+$font-family-sans-serif:       $font-body !default;
 $presentation-font-size-root:  33px !default;
-$presentation-heading-font:    $font-plain !default;
-$presentation-heading-color:   $plain-ink !default;
-$presentation-heading-font-weight: 600 !default;
+$presentation-heading-font:    $font-display !default;
+$presentation-heading-color:   $ink !default;
+$presentation-heading-font-weight: 400 !default;
 $presentation-h1-font-size:    1.9em !default;
 $presentation-h2-font-size:    1.4em !default;
 $presentation-h3-font-size:    1.05em !default;
-$presentation-line-height:     1.4 !default;
+$presentation-line-height:     1.45 !default;
 
-$body-bg:          $plain-bg !default;
-$body-color:       $plain-ink !default;
+$body-bg:          $parchment !default;
+$body-color:       $ink !default;
 $link-color:       $rubric !default;
 $link-color-hover: $rubric-light !default;
 $selection-bg:     rgba(143, 43, 28, 0.20) !default;
 
-$code-block-bg:           $plain-panel !default;
-$code-block-border-color: $plain-rule !default;
+$code-block-bg:           $parchment-deep !default;
+$code-block-border-color: $parchment-edge !default;
 $code-color:              #33322e !default;
 $code-block-font-size:    0.62em !default;
 
 /*-- scss:rules --*/
 
 // =============================================================
-//  PLAIN REGISTER  (the default)
+//  THE PAGE
 // =============================================================
 
-.reveal-viewport { background-color: $plain-bg; }
+// Reveal paints slide backgrounds from its own element, which is
+// transparent unless a slide asks for a colour. Setting the paper
+// once here is what lets every slide inherit it.
+.reveal-viewport { background-color: $parchment; }
 
 .reveal {
-  font-family: $font-plain;
-  color: $plain-ink;
+  font-family: $font-body;
+  color: $ink;
   font-weight: 400;
 }
 
 .reveal h1,
 .reveal h2 {
-  font-family: $font-plain;
-  font-weight: 600;
-  letter-spacing: -0.012em;
-  color: $plain-ink;
+  font-family: $font-display;
+  font-weight: 400;
+  letter-spacing: 0.045em;
+  color: $ink;
   text-wrap: balance;
 }
 
 .reveal h3,
 .reveal h4 {
-  font-family: $font-plain;
+  font-family: $font-quote;
+  font-style: italic;
   font-weight: 400;
-  color: $plain-ink-soft;
+  color: $ink-soft;
   text-wrap: balance;
 }
 
-// Statement slides get a short rubric rule instead of a full border.
-.reveal .slides section.center > h2:first-child::after {
-  content: "";
-  display: block;
-  width: 2.2em;
-  height: 3px;
-  background: $rubric;
-  margin: 0.5em auto 0;
+// Chapter head: double rule above, fleuron below.
+.reveal .slides section > h2:first-child {
+  border-top: 3px double $parchment-edge;
+  padding-top: 0.5em;
+  margin-top: 0;
 }
 
+// .reveal .slides section > h2:first-child::after {
+//   content: "\2766"; // ❦
+//   display: block;
+//   color: $rubric;
+//   font-size: 0.5em;
+//   line-height: 1;
+//   letter-spacing: 0;
+//   margin: 0.5em 0 0.15em;
+// }
+
+// A headingless slide (`##` on its own, usually to carry an image or
+// a terminal transcript) still gets an empty h2 out of pandoc. Take
+// it out entirely, or its rule and fleuron float there on their own.
+.reveal .slides section > h2:first-child:empty { display: none; }
+
+// ---- Lists ---------------------------------------------------
 .reveal .slides ul {
   list-style: none;
   margin-left: 0.7em;
@@ -125,12 +122,15 @@ $code-block-font-size:    0.62em !default;
   margin-bottom: 0.55em;
 }
 
+// Rubricated paraphs rather than bullets.
 .reveal .slides ul > li::before {
-  content: "\2014"; // em dash
+  content: "\00B6"; // ¶
   color: $rubric;
   display: inline-block;
-  width: 1.1em;
-  margin-left: -1.1em;
+  width: 1em;
+  margin-left: -1em;
+  font-size: 0.78em;
+  opacity: 0.85;
 }
 
 // Markdown lists with a blank line between the items are "loose", and
@@ -144,11 +144,12 @@ $code-block-font-size:    0.62em !default;
 .reveal .slides ol > li { margin-bottom: 0.55em; }
 .reveal .slides ol > li::marker { color: $rubric; font-weight: 600; }
 
+// ---- Code ----------------------------------------------------
 .reveal pre {
   box-shadow: none;
-  background: $plain-panel;
-  border: 1px solid $plain-rule;
-  border-radius: 4px;
+  background: $parchment-deep;
+  border: 1px solid $parchment-edge;
+  border-radius: 2px;
   width: 94%;
   margin: 0.5em auto;
   padding: 0.7em 0.9em;
@@ -168,15 +169,16 @@ $code-block-font-size:    0.62em !default;
   font-family: $font-mono;
   font-size: 0.82em;
   color: $rubric;
-  background: rgba(143, 43, 28, 0.07);
+  background: rgba(217, 203, 171, 0.4);
   padding: 0.06em 0.3em;
   border-radius: 3px;
 }
 
+// ---- Links, tables, rules ------------------------------------
 .reveal a {
   color: $rubric;
   text-decoration: none;
-  border-bottom: 1px solid rgba(143, 43, 28, 0.35);
+  border-bottom: 1px solid rgba(143, 43, 28, 0.4);
 }
 
 .reveal a:hover {
@@ -187,29 +189,48 @@ $code-block-font-size:    0.62em !default;
 .reveal table { font-size: 0.8em; border-collapse: collapse; }
 .reveal table th {
   font-weight: 600;
-  border-bottom: 2px solid $plain-ink;
-  color: $plain-ink;
+  border-bottom: 2px solid $ink;
+  color: $ink;
 }
-.reveal table td { border-bottom: 1px solid $plain-rule; }
+.reveal table td { border-bottom: 1px solid $parchment-edge; }
 
+.reveal hr {
+  border: none;
+  border-top: 3px double $parchment-edge;
+  margin: 0.9em auto;
+  width: 60%;
+}
+
+// ---- Quotation -----------------------------------------------
 .reveal blockquote {
   background: none;
   box-shadow: none;
   border: none;
-  border-left: 3px solid $rubric;
+  border-left: 2px solid $rubric;
   padding: 0.1em 0 0.1em 1em;
   margin: 0.5em auto;
-  width: 86%;
+  width: 84%;
   text-align: left;
-  font-style: normal;
+  font-family: $font-quote;
+  font-style: italic;
+  font-size: 0.95em;
+  line-height: 1.55;
+  color: $ink;
 }
 
 .reveal blockquote p { margin: 0; }
 
-// Titles over a photograph, in either register.
+.reveal blockquote strong {
+  font-weight: 400;
+  font-style: italic;
+  color: $rubric;
+}
+
+// ---- Slides backed by a photograph ---------------------------
 .reveal .slides section[data-background-image] > h2 {
   color: #fff;
   text-shadow: 0 2px 14px rgba(0, 0, 0, 0.85), 0 0 4px rgba(0, 0, 0, 0.9);
+  border-top-color: rgba(255, 255, 255, 0.55);
 }
 
 // ---- Chrome -------------------------------------------------
@@ -217,106 +238,8 @@ $code-block-font-size:    0.62em !default;
 .reveal .controls { color: $rubric; }
 .reveal .slide-number {
   background: none;
-  color: $plain-ink-soft;
+  color: $ink-soft;
   font-size: 0.6em;
-}
-
-// =============================================================
-//  FOLIO REGISTER  (.folio, plus .titlepage)
-// =============================================================
-
-.reveal .slides section.folio,
-.reveal .slides section.titlepage {
-
-  font-family: $font-body;
-  color: $ink;
-
-  h1, h2 {
-    font-family: $font-display;
-    font-weight: 400;
-    letter-spacing: 0.045em;
-    color: $ink;
-  }
-
-  h3, h4 {
-    font-family: $font-quote;
-    font-style: italic;
-    font-weight: 400;
-    color: $ink-soft;
-  }
-
-  // Chapter head: double rule above, fleuron below.
-  > h2:first-child {
-    border-top: 3px double $parchment-edge;
-    padding-top: 0.5em;
-    margin-top: 0;
-  }
-
-  // Replace the plain register's rubric bar with a floral heart.
-  > h2:first-child::after {
-    content: "\2766"; // ❦
-    display: block;
-    width: auto;
-    height: auto;
-    background: none;
-    color: $rubric;
-    font-size: 0.5em;
-    line-height: 1;
-    letter-spacing: 0;
-    margin: 0.5em 0 0.15em;
-  }
-
-  a {
-    color: $rubric;
-    border-bottom-color: rgba(143, 43, 28, 0.4);
-  }
-
-  // Rubricated paraphs rather than dashes.
-  ul > li::before {
-    content: "\00B6"; // ¶
-    width: 1em;
-    margin-left: -1em;
-    font-size: 0.78em;
-    opacity: 0.85;
-  }
-
-  ul ul > li::before { content: "\2013"; }
-
-  blockquote {
-    font-family: $font-quote;
-    font-style: italic;
-    font-size: 0.95em;
-    line-height: 1.55;
-    color: $ink;
-    border-left: 2px solid $rubric;
-    width: 84%;
-  }
-
-  blockquote strong {
-    font-weight: 400;
-    font-style: italic;
-    color: $rubric;
-  }
-
-  pre {
-    background: $parchment-deep;
-    border-color: $parchment-edge;
-    border-radius: 2px;
-  }
-
-  code { background: rgba(217, 203, 171, 0.4); }
-
-  hr {
-    border: none;
-    border-top: 3px double $parchment-edge;
-    margin: 0.9em auto;
-    width: 60%;
-  }
-}
-
-// Photo-backed folio slides: keep the rule visible against the image.
-.reveal .slides section.folio[data-background-image] > h2 {
-  border-top-color: rgba(255, 255, 255, 0.55);
 }
 
 // ---- Title page ---------------------------------------------
@@ -431,7 +354,7 @@ $code-block-font-size:    0.62em !default;
 }
 
 // =============================================================
-//  FOLIO COMPONENTS
+//  COMPONENTS
 // =============================================================
 
 // ---- Dramatis Personae --------------------------------------
@@ -558,12 +481,28 @@ div.my-footer {
 div.my-footer span {
   position: absolute;
   font-size: 16pt;
-  color: $plain-ink-soft;
+  color: $ink-soft;
   left: 16px;
   bottom: 16px;
 }
 
+// ---- QR codes -----------------------------------------------
+// The shortcode prints its own paper (colorLight in index.qmd), so
+// the square sits on parchment, not white, and needs no frame. The
+// <a> is a wrapper, not a link: no rubric rule beneath it, and
+// inline-block so the column's text-align keeps it centred.
 .qrcode { display: flex; justify-content: center; }
+
+.reveal a.qrcode {
+  display: inline-block;
+  border-bottom: none;
+  margin: 0.1em auto 0.3em;
+  padding: 0;
+  line-height: 0;
+}
+
+.reveal a.qrcode img,
+.reveal a.qrcode canvas { display: block; }
 
 .blink_me { animation: blinker 1s linear infinite; }
 

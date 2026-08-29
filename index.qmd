@@ -10,12 +10,12 @@ format:
       text: |
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..700;1,400..700&family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&family=Source+Sans+3:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..700;1,400..700&family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&display=swap" rel="stylesheet">
 editor:
   render-on-save: true
 ---
 
-## {.titlepage background-color="#f5efe1"}
+## {.titlepage}
 
 ::: {.tp}
 <p class="tp-line1">A WITTIE</p>
@@ -24,91 +24,59 @@ editor:
 <p class="tp-called">Called</p>
 <p class="tp-play">MCP, or not MCP?</p>
 <p class="tp-note">Miſplac'd among the Tragedies.</p>
-<p class="tp-cast">As it is to be acted by his Maieſties Ser-<br>uants at the poſit::conf and in the Cloud.</p>
-<p class="tp-author">VVritten and Acted by NEAL RICHARDSON.</p>
+<p class="tp-cast">As it is to be acted at the poſit::conf and in the Cloud.</p>
+<p class="tp-author">VVritten by NEAL RICHARDSON.</p>
 <p class="tp-imprint"><span class="tp-place">Houston</span>,<br>Printed for the Author, and are to be had at<br><em>enpiar.com/mcp-posit-conf-2026</em></p>
 <p class="tp-year">2026.</p>
 :::
 
+::: {.notes}
+Friends, Romans, countrymen, lend me your ears!
 
-<!-- (ask who has used an MCP server before. who has written an MCP server)
+I'm here today to talk to you about MCP: what it is, what it's good for, and how best to use it. 
 
-I want to start with a story about how I came to understand what MCP was and what it was for.
-
-For context, I should introduce myself -->
-
-## Dramatis Personæ {.folio background-color="#f5efe1"}
-<!-- TODO: instead of this, have a bio slide with an image that is the Shakespeare First Folio print but with my head, and then some bullets to the side.
-
-Then get to the story: two houses, both alike in dignity, in fair Posit where we make our scene. 
-
-(cue Act I (maybe the Hamlet reference doesn't work here? but also I don't want to say that there is a conflict between these two houses))
-On one side, the Posit engineering team who seeks to build useful products. On the other, our customers, who sometimes have questions or find issues in those products.
-
-We use Zendesk as a tool for support requests, which come in from customers and get fielded by our support engineers. ... -->
-
-::: {.dramatis}
-
-[Neal]{.name}, *your narrator; VP of Engineering at Posit, Apache Arrow PMC member* — *enpiar.com, arrowrbook.com*
-
-[Posit Connect]{.name}, *a platform; where things are hosted*
-
-[Claude]{.name}, *an agent; capable, willing, credulous*
-
-[Zendesk]{.name}, *a ticketing system; offstage, behind a locked door*
-
-[A Prompt Injection]{.name}, *disguised as a GitHub issue*
-
-[Polonius]{.name}, *a courtier; cannot get to the point*
-
+I want to start with a story about how I learned what MCP was for. 
 :::
+
+## Act I {.center}
 
 ::: {.notes}
-Hi, I'm Neal. Open source and data, Apache Arrow for many years, was chair of the project management committee last year.
-Currently at Posit, and one of the teams I oversee is Posit Connect. (any Connect users out there?)
-
-The rest of the cast will introduce themselves as we go. Two of them are villains.
+Two houses, both alike in dignity, in fair Posit where we make our scene
 :::
 
-##
-
-![](img/logo_connecttag-fullcolor.svg)
-
+## {background-image="img/diptych-1.jpeg"}
 
 ::: {.notes}
-Connect is a platform for deploying and sharing custom apps, dashboards, reports, and APIs, things you write in the language or framework of your choice, whether that's Streamlit, Shiny, FastAPI, nodejs, quarto, and so on.
-And, you can host MCP servers on it.
+One one side, we have the Posit engineering team, where I work.
+On the other, our users, our customers.
+
+Now, these are not rival clans, but fate, or technology, has conspired to keep them apart.
+
+Posit's enterprise products run on-premises, which means that if something goes wrong, or if a product user wants to request an feature, the engineers can't see what's going on directly.
 :::
 
-## Act I: The Ghost {.center .folio background-color="#f5efe1"}
-
-### *Something is rotten in the state of Denmark*
+## {background-image="img/diptych-2.jpeg"}
 
 ::: {.notes}
-(Act card. The title of this talk is a Hamlet joke, so we may as well commit: five acts.)
-
-Act I is the setup: here's the world, and here's the thing that's wrong with it.
+The user needs to write a everything down in a support ticket and send it to us. Then the engineers need to try to reconstruct what happened from that information, dig through the code base, and try to understand. 
 :::
 
-## {background-image="img/kermit-typing.gif"}
+## {background-image="img/balthasar-1.jpeg"}
 
 ::: {.notes}
 
-Last year, we found ourselves getting more and more into using Claude Code. One of the great things about our current moment in the industry is that so many things that may have seemed hard or out of reach before are now available for us to do. It lets us be much more responsive to new ideas and requests--now we can just fire off Claude on a git worktree without having to do all of the context switching to consider it, and many times it just gets it done, or pretty close. 
+Posit uses Zendesk for support, customers can file tickets there and they get fielded by our support team. When they get a clear bug report, or something that they can't answer on their own, it escalates to the engineers. 
 :::
 
-## {background-image="img/kermit-thinking-cropped.jpg"}
+## {background-image="img/balthasar-2.jpeg"}
 
 ::: {.notes}
-So, increasingly, I kept seeing problems and thinking, how can I use Claude to solve it? What else out there have we learned to be hard and painful that maybe isn't anymore?
-:::
 
-## {background-image="img/kermit-phone.gif"}
+By the time the engineers get it, the ticket can be quite long, lots of back and forth, and there can be large attachments with diagnostic data in them. 
 
-::: {.notes}
-Responding to support escalations became one of them. Posit uses Zendesk for support, customers can file tickets there and they get fielded by our support team. When they get a clear bug report, or something that they can't answer on their own, it escalates to the engineers.
+By the end of last year, engineering was heavily using AI for lots of things, and one thing we found that models like Claude were good at was reading the codebase, developing an understanding of how it works, and pinpointing bugs. But to use it for support issues, we first had to do all of the analysis of the ticket discussion and diagnostics, and that can be a lot of work. 
 
-I thought, Claude is good at reading the codebase, developing an understanding of how it works, and pinpointing bugs. But when fielding a support escalation, a human engineer still has to read the full Zendesk ticket history, sometimes download and extract server diagnostics that were uploaded, and synthesize that. How can I just plug Zendesk into Claude and let it figure it out?
+I thought, how can I just plug Zendesk into Claude and let it figure it out?
 
 I want to just take the ticket URL and give it to Claude Code like this:
 :::
@@ -120,9 +88,8 @@ I want to just take the ticket URL and give it to Claude Code like this:
 ▝▜█████▛▘  Opus 4.8 (1M context) · Claude Enterprise
   ▘▘ ▝▝    ~/code
 
-   Opus 4.8 is here! Now defaults to high effort · /effort xhigh for your hardest tasks
 
-❯ please help me with https://posit.zendesk.com/agent/tickets/129426
+❯ I prithee, friend, bestow thy help with https://posit.zendesk.com/agent/tickets/129426
 
 ```
 
@@ -132,35 +99,34 @@ However, this doesn't work.
 
 ## 
 
-```
- ▐▛███▜▌   Claude Code v2.1.158
+
+<pre><code> ▐▛███▜▌   Claude Code v2.1.158
 ▝▜█████▛▘  Opus 4.8 (1M context) · Claude Enterprise
   ▘▘ ▝▝    ~/code
 
-   Opus 4.8 is here! Now defaults to high effort · /effort xhigh for your hardest tasks
 
-❯ please help me with https://posit.zendesk.com/agent/tickets/129426
-
-⏺ I'll help with that Zendesk ticket. Let me fetch its contents.
+❯ I prithee, friend, bestow thy help with https://posit.zendesk.com/agent/tickets/129426
 
 ⏺ Fetch(https://posit.zendesk.com/agent/tickets/129426)
   ⎿  Received 259 bytes (200 OK)
 
-⏺ The ticket is behind Zendesk's authentication, so I can't fetch it directly — WebFetch only works on public URLs, and
-  I don't have a Zendesk integration available in this session.
+⏺ Alas, that door is locked against my hand:
+  the agent view demands a login first,
+  and <strong>I have neither token, key, nor tool</strong>
+  <strong>that speaks to Zendesk on thy warrant here.</strong>
+  I fetched the page; it gave an empty shell.
 
-  Could you paste the ticket contents here?
-
-
-```
+  Wilt thou paste the ticket's text to me
+  (the subject, body, and the comment thread),
+  and say what aid thou seekest: triage, or
+  a bug to reproduce, or answer drafted.
+</code></pre>
 
 :::{.notes}
 The first piece is authentication--I can't provide my credentials to connect to the Zendesk API. But even if I could, I would run into other challenges: the Zendesk REST API is not designed for AI agents to make efficient and secure use of it. 
 :::
 
 ## MCP is designed to solve this {.center}
-
-### [space]{.ghost}
 
 ::: {.notes}
 MCP offers a solution to this. 
@@ -171,62 +137,25 @@ By writing a custom MCP server, you can control exactly what tools are made avai
 
 And by hosting an MCP server, you can easily share it with others. 
 
-So today I'm going to talk about MCP, what it's good for and what it's less suited for, and some best practices from my experience. When it's the right tool for the job, MCP can unlock superpowers for your agentic workflows. And when done well, it can actually improve your security posture, which is especially important for AI agents.
+<!-- So today I'm going to talk about MCP, what it's good for and what it's less suited for, and some best practices from my experience. When it's the right tool for the job, MCP can unlock superpowers for your agentic workflows. And when done well, it can actually improve your security posture, which is especially important for AI agents. -->
 
 A central point I want to land, and that really underlies everything in the talk:
 :::
 
 ## You can write and host your own MCP servers {.center}
 
-### [https://github.com/nealrichardson/zendesk-mcp-server]{.ghost}
-
-::: {.epigraph}
-This above all: to thine own self be true
-:::
-
 :::{.notes}
-To do exactly what you need. Because code is now cheap. So my talk is going to be oriented about writing your own, not about whether or not you should use an MCP server that someone else provides. Even when someone else's hosted MCP server is available to you, you may have reasons for wanting to customize it, as I will show. And thanks to AI, this is all available to you now.
+To do exactly what you need. Because code is now cheap. So my talk is going to be oriented about writing your own, not about whether or not you should use an MCP server that someone else provides. 
+<!-- Even when someone else's hosted MCP server is available to you, you may have reasons for wanting to customize it, as I will show. And thanks to AI, this is all available to you now. -->
+
+If you use Posit Connect, hosting and managing MCP servers is straightforward, and Connect solves authentication, governance, and monitoring for you, as I will touch on at the end. But even if you don't have Connect, the ideas and concepts I'll discuss still apply, you just may need to do a bit more work yourself on the hosting side.
 :::
 
-## You can write and host your own MCP servers {.center}
-
-### https://github.com/nealrichardson/zendesk-mcp-server
-
-::: {.epigraph}
-This above all: to thine own self be true
-:::
-
-:::{.notes}
-To do exactly what you need. Because code is now cheap. So my talk is going to be oriented about writing your own, not about whether or not you should use an MCP server that someone else provides. Even when someone else's hosted MCP server is available to you, you may have reasons for wanting to customize it, as I will show. And thanks to AI, this is all available to you now.
-
-(Polonius, giving his son advice. The whole thesis of the talk in one line: build the thing that does exactly what *you* need.)
-:::
-
-## Act II: What's in a Name? {.center .folio background-color="#f5efe1"}
-
-### *That which we call a rose<br>by any other name would smell as sweet*
-
-## What is MCP? {.center}
-
-::: {.notes}
-first want to say what it is not
-:::
-
-## Though this be madness, yet there is method in't {.folio background-image="img/gob.gif"}
-
-<!-- :::{.notes}
-* AI
-
-* Vector database/RAG
-
-* Magic
-
-... but you can put any of those behind an MCP server, if you want
-::: -->
+## Act II: What's in a Name? {.center}
 
 ## MCP is specification for providing tools to LLMs
 
-![](img/ikea.png)
+![](img/ikea-old.jpeg)
 
 
 :::{.notes}
@@ -258,7 +187,8 @@ first want to say what it is not
 * **Cannot** access your local file system but can access whatever you give the server
 
 :::{.notes}
-For a few reasons, I'm going to focus on remote MCP, and in particular on remote MCP servers that you write to do exactly what you need. I think this is the use case that has the most real value today.
+I'm going to focus on remote MCP, and in particular on remote MCP servers that you write to do exactly what you need. I think this is the use case that has the most real value today.
+<!-- TODO say something here about how I'm focusing on the problem of connecting to remote services, particularly things that require authentication. A self-contained local utility is not what I'm talking about -->
 :::
 
 ## MCP is an API standard {.center}
@@ -271,36 +201,41 @@ For a few reasons, I'm going to focus on remote MCP, and in particular on remote
 * Realizing that MCP was just a convention for how to set up API endpoints helped demystify it for me. As someone who has worked in software and data for many years, I know how to use an HTTP API, I know how to build and serve them too. 
 :::
 
-## {background-image="img/unix-system.jpg"}
+## {background-image="img/unix-system-old.jpeg"}
 
 ::: {.notes}
 You know what this is too. And your coding agents do too.
 :::
 
-
-## Act III: MCP, or not MCP? {.center .folio background-color="#f5efe1"}
-
-## There are more things in heaven and earth, Horatio {.folio}
-
-![](img/mind-blown-with-mcp.png)
-
-https://www.reddit.com/r/mcp/comments/1jn3ykp/mind_blown_with_mcp/
+## Act III: MCP, or not MCP? {.center}
 
 :::{.notes}
-* Originally created by Anthropic in late 2024, and then put under a consortium under the Linux Foundation
+* Originally created by Anthropic in late 2024, and then put under a consortium under the Linux Foundation.
+
+There was a lot of enthusiasm when it first came out because it was really the first standardized way to give external tools to agents. 
+
+But, some of this enthusiasm was extreme, and people started to find alternatives. 
 :::
+
+<!-- TODO meme type over this -->
+## {background-image="img/distracted-boyfriend-old.jpeg"}
 
 :::{.notes}
-Then, a backlash
+Critique that MCP takes up too much context: all tool definitions are loaded up front and take up tokens
+
+Rather than registering a bunch of MCP tools, one for every thing you might ever want to do, you could give your agent a `Bash` tool, and it could run anything it could find at the command line. 
+
+Some took that to the other extreme and declared that MCP is dead, that CLIs were always the way to go.
 :::
 
-## I come to bury MCP, not to praise it {.folio}
+## I come to bury MCP, not to praise it
 
 ![](img/mcp-is-dead.png)
 
 https://uxplanet.org/mcp-is-dead-cf16b667ba6d
 
 ::: {.notes}
+Of course, 
 Like most things, there is truth in both the initial excitement for MCP and the hard backlash against it. There weren't good alternatives to MCP when it came out, so people used it for all kinds of things and in questionable ways that today don't make sense. It's ideal for some use cases, and for others you are better off using a CLI. 
 :::
 
@@ -314,60 +249,42 @@ Like most things, there is truth in both the initial excitement for MCP and the 
 
 ::: {.columns}
 
+<!-- TODO meme type over this -->
+
 :::: {.column width="40%"}
-![](img/Two-Buttons.jpg)
+![](img/two-buttons-old.jpeg)
 ::::
 
 :::: {.column width="60%"}
-
-Critique that MCP takes up too much context: all tool definitions are loaded up front and take up tokens^* 
-<!-- TODO: asterisk on that: Claude Code for instance has ToolSearch now, so this is less of a thing -->
-
-Claude Code is good with CLIs: why use GitHub's MCP if `gh` is already right there?
+Why use GitHub's MCP if `gh` is already right there?
 
 Use CLI when:
 
-* CLI already exists, is widely available and in the training data
+* CLI already exists, is widely available, and in the training data
 
 * Your agent has Bash available to call the CLI
 ::::
 :::
 
 :::{.notes}
-CLI not and option if the AI application can't run shell commands
+CLI not an option if the AI application can't run shell commands
 :::
 
-## Things a CLI cannot do for you
+## But even so...
 
-* Authenticate on your behalf, without handing the agent your credentials
+* To use a CLI, you have to give your agent shell access. Now we have to worry about what shell commands are allowed.
 
-* Reach resources your machine can't
-
-<!-- CLI is also usually general purpose. It's not simple to allow an agent to only access some parts of it--you're logged in with `gh`, it can run bash commands to do anything with `gh`. Trying to sanitize bash commands with pre-tool hooks is possible but hard to truly lock down and prevent the agent from working around. That's a good segue to the security concerns in the next Act. -->
+* CLIs typically are general purpose. Hard to definitively enforce that agent can use it for some commands but not others.
 
 :::{.notes}
-So that's the case for the CLI. Here's what it can't do, and this is where remote MCP earns its place.
+Something like `gh` that can communicate to a remote service, sure it can read issues, but it can also act on your behalf with anything else that you can do in GitHub. It is very difficult to allow the agent to do some things with `gh` but prevent the agent from doing other things. Prompting doesn't work, PreToolHooks are not robust to a motivated malicious actor. 
 
-A CLI runs as you, with your credentials, on your machine. If the thing you need is behind an auth boundary, or simply isn't reachable from your laptop, the CLI has nowhere to go. And distributing one means everybody installs and authenticates it out of band, where a remote server is a single command with a URL.
-
-Which is the answer to the question this act asked. Hold onto it: in Act V I'll show you it actually working.
+<!-- CLI is also usually general purpose. It's not simple to allow an agent to only access some parts of it--you're logged in with `gh`, it can run bash commands to do anything with `gh`. Trying to sanitize bash commands with pre-tool hooks is possible but hard to truly lock down and prevent the agent from working around. That's a good segue to the security concerns in the next Act. -->
 :::
 
-## Act IV: Something Wicked This Way Comes {.center .folio background-color="#f5efe1"}
+## Act IV: Something Wicked This Way Comes {.center}
 
-### *Oftentimes, to win us to our harm,<br>the instruments of darkness tell us truths*
-
-::: {.notes}
-Act IV: the danger, and then the discipline.
-
-Banquo, on the witches. The word that matters is *instruments* — tools. Note what he doesn't say: he doesn't say they lie to you. Macbeth is destroyed by prophecies that all come true. No man of woman born; Birnam Wood will never move. Every one of them accurate, and every one of them fatal, because someone else chose which truths he got to hear.
-
-That is the failure mode. Not a tool that lies. A tool that returns nothing but true things, and takes you somewhere you would never have gone.
-:::
-
-## Double, double, toil and trouble {.folio background-color="#f5efe1"}
-
-### The lethal trifecta
+## The lethal trifecta
 
 * Access to private data
 
@@ -380,31 +297,17 @@ https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/
 :::{.notes}
 "If your agent combines these three features, an attacker can easily trick it into accessing your private data and sending it to that attacker."
 
-The reason this is a cauldron and not a list: no single one of these is a vulnerability. Reading private data is your job. Reading a GitHub issue is your job. Sending a web request is your job. Each ingredient is inert. It's the combining that conjures something, and that's the part people miss when they audit these one at a time.
+This isn't just about MCP versus CLIs, but writing your own MCP server gives you the ability to manage the risks here.
 
-Not specific to MCP, either — but there were some very public examples in the early months of MCP.
+Suppose you're reading GitHub issues on a public repo, whether with GitHub MCP or the `gh` CLI. Someone could write a prompt injection into an issue, and that gives you one of the three of the trifecta. So if your agent has any ability to send data out, some other tool that lets it, you've got the trifecta.
 :::
 
-## Look like the innocent flower,<br>but be the serpent under't {.center .folio background-color="#f5efe1"}
-
-### A prompt injection, disguised as a GitHub issue
-
-::: {.notes}
-Lady Macbeth, coaching her husband on how to host a murder.
-
-It's not just that the MCP server itself may be malicious. Suppose you're reading GitHub issues on a public repo — whether with GitHub's MCP server or the `gh` CLI, doesn't matter. Someone writes a prompt injection into an issue. That's ingredient two, and it arrived looking like ordinary work.
-
-Presumably you're already doing something with private data, so that's two. And if your agent has any tool at all that can send data outward, you have all three, and you assembled it yourself out of three reasonable decisions.
-:::
-
-## Suit the action to the word,<br>the word to the action {.center .folio background-color="#f5efe1"}
+## Best practices {.center}
 
 ### [space]{.ghost}
 
-::: {.notes}
-So: the counter-spell.
-
-And these are mostly about the cauldron. Every one of them is a way of not putting an ingredient in.
+:::{.notes}
+These best practices are relevant for security, but also help you be more efficient with your agent, which is cheaper and gets better results.
 :::
 
 ## Best practices {.center}
@@ -430,33 +333,7 @@ If the answer is "sometimes", make more than one server, or make it configurable
 ### 2. Make responses concise
 
 :::{.notes}
-Brevity is the soul of wit. Which, in the play, is said by...
-:::
-
-## {.center .folio background-color="#f5efe1"}
-
-> My liege, and madam, to expostulate<br>
-> What majesty should be, what duty is,<br>
-> Why day is day, night night, and time is time,<br>
-> Were nothing but to waste night, day, and time.<br>
-> Therefore, since **brevity is the soul of wit**,<br>
-> And tediousness the limbs and outward flourishes,<br>
-> I will be brief.
-
-::: {.attribution}
-— Polonius, taking 43 words to say "I will be brief"
-:::
-
-:::{.notes}
-This is every API response you are about to pipe into your agent's context window.
-:::
-
-## More matter, with less art {.center .folio background-color="#f5efe1"}
-
-### [Gertrude, cutting him off]{.ghost}
-
-::: {.notes}
-Gertrude's reply. Cut him off mid-flourish. That is the design principle.
+Brevity is the soul of wit. 
 
 When you're working with an API that's designed for developers to work with, or web apps to build on, the API responses for a given record can include lots of details. And that makes sense when you're a (human) developer, you can select out the bits you want and ignore the rest.
 
@@ -477,21 +354,93 @@ Finally, thinking back to the lethal trifecta, or even just good data goverance 
 In this example, we can keep the information that a user from Posit reported this issue, which could be useful--maybe I want to look up other issues reported by this company--but the personal identity does not leak out.
 :::
 
-## We have scorch'd the snake, not kill'd it {.center .folio background-color="#f5efe1"}
+## If you're going to write your own, make it remote MCP
 
-### [space]{.ghost}
+* Easy distribution: just send the URL, nothing to download and run locally
+
+* No shell access required
+
+* Easy authentication: MCP standard supports OAuth, so no long-lived credentials, no passwords in the agent context
+
 
 ::: {.notes}
-These practices shrink what you're exposed to. They don't make an agent safe, and I don't want anybody leaving here thinking that a small tool surface is the same thing as a trust boundary.
-
-<!-- This isn't right -->
-Which is the other half of the answer, and it's not in your server code. It's in where the thing runs.
+Writing your own helps. And if you're going to write your own, make it a remote MCP server that you host somewhere secure like Posit Connect. 
 :::
 
-## Act V: All's Well That Ends Well {.center .folio background-color="#f5efe1"}
+## Act V: All's Well That Ends Well {.center}
 
 ::: {.notes}
 Act V. We opened with a ticket I couldn't read. Let's go back and read it.
+:::
+
+## Slide with prompt in Claude Code to make it
+
+## Slide with deploy skill?
+
+(which, side note, uses a CLI! because it needs local file system access)
+
+## Slide with content list showing MCP servers
+
+## Slide showing the landing page with tools, animated
+
+<!-- ## Slide showing the Zendesk OAuth integration? -->
+
+## Show copying the command to add to Claude Code
+
+## Show the `/mcp` command and autenticate option
+
+## Flash the "Authentication successful"
+
+## Show the successful query result
+
+<!-- TODO show this working
+
+Show here a prompt in Claude Code? Point to Zendesk API reference, Connect user guide? Or hand wave over that
+
+Start with the Connect content list, showing MCP servers. Select one and show the landing page with tools. 
+
+Show that it is using an OAuth integration: Connect manages the auth with Zendesk for me, no long-lived API key needed, and access is scoped to what we need. Could also (if the service you're connecting to supports it) use the credentials of the visitor to the MCP server's credentials. Not required for MCP but is worth calling out here as a benefit of deploying on Connect.
+
+Copy the command, add it to Claude Code. Do /mcp and authenticate, show the browser flow. Then ask the question again, with the output format style on.
+
+:::{.notes}
+In the past, I would be wary of giving a talk and telling you to "just go do this" or that it is "easy" to do something, because skill and experience varies a lot. And it would be rough for me to tell you to do something without showing you how, or showing any code. But really 
+:::
+
+##
+
+```
+ ▐▛███▜▌   Claude Code v2.1.158
+▝▜█████▛▘  Opus 4.8 (1M context) · Claude Enterprise
+  ▘▘ ▝▝    ~/code
+
+
+❯ Please use `fastmcp` to make an MCP server that ...
+```
+
+:::{.notes}
+And if you look at the code it produces, it's going to look like regular Python code, and just some functions will have decorators declaring them to be MCP tools. That's it. It's weird to give a technical talk where I tell you to just go write your own servers and not show any code, but here we are in 2026, it's not the year 1600 like my slides appear to be from.
+:::
+
+-->
+
+## Deployed on Posit Connect
+
+<!-- Two auth bits: OAuth flow to Connect, then an integration to Zendesk -->
+* **Authentication** — a Zendesk OAuth integration, so the credentials live in Connect. Not in the agent, not in my `.env`
+
+* **Hosting** — the server runs somewhere that can actually reach Zendesk
+
+* **Monitoring** — I can see what it did, and who asked
+
+* **Distribution** — `claude mcp add --transport http zendesk https://connect.example.com/zendesk/mcp`
+
+:::{.notes}
+This is where the three things a CLI couldn't do get done, and none of them are in my server code.
+
+The auth one is the one I'd underline. Connect has a Zendesk OAuth integration, so the server picks up credentials from the logged-in user's OAuth session. There's no API token in an env var, and there's nothing for the agent to leak, because the agent never had it. That's an ingredient removed from the cauldron rather than a rule about not stirring it.
+
+And the last line is the whole distribution story: colleagues don't install anything or get their own token. They get a URL.
 :::
 
 ##
@@ -532,24 +481,6 @@ Same prompt as Act I. Same ticket. This time it just goes and reads it.
 Two things worth pointing at on the way past: it took two tool calls, not twenty, because those are the only tools I gave it. And look at the requester line -- `n***@posit.co`. That's the third best practice, doing its job, in the middle of the answer.
 :::
 
-## Deployed on Posit Connect
-
-<!-- Two auth bits: OAuth flow to Connect, then an integration to Zendesk -->
-* **Authentication** — a Zendesk OAuth integration, so the credentials live in Connect. Not in the agent, not in my `.env`
-
-* **Hosting** — the server runs somewhere that can actually reach Zendesk
-
-* **Monitoring** — I can see what it did, and who asked
-
-* **Distribution** — `claude mcp add --transport http zendesk https://connect.example.com/zendesk/mcp`
-
-:::{.notes}
-This is where the three things a CLI couldn't do get done, and none of them are in my server code.
-
-The auth one is the one I'd underline. Connect has a Zendesk OAuth integration, so the server picks up credentials from the logged-in user's OAuth session. There's no API token in an env var, and there's nothing for the agent to leak, because the agent never had it. That's an ingredient removed from the cauldron rather than a rule about not stirring it.
-
-And the last line is the whole distribution story: colleagues don't install anything or get their own token. They get a URL.
-:::
 
 ## MCP, or not MCP?
 
@@ -567,16 +498,18 @@ And the last line is the whole distribution story: colleagues don't install anyt
 
 ::: {.columns}
 
+:::: {.column width="50%"}
+![](img/npr-first-folio.jpeg)
+::::
+
 :::: {.column width="50%" style="text-align: center;"}
 
 [These slides](https://enpiar.com/mcp-posit-conf-2026/)
 
-{{< qrcode https://enpiar.com/mcp-posit-conf-2026/ width=300 height=300 >}}
+{{< qrcode https://enpiar.com/mcp-posit-conf-2026/ width=200 height=200 colorDark="#211b14" colorLight="#f5efe1" >}}
 
-::::
-:::: {.column width="50%" style="text-align: center;"}
-[Zendesk MCP repo](https://github.com/nealrichardson/zendesk-mcp-server)
+[Connect MCP user guide](https://docs.posit.co/connect/user/mcp-servers/)
 
-{{< qrcode https://github.com/nealrichardson/zendesk-mcp-server width=300 height=300 >}}
+{{< qrcode https://docs.posit.co/connect/user/mcp-servers/ width=200 height=200 colorDark="#211b14" colorLight="#f5efe1" >}}
 ::::
 :::
