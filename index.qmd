@@ -85,7 +85,7 @@ I want to just take the ticket URL and give it to Claude Code like this:
 
 ```
  ▐▛███▜▌   Claude Code v2.1.158
-▝▜█████▛▘  Opus 4.8 (1M context) · Claude Enterprise
+▝▜█████▛▘  Opus 5 (1M context) · Claude Enterprise
   ▘▘ ▝▝    ~/code
 
 
@@ -101,7 +101,7 @@ However, this doesn't work.
 
 
 <pre><code> ▐▛███▜▌   Claude Code v2.1.158
-▝▜█████▛▘  Opus 4.8 (1M context) · Claude Enterprise
+▝▜█████▛▘  Opus 5 (1M context) · Claude Enterprise
   ▘▘ ▝▝    ~/code
 
 
@@ -146,12 +146,17 @@ A central point I want to land, and that really underlies everything in the talk
 
 :::{.notes}
 To do exactly what you need. Because code is now cheap. So my talk is going to be oriented about writing your own, not about whether or not you should use an MCP server that someone else provides. 
-<!-- Even when someone else's hosted MCP server is available to you, you may have reasons for wanting to customize it, as I will show. And thanks to AI, this is all available to you now. -->
 
 If you use Posit Connect, hosting and managing MCP servers is straightforward, and Connect solves authentication, governance, and monitoring for you, as I will touch on at the end. But even if you don't have Connect, the ideas and concepts I'll discuss still apply, you just may need to do a bit more work yourself on the hosting side.
 :::
 
 ## Act II: What's in a Name? {.center}
+
+:::{.notes}
+MCP, or Model Context Protocol, sounds really jargony. And there's lots of buzz and hype around AI today. And AI itself is kinda spooky technology: LLMs are non-deterministic, and kind of a black box. 
+
+But MCP is fundamentally simple.
+:::
 
 ## MCP is specification for providing tools to LLMs
 
@@ -162,33 +167,8 @@ If you use Posit Connect, hosting and managing MCP servers is straightforward, a
 * Tools: functions that LLMs can call, the model "sees" that function exists, with a description telling it what it does, what the inputs are, and what the outputs are.
 
 * MCP defines a standard for servers that host tools, and how to register them in your client, any AI application
-:::
 
-## Local vs. Remote MCP
-
-### Local
-
-* Runs on your machine
-* `claude mcp add name-here -- uvx --from "git+https://github.com/user/repo"`
-* Can access your local file system etc.
-
-## Local vs. Remote MCP
-
-### Local
-
-* Runs on your machine
-* `claude mcp add name-here -- uvx --from "git+https://github.com/user/repo"`
-* Can access your local file system etc.
-
-### Remote
-
-* Runs somewhere else
-* `claude mcp add --transport http name-here https://example.com/mcp`
-* **Cannot** access your local file system but can access whatever you give the server
-
-:::{.notes}
-I'm going to focus on remote MCP, and in particular on remote MCP servers that you write to do exactly what you need. I think this is the use case that has the most real value today.
-<!-- TODO say something here about how I'm focusing on the problem of connecting to remote services, particularly things that require authentication. A self-contained local utility is not what I'm talking about -->
+This points at another framing for what MCP is:
 :::
 
 ## MCP is an API standard {.center}
@@ -198,21 +178,47 @@ I'm going to focus on remote MCP, and in particular on remote MCP servers that y
 
 * Remote MCP servers communicate over HTTP, basically JSON RPC with a set of well known endpoints and a schema for how tools are defined. 
 
-* Realizing that MCP was just a convention for how to set up API endpoints helped demystify it for me. As someone who has worked in software and data for many years, I know how to use an HTTP API, I know how to build and serve them too. 
+This realization, that MCP was just a convention for how to set up API endpoints, helped demystify it for me. As someone who has worked in software and data for many years, I know how to use an HTTP API, I know how to build and serve them too. 
 :::
 
 ## {background-image="img/unix-system-old.jpeg"}
 
 ::: {.notes}
 You know what this is too. And your coding agents do too.
+
+Now, there are two kinds of MCP servers:
+:::
+
+## Local vs. Remote MCP
+
+<!-- TODO make this a little tighter -->
+
+### Local
+
+* Runs on your machine
+* `claude mcp add name-here -- uvx --from "git+https://github.com/user/repo"`
+* Can access your local file system etc.
+
+## Local vs. Remote MCP
+
+### Local
+
+* Runs on your machine
+* `claude mcp add name-here -- uvx --from "git+https://github.com/user/repo"`
+
+### Remote
+
+* Runs somewhere else
+* `claude mcp add --transport http name-here https://example.com/mcp`
+
+:::{.notes}
+I'm going to focus on remote MCP, and in particular on remote MCP servers that you write to do exactly what you need. I think this is where MCP really shines relative to the alternatives, and is a great fit for the problem I had with Zendesk, where what I'm trying to do is connect my agent to an external service that requires authentication.
 :::
 
 ## Act III: MCP, or not MCP? {.center}
 
 :::{.notes}
-* Originally created by Anthropic in late 2024, and then put under a consortium under the Linux Foundation.
-
-There was a lot of enthusiasm when it first came out because it was really the first standardized way to give external tools to agents. 
+When MCP was first announced in late 2024, there was a lot of enthusiasm because it was really the first standardized way to give external tools to agents. 
 
 But, some of this enthusiasm was extreme, and people started to find alternatives. 
 :::
@@ -221,11 +227,14 @@ But, some of this enthusiasm was extreme, and people started to find alternative
 ## {background-image="img/distracted-boyfriend-old.jpeg"}
 
 :::{.notes}
-Critique that MCP takes up too much context: all tool definitions are loaded up front and take up tokens
+In particular, people working with coding agents like Claude Code realized that, 
+rather than registering a bunch of MCP tools, one for every thing you might ever want to do, you could give your agent a `Bash` tool, and it could run anything it could find at the command line. 
 
-Rather than registering a bunch of MCP tools, one for every thing you might ever want to do, you could give your agent a `Bash` tool, and it could run anything it could find at the command line. 
+Why use GitHub's MCP if `gh` is already right there?
 
-Some took that to the other extreme and declared that MCP is dead, that CLIs were always the way to go.
+Aside from the convenience of that, there was a practical consideration. All MCP tool definitions are loaded up front and take up tokens. Particularly with the smaller size of context windows that models had at the time, that was a real concern.
+
+So, some took that to the other extreme and declared that MCP is dead, that CLIs were always the way to go.
 :::
 
 ## I come to bury MCP, not to praise it
@@ -235,17 +244,25 @@ Some took that to the other extreme and declared that MCP is dead, that CLIs wer
 https://uxplanet.org/mcp-is-dead-cf16b667ba6d
 
 ::: {.notes}
-Of course, 
-Like most things, there is truth in both the initial excitement for MCP and the hard backlash against it. There weren't good alternatives to MCP when it came out, so people used it for all kinds of things and in questionable ways that today don't make sense. It's ideal for some use cases, and for others you are better off using a CLI. 
+Of course, the truth isn't so black and white. So let's walk through the options and tradeoffs. Sometimes, there is more than one right answer. 
 :::
 
-## MCP, CLI, or Skill?
+## Skills
+
+* Just prose/markdown with additional context and instructions for the agent
 
 * If the agent can do everything with tools it already has (Bash, Fetch, etc.) then a Skill is probably enough
 
 * Otherwise, Skill is complement: we're talking (MCP + Skill) vs. (CLI + Skill)
 
-## (MCP + Skill) vs. (CLI + Skill)
+* Skill + MCP = Plugin
+
+:::{.notes}
+Before talking MCP vs. CLI, let's address Skills. Sometimes the thing you need is just additional context or instructions for the agent, not new tools. That's where you want a Skill. 
+:::
+
+
+## MCP vs. CLI
 
 ::: {.columns}
 
@@ -256,30 +273,25 @@ Like most things, there is truth in both the initial excitement for MCP and the 
 ::::
 
 :::: {.column width="60%"}
-Why use GitHub's MCP if `gh` is already right there?
 
 Use CLI when:
 
 * CLI already exists, is widely available, and in the training data
 
 * Your agent has Bash available to call the CLI
+
+But...
+
+* Now we have to worry about running shell commands
+
+* CLIs often general purpose, hard to allow agent to run only some of its commands
 ::::
 :::
 
 :::{.notes}
-CLI not an option if the AI application can't run shell commands
-:::
+Something like `gh` that can communicate to a remote service, sure it can read issues, but it can also act on your behalf with anything else that you can do in GitHub. It is very difficult to allow the agent to do some things with `gh` but prevent the agent from doing other things. There are things you can do keep it on the safe path but they are generally not robust to a motivated malicious actor, short of reviewing and manually approving every tool call. 
 
-## But even so...
-
-* To use a CLI, you have to give your agent shell access. Now we have to worry about what shell commands are allowed.
-
-* CLIs typically are general purpose. Hard to definitively enforce that agent can use it for some commands but not others.
-
-:::{.notes}
-Something like `gh` that can communicate to a remote service, sure it can read issues, but it can also act on your behalf with anything else that you can do in GitHub. It is very difficult to allow the agent to do some things with `gh` but prevent the agent from doing other things. Prompting doesn't work, PreToolHooks are not robust to a motivated malicious actor. 
-
-<!-- CLI is also usually general purpose. It's not simple to allow an agent to only access some parts of it--you're logged in with `gh`, it can run bash commands to do anything with `gh`. Trying to sanitize bash commands with pre-tool hooks is possible but hard to truly lock down and prevent the agent from working around. That's a good segue to the security concerns in the next Act. -->
+This brings us to the security implications of giving an AI agent access to external tools.
 :::
 
 ## Act IV: Something Wicked This Way Comes {.center}
@@ -297,9 +309,11 @@ https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/
 :::{.notes}
 "If your agent combines these three features, an attacker can easily trick it into accessing your private data and sending it to that attacker."
 
-This isn't just about MCP versus CLIs, but writing your own MCP server gives you the ability to manage the risks here.
+This is true for MCP or CLIs.
 
-Suppose you're reading GitHub issues on a public repo, whether with GitHub MCP or the `gh` CLI. Someone could write a prompt injection into an issue, and that gives you one of the three of the trifecta. So if your agent has any ability to send data out, some other tool that lets it, you've got the trifecta.
+Suppose you're reading GitHub issues on a public repo, whether with GitHub MCP or the `gh` CLI. Someone could write a prompt injection into an issue, and that gives you one of the three of the trifecta. So if your agent has any ability to send data out, even just the ability to make an arbitrary HTTP request, you've got the trifecta.
+
+Now, we can't solve this with a well designed MCP server, because it's about the agent context where you're using an MCP or CLI, and it may be only in the combination of multiple tools, outside of a single MCP or CLI, that the trifecta is met. But if we keep this in mind when designing our MCP servers, we can mitigate some risks. 
 :::
 
 ## Best practices {.center}
@@ -315,17 +329,11 @@ These best practices are relevant for security, but also help you be more effici
 ### 1. Only define the tools you need
 
 :::{.notes}
-To reiterate, I'm talking about writing and deploying your own remote MCP servers
+One reason is for efficiency: fewer tools means less context consumed by tool definitions, and less opportunity for confusion, for the agent to pick the wrong tool.
 
-One reason is for efficiency:
+Another reason is security: do you really need tools that can write? If the answer is "sometimes", you can make more than one server, or make it configurable and make different deployments.
 
-Every tool definition consumes context in your agent. That's tokens. Both money and distraction from what your real question is. 
-
-So, unlike when you're making a REST API to interact with via other software, or a web app, or whatever, you want a small number of tools that do exactly what you want. Any more than that has a cost.
-
-Another reason is security: do you really need tools that can write?
-
-If the answer is "sometimes", make more than one server, or make it configurable and make different deployments, or have some other means of allowing users of your MCP server to select only what they need?
+This is different from how you would design a normal REST API to serve a non-AI application. There, there is no additional cost to having a bunch of endpoints that you don't need--you just know to ignore them. AI agents can't just do that.
 :::
 
 ## Best practices {.center}
@@ -351,17 +359,20 @@ For example, in the Zendesk API for ticket comments, every comment entry include
 :::{.notes}
 Finally, thinking back to the lethal trifecta, or even just good data goverance hygiene. If there are personally identifying details in the data you're pulling in, and you don't need them to answer your questions, you can either prune them entirely or redact them. 
 
-In this example, we can keep the information that a user from Posit reported this issue, which could be useful--maybe I want to look up other issues reported by this company--but the personal identity does not leak out.
+---
+
+So, these points are all advice for how to do this when you're writing your own AI tools.
 :::
 
 ## If you're going to write your own, make it remote MCP
 
-* Easy distribution: just send the URL, nothing to download and run locally
+* Easy distribution: just share the URL, nothing to download and run locally
 
-* No shell access required
+* No shell access required, so it works everywhere
 
-* Easy authentication: MCP standard supports OAuth, so no long-lived credentials, no passwords in the agent context
+* Easy authentication: MCP supports OAuth, so no long-lived credentials, no passwords in the agent context
 
+Exception: when you need to access local files
 
 ::: {.notes}
 Writing your own helps. And if you're going to write your own, make it a remote MCP server that you host somewhere secure like Posit Connect. 
@@ -370,48 +381,14 @@ Writing your own helps. And if you're going to write your own, make it a remote 
 ## Act V: All's Well That Ends Well {.center}
 
 ::: {.notes}
-Act V. We opened with a ticket I couldn't read. Let's go back and read it.
+We started with a zendesk ticket I wanted to get Claude Code to read directly. Let's speed-run through how to solve this type of problem by deploying an MCP server to Posit Connect and then using it in Claude Code. First we have to create the MCP server, which we'll do like this:
 :::
 
-## Slide with prompt in Claude Code to make it
-
-## Slide with deploy skill?
-
-(which, side note, uses a CLI! because it needs local file system access)
-
-## Slide with content list showing MCP servers
-
-## Slide showing the landing page with tools, animated
-
-<!-- ## Slide showing the Zendesk OAuth integration? -->
-
-## Show copying the command to add to Claude Code
-
-## Show the `/mcp` command and autenticate option
-
-## Flash the "Authentication successful"
-
-## Show the successful query result
-
-<!-- TODO show this working
-
-Show here a prompt in Claude Code? Point to Zendesk API reference, Connect user guide? Or hand wave over that
-
-Start with the Connect content list, showing MCP servers. Select one and show the landing page with tools. 
-
-Show that it is using an OAuth integration: Connect manages the auth with Zendesk for me, no long-lived API key needed, and access is scoped to what we need. Could also (if the service you're connecting to supports it) use the credentials of the visitor to the MCP server's credentials. Not required for MCP but is worth calling out here as a benefit of deploying on Connect.
-
-Copy the command, add it to Claude Code. Do /mcp and authenticate, show the browser flow. Then ask the question again, with the output format style on.
-
-:::{.notes}
-In the past, I would be wary of giving a talk and telling you to "just go do this" or that it is "easy" to do something, because skill and experience varies a lot. And it would be rough for me to tell you to do something without showing you how, or showing any code. But really 
-:::
-
-##
+## 
 
 ```
  ▐▛███▜▌   Claude Code v2.1.158
-▝▜█████▛▘  Opus 4.8 (1M context) · Claude Enterprise
+▝▜█████▛▘  Opus 5 (1M context) · Claude Enterprise
   ▘▘ ▝▝    ~/code
 
 
@@ -419,68 +396,101 @@ In the past, I would be wary of giving a talk and telling you to "just go do thi
 ```
 
 :::{.notes}
-And if you look at the code it produces, it's going to look like regular Python code, and just some functions will have decorators declaring them to be MCP tools. That's it. It's weird to give a technical talk where I tell you to just go write your own servers and not show any code, but here we are in 2026, it's not the year 1600 like my slides appear to be from.
+It's weird to give a technical talk where I tell you to just go write your own servers and not show any code, but here we are in 2026, it's not the year 1600 like my slides appear to be from. You may need some back and forth to guide the agent to make exactly what you want, but it's pretty straightforward.
+
+Now, we're going to deploy this to Posit Connect, and the first thing that Connect is going to solve for us is authentication. If we ran this MCP server locally, me and everyone else who wanted to use it would need to get an API key for Zendesk and manage their credentials somehow on their local machines. That's a bit of a burden, not to mention a risk that my Security team would not allow. 
 :::
 
--->
+## Posit Connect integration, not Zendesk API keys
 
-## Deployed on Posit Connect
-
-<!-- Two auth bits: OAuth flow to Connect, then an integration to Zendesk -->
-* **Authentication** — a Zendesk OAuth integration, so the credentials live in Connect. Not in the agent, not in my `.env`
-
-* **Hosting** — the server runs somewhere that can actually reach Zendesk
-
-* **Monitoring** — I can see what it did, and who asked
-
-* **Distribution** — `claude mcp add --transport http zendesk https://connect.example.com/zendesk/mcp`
+![](img/connect-integration.png)
 
 :::{.notes}
-This is where the three things a CLI couldn't do get done, and none of them are in my server code.
+So instead, we set up an OAuth integration between Zendesk and Connect, and then added this to my MCP server on Connect. So there is no long-lived API key anywhere, and users of the MCP server don't need to get special access to Zendesk--we manage their access to the MCP server the same way we manage access to any other app on Connect.
+:::
 
-The auth one is the one I'd underline. Connect has a Zendesk OAuth integration, so the server picks up credentials from the logged-in user's OAuth session. There's no API token in an env var, and there's nothing for the agent to leak, because the agent never had it. That's an ingredient removed from the cauldron rather than a rule about not stirring it.
+##
 
-And the last line is the whole distribution story: colleagues don't install anything or get their own token. They get a URL.
+![](img/connect-content-list.png)
+
+:::{.notes}
+Connect has a dedicated view that shows you all MCP servers you have access to.
+:::
+
+## {background-video="img/connect-landing-page.mp4" background-video-loop="true" background-video-muted="true"}
+
+<!-- ![](img/connect-landing-page.mov) -->
+
+:::{.notes}
+And unless the MCP server generates its own landing page, Connect serves this page here, which shows you the URL of the server, instructions for how to connect to it in various AI applications, and then a list of the tools it exposes. You can dig into them, see the same tool description that your agent will see, and even call the tools and see what data they will return back to the model.
+
+Ok, so I copied that command and added it to my Claude Code. Notice that there is no API key in that command, so when I start Claude Code, I need to authenticate. This is the next place that Posit Connect really helps us because it supports that OAuth flow I mentioned before. So we open up the MCP tools, select "Authenticate", and it opens up a web browser for us to authenticate to Connect. When it's done it automatically closes the browser and returns you here
+:::
+
+##
+
+```
+
+▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
+   Zendesk-mcp MCP Server
+
+   Status:           △ needs authentication
+   Auth:             ✘ not authenticated
+   URL:              https://connect.example.com/zendesk-mcp/mcp
+   Config location:  ~/.claude.json [project: ~/code/mcp-posit-conf-2026]
+
+   ❯ 1. Authenticate
+     2. Disable
+
+   ↑/↓ to navigate · Enter to select · Esc to back
+```
+
+##
+
+```
+❯ /mcp
+  ⎿  Authentication successful. Connected to zendesk-mcp.
+```
+:::{.notes}
+and now we're ready to go
 :::
 
 ##
 
 ```
  ▐▛███▜▌   Claude Code v2.1.158
-▝▜█████▛▘  Opus 4.8 (1M context) · Claude Enterprise
+▝▜█████▛▘  Opus 5 (1M context) · Claude Enterprise
   ▘▘ ▝▝    ~/code
 
-❯ please help me with https://posit.zendesk.com/agent/tickets/129426
+❯ I prithee, friend, bestow thy help with https://posit.zendesk.com/agent/tickets/129426
 
-⏺ I'll pull that ticket up.
+⏺ I'll fetch that ticket up anon.
 
-⏺ zendesk - get_ticket (MCP)(ticket_id: 129426)
-  ⎿  #129426  Connect won't start after upgrade to 2026.03.0
-     open · urgent · requester: n***@posit.co (Acme Corp)
+⏺ zendesk - get_ticket (ticket_id: 129426)
 
-⏺ zendesk - list_ticket_comments (MCP)(ticket_id: 129426)
-  ⎿  6 comments (4 public, 2 internal)
+⏺ zendesk - list_ticket_comments (ticket_id: 129426)
 
-⏺ Read(services/launcher.go)
-  ⎿  Read 210 lines
+⏺ Ticket 129426 — "Posit Connect Authentication Migration"
 
-⏺ The upgrade moved the launcher's default socket path, and their config
-  still pins the old one. That's why it comes up on 2025.12 and not on
-  2026.03. Want me to draft the reply?
+  The customer's concern, as it now stands:
 
+  Today their Connect binds to Active Directory,
+  yet they would move to Entra ID for SSO,
+  that MFA might guard each entering soul.
+  They ask: is such a passage yet supported,
+  by SAML or OIDC — and which of these
+  doth Posit counsel for the enterprise?
+  ...
 ```
 
-::: {.notes}
-<!-- TODO: do a real example and use an output style to make it do iambic pentameter? -->
-REPLACE ME with a real transcript before the talk -- the tool calls are
-real (`get_ticket`, `list_ticket_comments`) but the ticket and the
-diagnosis here are invented.
+## Usage monitoring on Connect
 
-Same prompt as Act I. Same ticket. This time it just goes and reads it.
+![](img/connect-usage.png)
 
-Two things worth pointing at on the way past: it took two tool calls, not twenty, because those are the only tools I gave it. And look at the requester line -- `n***@posit.co`. That's the third best practice, doing its job, in the middle of the answer.
+
+:::{.notes}
+There are a number of other benefits of hosting MCP servers on Connect, and one I just want to briefly mention here is that you get some analytics 
 :::
-
 
 ## MCP, or not MCP?
 
@@ -490,7 +500,7 @@ Two things worth pointing at on the way past: it took two tool calls, not twenty
 
 * AI brings inherent security risks, but a well designed MCP server can mitigate them
 
-* You (or your agent) can easily write custom MCP servers
+* You (and your agent) can easily write custom MCP servers
 
 * Posit Connect is a great place to host them
 
