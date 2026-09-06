@@ -44,7 +44,7 @@ I want to start with a story about how I learned what MCP was for.
 Two houses, both alike in dignity, in fair Posit where we make our scene
 :::
 
-## {background-image="img/diptych-1.jpeg"}
+## {background-image="img/diptych-1.jpeg" background-size="contain"}
 
 ::: {.notes}
 One one side, we have the Posit engineering team, where I work.
@@ -55,20 +55,20 @@ Now, these are not rival clans, but fate, or technology, has conspired to keep t
 Posit's enterprise products run on-premises, which means that if something goes wrong, or if a product user wants to request an feature, the engineers can't see what's going on directly.
 :::
 
-## {background-image="img/diptych-2.jpeg"}
+## {background-image="img/diptych-2.jpeg" background-size="contain"}
 
 ::: {.notes}
 The user needs to write a everything down in a support ticket and send it to us. Then the engineers need to try to reconstruct what happened from that information, dig through the code base, and try to understand. 
 :::
 
-## {background-image="img/balthasar-1.jpeg"}
+## {background-image="img/balthasar-1.jpeg" background-size="contain"}
 
 ::: {.notes}
 
 Posit uses Zendesk for support, customers can file tickets there and they get fielded by our support team. When they get a clear bug report, or something that they can't answer on their own, it escalates to the engineers. 
 :::
 
-## {background-image="img/balthasar-2.jpeg"}
+## {background-image="img/balthasar-2.jpeg" background-size="contain"}
 
 ::: {.notes}
 
@@ -181,7 +181,7 @@ This points at another framing for what MCP is:
 This realization, that MCP was just a convention for how to set up API endpoints, helped demystify it for me. As someone who has worked in software and data for many years, I know how to use an HTTP API, I know how to build and serve them too. 
 :::
 
-## {background-image="img/unix-system-old.jpeg"}
+## {background-image="img/unix-system-old.jpeg" background-size="contain"}
 
 ::: {.notes}
 You know what this is too. And your coding agents do too.
@@ -191,13 +191,10 @@ Now, there are two kinds of MCP servers:
 
 ## Local vs. Remote MCP
 
-<!-- TODO make this a little tighter -->
-
 ### Local
 
 * Runs on your machine
 * `claude mcp add name-here -- uvx --from "git+https://github.com/user/repo"`
-* Can access your local file system etc.
 
 ## Local vs. Remote MCP
 
@@ -223,8 +220,7 @@ When MCP was first announced in late 2024, there was a lot of enthusiasm because
 But, some of this enthusiasm was extreme, and people started to find alternatives. 
 :::
 
-<!-- TODO meme type over this -->
-## {background-image="img/distracted-boyfriend-old.jpeg"}
+## {background-image="img/distracted-boyfriend-old.jpeg" background-size="contain"}
 
 :::{.notes}
 In particular, people working with coding agents like Claude Code realized that, 
@@ -232,7 +228,7 @@ rather than registering a bunch of MCP tools, one for every thing you might ever
 
 Why use GitHub's MCP if `gh` is already right there?
 
-Aside from the convenience of that, there was a practical consideration. All MCP tool definitions are loaded up front and take up tokens. Particularly with the smaller size of context windows that models had at the time, that was a real concern.
+Aside from the convenience of that, there was a practical consideration. At the time, agent harnesses would load all MCP tool definitions are loaded up front, which takes up a bunch of tokens. Particularly with the smaller size of context windows that models had at the time, that was a real concern.
 
 So, some took that to the other extreme and declared that MCP is dead, that CLIs were always the way to go.
 :::
@@ -244,7 +240,7 @@ So, some took that to the other extreme and declared that MCP is dead, that CLIs
 https://uxplanet.org/mcp-is-dead-cf16b667ba6d
 
 ::: {.notes}
-Of course, the truth isn't so black and white. So let's walk through the options and tradeoffs. Sometimes, there is more than one right answer. 
+Of course, the truth isn't so black and white. So let's walk through the options and tradeoffs. There are three alternatives I want to consider here: MCP, CLIs, and Skills. Let's start with Skills.
 :::
 
 ## Skills
@@ -258,15 +254,37 @@ Of course, the truth isn't so black and white. So let's walk through the options
 * Skill + MCP = Plugin
 
 :::{.notes}
-Before talking MCP vs. CLI, let's address Skills. Sometimes the thing you need is just additional context or instructions for the agent, not new tools. That's where you want a Skill. 
+Sometimes the thing you need is just additional context or instructions for the agent, not new tools. That's where you want a Skill. 
+:::
+
+## MCP vs. CLI
+
+::: {.columns}
+
+:::: {.column width="40%"}
+![](img/two-buttons-old.jpeg)
+::::
+
+:::: {.column width="60%"}
+
+Use CLI when:
+
+* CLI already exists, is widely available, and in the training data
+
+* Your agent has Bash available to call the CLI
+::::
+:::
+
+:::{.notes}
+The strongest case for using a CLI over MCP, particularly for the case I'm interested in here where we're trying to connect a remote service to my agent, is when...
+
+This is the exact case of the `gh` command line utility I mentioned. But the advantages of a CLI over MCP are weaker if the CLI is something new you're writing: it's not in the training data, so you have to teach the agent how to use it--that's context you have to take up. By the time your agent has "learned" how to use your new CLI, you've consumed all of the context savings you were hoping to have. Plus, if it is a new CLI you have written, you have a distribution problem, you have to get everyone to install it.
 :::
 
 
 ## MCP vs. CLI
 
 ::: {.columns}
-
-<!-- TODO meme type over this -->
 
 :::: {.column width="40%"}
 ![](img/two-buttons-old.jpeg)
@@ -289,12 +307,20 @@ But...
 :::
 
 :::{.notes}
-Something like `gh` that can communicate to a remote service, sure it can read issues, but it can also act on your behalf with anything else that you can do in GitHub. It is very difficult to allow the agent to do some things with `gh` but prevent the agent from doing other things. There are things you can do keep it on the safe path but they are generally not robust to a motivated malicious actor, short of reviewing and manually approving every tool call. 
+Plus, there are other tradeoffs that come with the convenience of using an existing CLI.
 
-This brings us to the security implications of giving an AI agent access to external tools.
+Something like `gh` that can communicate to a remote service, sure it can read issues, but it can also act on your behalf with anything else that you can do in GitHub. It is very difficult to allow the agent to do some things with `gh` but prevent it from doing other things. Or rather, you can do a reasonable job of managing it with PreToolHooks and such, but what is your risk tolerance? There are plenty of examples on the internet of agents going rogue and deleting the production database and whatnot. If the tool is available, an agent may be able to get at it.
+
+Now that I've raised the prospect of rogue agents and our risk tolerance, we need to talk a bit more about security and AI.
 :::
 
 ## Act IV: Something Wicked This Way Comes {.center}
+
+:::{.notes}
+Agentic AI can be so valuable for us because it can, so to speak, "be creative" with how it uses the tools available to it to do tasks we want it to. But that same power, that same creativity, brings risks, because it could also do destructive things, whether on accident while trying to creatively solve our problem---or because someone else has given it different directions. 
+
+One framing that is useful for thinking about this risk is the "lethal trifecta":
+:::
 
 ## The lethal trifecta
 
@@ -311,9 +337,19 @@ https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/
 
 This is true for MCP or CLIs.
 
-Suppose you're reading GitHub issues on a public repo, whether with GitHub MCP or the `gh` CLI. Someone could write a prompt injection into an issue, and that gives you one of the three of the trifecta. So if your agent has any ability to send data out, even just the ability to make an arbitrary HTTP request, you've got the trifecta.
+It's disturbingly easy to get this. Let's assume that you're working with private data with your agent.
+Suppose you're reading GitHub issues on a public repo, whether with GitHub MCP or the `gh` CLI. Someone could write a prompt injection into an issue, and that gives you the second of the three of the trifecta. Even just the ability to make an arbitrary HTTP request using WebFetch is enough to satisfy the trifecta.
 
-Now, we can't solve this with a well designed MCP server, because it's about the agent context where you're using an MCP or CLI, and it may be only in the combination of multiple tools, outside of a single MCP or CLI, that the trifecta is met. But if we keep this in mind when designing our MCP servers, we can mitigate some risks. 
+Now, we can't solve this with a well designed MCP server, ...
+:::
+
+## We can make good choices when we write our own tools {.center}
+
+:::{.notes}
+... because it's about the agent context where you're using an MCP or CLI, and it may be only in the combination of multiple tools, outside of a single MCP or CLI, that the trifecta is met. But if we keep this in mind when designing our MCP servers, we can mitigate some risks. 
+
+How should we do that? How can we get the best results, and how do we avoid some of the bad things that can happen when agents go rogue?
+Here are three best practices to keep in mind.
 :::
 
 ## Best practices {.center}
@@ -331,7 +367,9 @@ These best practices are relevant for security, but also help you be more effici
 :::{.notes}
 One reason is for efficiency: fewer tools means less context consumed by tool definitions, and less opportunity for confusion, for the agent to pick the wrong tool.
 
-Another reason is security: do you really need tools that can write? If the answer is "sometimes", you can make more than one server, or make it configurable and make different deployments.
+Another reason is security: the best way to prevent an agent from calling a dangerous tool is to never give it the tool at all. 
+
+In particular, I would be really mindful of creating tools that allow writes or deletes. Not that you can't do it, but maybe you don't want them generally available to all agents using your MCP server. But since we're talking about writing your own, you can freely write multiple servers that have different combinations of tools, for use in different agents, if you want.
 
 This is different from how you would design a normal REST API to serve a non-AI application. There, there is no additional cost to having a bunch of endpoints that you don't need--you just know to ignore them. AI agents can't just do that.
 :::
@@ -347,7 +385,7 @@ When you're working with an API that's designed for developers to work with, or 
 
 But with LLMs, everything you return goes into the context. Again, that's more tokens, and more confusion. So we want to scope our MCP tools to only return the pieces that matter for the task you're asking the agent to do.
 
-For example, in the Zendesk API for ticket comments, every comment entry includes metadata about whether the comment was sent through the web portal or email or whatever, and potentially things like the user agent string and location of the browser where the person typed their comment. Could be useful for something, I guess, but not for answering the kinds of questions I'm asking. So we can cut it.
+<!-- For example, in the Zendesk API for ticket comments, every comment entry includes metadata about whether the comment was sent through the web portal or email or whatever, and potentially things like the user agent string and location of the browser where the person typed their comment. Could be useful for something, I guess, but not for answering the kinds of questions I'm asking. So we can cut it. -->
 :::
 
 ## Best practices {.center}
@@ -359,9 +397,7 @@ For example, in the Zendesk API for ticket comments, every comment entry include
 :::{.notes}
 Finally, thinking back to the lethal trifecta, or even just good data goverance hygiene. If there are personally identifying details in the data you're pulling in, and you don't need them to answer your questions, you can either prune them entirely or redact them. 
 
----
-
-So, these points are all advice for how to do this when you're writing your own AI tools.
+So, these are some things to keep in mind when writing your own. And...
 :::
 
 ## If you're going to write your own, make it remote MCP
@@ -375,7 +411,11 @@ So, these points are all advice for how to do this when you're writing your own 
 Exception: when you need to access local files
 
 ::: {.notes}
-Writing your own helps. And if you're going to write your own, make it a remote MCP server that you host somewhere secure like Posit Connect. 
+If you're going to write your own, unless the purpose of the tool is to manipulate things on your local file system, make it a remote MCP server that you host. It works everywhere, doesn't have to execute code on your machine, and on a hosting platform like Posit Connect, you get lots of nice support, like authentication, which is built into the MCP standard. 
+
+---
+
+Ok. I want to wrap up by putting this all together. On the title side, I said this play was a comedy, not a tragedy. So, despite the lethal trifecta, everyone doesn't die, and we do have a happy ending.
 :::
 
 ## Act V: All's Well That Ends Well {.center}
@@ -398,7 +438,7 @@ We started with a zendesk ticket I wanted to get Claude Code to read directly. L
 :::{.notes}
 It's weird to give a technical talk where I tell you to just go write your own servers and not show any code, but here we are in 2026, it's not the year 1600 like my slides appear to be from. You may need some back and forth to guide the agent to make exactly what you want, but it's pretty straightforward.
 
-Now, we're going to deploy this to Posit Connect, and the first thing that Connect is going to solve for us is authentication. If we ran this MCP server locally, me and everyone else who wanted to use it would need to get an API key for Zendesk and manage their credentials somehow on their local machines. That's a bit of a burden, not to mention a risk that my Security team would not allow. 
+Now, we're going to deploy this to Posit Connect, just as we do any other kind of app or API that we host there. And the first thing that Connect is going to solve for us is authentication to Zendesk. If we ran this MCP server locally, me and everyone else who wanted to use it would need to get an API key for Zendesk and manage their credentials somehow on their local machines. That's a bit of a burden, not to mention a risk that my Security team would not allow. 
 :::
 
 ## Posit Connect integration, not Zendesk API keys
