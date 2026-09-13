@@ -52,7 +52,7 @@ On the other, our users, our customers.
 
 Now, these are not rival clans, but fate, or technology, has conspired to keep them apart.
 
-Posit's enterprise products run on-premises, which means that if something goes wrong, or if a product user wants to request an feature, the engineers can't see what's going on directly.
+Posit's enterprise products run on-premises, which means that if something goes wrong, the engineers can't see what's going on directly because we don't have access to the servers and networks where they're running.
 :::
 
 ## {background-image="img/diptych-2.jpeg" background-size="contain"}
@@ -65,14 +65,14 @@ The user needs to write a everything down in a support ticket and send it to us.
 
 ::: {.notes}
 
-Posit uses Zendesk for support, customers can file tickets there and they get fielded by our support team. When they get a clear bug report, or something that they can't answer on their own, it escalates to the engineers. 
+Posit uses Zendesk for support, customers can file tickets there and they get fielded by our support team. And there's usually some back and forth with followup questions and requests for details before it escalates to the engineers. 
 :::
 
 ## {background-image="img/balthasar-2.jpeg" background-size="contain"}
 
 ::: {.notes}
 
-By the time the engineers get it, the ticket can be quite long, lots of back and forth, and there can be large attachments with diagnostic data in them. 
+So by the time the engineers get it, the ticket can be quite long, and there can be large attachments with diagnostic data in them in addition to all of the messages. 
 
 By the end of last year, engineering was heavily using AI for lots of things, and one thing we found that models like Claude were good at was reading the codebase, developing an understanding of how it works, and pinpointing bugs. But to use it for support issues, we first had to do all of the analysis of the ticket discussion and diagnostics, and that can be a lot of work. 
 
@@ -138,9 +138,7 @@ By writing a custom MCP server, you can control exactly what tools are made avai
 And by hosting an MCP server, you can easily share it with others. 
 (don't say Connect on this slide)
 
-<!-- So today I'm going to talk about MCP, what it's good for and what it's less suited for, and some best practices from my experience. When it's the right tool for the job, MCP can unlock superpowers for your agentic workflows. And when done well, it can actually improve your security posture, which is especially important for AI agents. -->
-
-A key point I want to convey, and that underlies much of the talk, is that:
+A key point that underlies much of the talk is that:
 :::
 
 ## You can write and host your own MCP servers {.center}
@@ -167,7 +165,7 @@ But MCP is fundamentally simple.
 :::{.notes}
 * Tools: functions that LLMs can call, the model "sees" that function exists, with a description telling it what it does, what the inputs are, and what the outputs are.
 
-* MCP defines a standard for servers that host tools, and how to register them in your client, any AI application
+* MCP defines a standard for **servers** that host tools, and how to register them in your client, any AI application
 
 This points at another framing for what MCP is:
 :::
@@ -175,9 +173,9 @@ This points at another framing for what MCP is:
 ## MCP is an API standard {.center}
 
 :::{.notes}
-* It's a standard for how to design APIs that AI applications can use
+It's a standard for how to design APIs that AI applications can use
 
-There are many standards for APIs out there, you have REST APIs, JSON RPC, many others, and each API defines its conventions for how you communicate with it. These conventions are designed to make it easy to do certain types of work with the API, the things they were designed to do. MCP is just another standard for how to make APIs, tailored to the needs of AI applications.
+There are many standards for APIs out there, you have REST APIs, JSON RPC, many others, and each API defines its conventions for how you communicate with it. MCP is just another standard for how to make APIs, tailored to the needs of AI applications.
 
 This realization helped demystify it for me. As someone who has worked in software and data for many years, I know how to use APIs, I know how to build and serve them too. 
 :::
@@ -233,6 +231,7 @@ rather than registering a bunch of MCP tools, one for every thing you might ever
 
 Why use GitHub's MCP if `gh` is already right there?
 
+<!-- TODO thin this out -->
 It's not just about convenience, there are also practical considerations. At the time, agent harnesses would load all MCP tool definitions are loaded up front, which takes up a bunch of tokens. (That's gotten better since then, harnesses like Claude Code have gotten smarter about this.) But particularly with the smaller size of context windows that models had at the time, that was a real concern.
 
 So, some took that to the other extreme and declared that MCP is dead, that CLIs were always the way to go.
@@ -281,6 +280,7 @@ Use CLI when:
 :::
 
 :::{.notes}
+<!-- TODO: this one was a little ragged -->
 The strongest case for using a CLI over MCP, particularly for the case I'm interested in here where we're trying to connect a remote service to my agent, is when...
 
 This is the exact case of the `gh` command line utility I mentioned. You save on lots of context because you don't even need a Skill to explain how to use it, the model has already been trained on it.
@@ -316,7 +316,8 @@ But...
 :::{.notes}
 Plus, there are other tradeoffs that come with the convenience of using an existing CLI.
 
-Something like `gh` that can communicate to a remote service, sure it can read issues, but it can also act on your behalf with anything else that you can do in GitHub. It is very difficult to allow the agent to do some things with `gh` but prevent it from doing other things. Or rather, you can do a reasonable job of managing it with PreToolHooks and such, but what is your risk tolerance? There are plenty of examples on the internet of agents going rogue and deleting the production database and whatnot. If the tool is available, an agent may be able to get at it.
+<!-- TODO Thin this out -->
+Something like `gh` that can communicate to a remote service, sure it can read issues, but it can also act on your behalf with anything else that you can do in GitHub. It is very difficult to allow the agent to do some things with `gh` but prevent it from doing other things. Or rather, you can do a reasonable job of managing it with allow lists and PreToolHooks and such, but what is your risk tolerance? There are plenty of examples on the internet of agents going rogue and deleting the production database and whatnot. If the tool is available, an agent may be able to get at it.
 
 Now that I've raised the prospect of rogue agents and our risk tolerance, we need to talk a bit more about security and AI.
 :::
@@ -342,12 +343,10 @@ https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/
 :::{.notes}
 "If your agent combines these three features, an attacker can easily trick it into accessing your private data and sending it to that attacker."
 
-This is true for MCP or CLIs.
-
 It's disturbingly easy to get this. Let's assume that you're working with private data with your agent.
 Suppose you're reading GitHub issues on a public repo, whether with GitHub MCP or the `gh` CLI. Someone could write a prompt injection into an issue, and that gives you the second of the three of the trifecta. Even just the ability to make an arbitrary HTTP request using WebFetch is enough to satisfy the trifecta.
 
-Now, we can't solve this with a well designed MCP server, because it's about the agent context where you're using an MCP or CLI, and it may be only in the combination of multiple tools, outside of a single MCP or CLI, that the trifecta is met. But...
+Now, we can't solve this with a well designed MCP server or CLI, because it's about the agent context where you're using it, and it may be only in the combination of multiple tools, outside of a single MCP or CLI, that the trifecta is met. But...
 :::
 
 ## We can make good choices when we write our own tools {.center}
@@ -376,9 +375,9 @@ One reason is for efficiency: fewer tools means less context consumed by tool de
 
 Another reason is security: the best way to prevent an agent from calling a dangerous tool is to never give it the tool at all. 
 
-In particular, I would be really mindful of creating tools that allow writes or deletes. Not that you can't do it, but maybe you don't want them generally available to all agents using your MCP server. But since we're talking about writing your own, you can freely write multiple servers that have different combinations of tools, for use in different agents, if you want.
+In particular, I would be really mindful of creating tools that allow writes or deletes. Not that you can't do it, but they may not be safe in all contexts: it may be fine if this is the only MCP server your agent has, but not in combination with other tools. 
 
-This is different from how you would design a normal REST API to serve a non-AI application. There, there is no additional cost to having a bunch of endpoints that you don't need--you just know to ignore them. AI agents can't just do that.
+But since we're talking about writing your own, you can freely write multiple servers that have different combinations of tools, for use in different agents, if you want.
 :::
 
 ## Best practices {.center}
@@ -388,11 +387,7 @@ This is different from how you would design a normal REST API to serve a non-AI 
 :::{.notes}
 Brevity is the soul of wit. 
 
-When you're working with an API that's designed for developers to work with, or web apps to build on, the API responses for a given record can include lots of details. And that makes sense when you're a (human) developer, you can select out the bits you want and ignore the rest.
-
-But with LLMs, everything you return goes into the context. Again, that's more tokens, and more confusion. So we want to scope our MCP tools to only return the pieces that matter for the task you're asking the agent to do.
-
-<!-- For example, in the Zendesk API for ticket comments, every comment entry includes metadata about whether the comment was sent through the web portal or email or whatever, and potentially things like the user agent string and location of the browser where the person typed their comment. Could be useful for something, I guess, but not for answering the kinds of questions I'm asking. So we can cut it. -->
+Everything the MCP tool returns goes into the context. So if we're building something in front of an external service's API, we need to strip out the details that it returns that aren't useful for our purposes. Extraneous stuff just burns more tokens and can confuse the model.
 :::
 
 ## Best practices {.center}
@@ -558,21 +553,21 @@ There are a number of other benefits of hosting MCP servers on Connect, and one 
 :::{.notes}
 It's just an API. A standard, meant
 for agents rather than for human hands.
-You write a function and declare intent;
-the model reads that line and understands
+You write the functions and declare intent;
+the model reads those tools and understands
 
 the rest. So write your own, and by deploying
-it, give the stalled-out workflow a new spine;
-the agent that stood helpless starts employing
+it, give your stalled-out workflows a new spine;
+an agent that stood helpless starts employing
 your superpowers. And you draw the line
 
-where it should stop. Some risk is still inherent:
-a model cannot tell text from commands,
-and won't. But build a server that's coherent
-and narrow. Keep your keys out of its hands.
+where it should stop. That line is your protection,
+for models can't distinguish your commands
+from text a stranger wrote. That's prompt injection:
+so narrow tools leave it with empty hands.
 
-You'll write one that does just what you expect,
-then hand the hosting over to Connect.
+Your server does just what you do direct,
+so freely build. The rest is for Connect.
 :::
 
 ## Thank you

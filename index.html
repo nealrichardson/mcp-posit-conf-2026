@@ -207,7 +207,7 @@ VVritten by NEAL RICHARDSON.
 <aside class="notes">
 <p>One one side, we have the Posit engineering team, where I work. On the other, our users, our customers.</p>
 <p>Now, these are not rival clans, but fate, or technology, has conspired to keep them apart.</p>
-<p>Posit’s enterprise products run on-premises, which means that if something goes wrong, or if a product user wants to request an feature, the engineers can’t see what’s going on directly.</p>
+<p>Posit’s enterprise products run on-premises, which means that if something goes wrong, the engineers can’t see what’s going on directly because we don’t have access to the servers and networks where they’re running.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -239,7 +239,7 @@ VVritten by NEAL RICHARDSON.
 <section id="section-3" class="slide level2" data-background-image="img/balthasar-1.jpeg" data-background-size="contain">
 <h2></h2>
 <aside class="notes">
-<p>Posit uses Zendesk for support, customers can file tickets there and they get fielded by our support team. When they get a clear bug report, or something that they can’t answer on their own, it escalates to the engineers.</p>
+<p>Posit uses Zendesk for support, customers can file tickets there and they get fielded by our support team. And there’s usually some back and forth with followup questions and requests for details before it escalates to the engineers.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -255,7 +255,7 @@ VVritten by NEAL RICHARDSON.
 <section id="section-4" class="slide level2" data-background-image="img/balthasar-2.jpeg" data-background-size="contain">
 <h2></h2>
 <aside class="notes">
-<p>By the time the engineers get it, the ticket can be quite long, lots of back and forth, and there can be large attachments with diagnostic data in them.</p>
+<p>So by the time the engineers get it, the ticket can be quite long, and there can be large attachments with diagnostic data in them in addition to all of the messages.</p>
 <p>By the end of last year, engineering was heavily using AI for lots of things, and one thing we found that models like Claude were good at was reading the codebase, developing an understanding of how it works, and pinpointing bugs. But to use it for support issues, we first had to do all of the analysis of the ticket discussion and diagnostics, and that can be a lot of work.</p>
 <p>I thought, how can I just plug Zendesk into Claude and let it figure it out?</p>
 <p>I want to just take the ticket URL and give it to Claude Code like this:</p>
@@ -338,8 +338,7 @@ VVritten by NEAL RICHARDSON.
 <p>It provides a way for you to authenticate securely to APIs, without giving your credentials to the agent.</p>
 <p>By writing a custom MCP server, you can control exactly what tools are made available and what capabilities they expose. This improves your agent’s performance, and it also allows you to protect against a range of security vulnerabilties.</p>
 <p>And by hosting an MCP server, you can easily share it with others. (don’t say Connect on this slide)</p>
-<!-- So today I'm going to talk about MCP, what it's good for and what it's less suited for, and some best practices from my experience. When it's the right tool for the job, MCP can unlock superpowers for your agentic workflows. And when done well, it can actually improve your security posture, which is especially important for AI agents. -->
-<p>A key point I want to convey, and that underlies much of the talk, is that:</p>
+<p>A key point that underlies much of the talk is that:</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -392,7 +391,7 @@ VVritten by NEAL RICHARDSON.
 <img data-src="img/ikea-old.jpeg" class="r-stretch"><aside class="notes">
 <ul>
 <li><p>Tools: functions that LLMs can call, the model “sees” that function exists, with a description telling it what it does, what the inputs are, and what the outputs are.</p></li>
-<li><p>MCP defines a standard for servers that host tools, and how to register them in your client, any AI application</p></li>
+<li><p>MCP defines a standard for <strong>servers</strong> that host tools, and how to register them in your client, any AI application</p></li>
 </ul>
 <p>This points at another framing for what MCP is:</p>
 <style type="text/css">
@@ -410,10 +409,8 @@ VVritten by NEAL RICHARDSON.
 <section id="mcp-is-an-api-standard" class="slide level2 center">
 <h2>MCP is an API standard</h2>
 <aside class="notes">
-<ul>
-<li>It’s a standard for how to design APIs that AI applications can use</li>
-</ul>
-<p>There are many standards for APIs out there, you have REST APIs, JSON RPC, many others, and each API defines its conventions for how you communicate with it. These conventions are designed to make it easy to do certain types of work with the API, the things they were designed to do. MCP is just another standard for how to make APIs, tailored to the needs of AI applications.</p>
+<p>It’s a standard for how to design APIs that AI applications can use</p>
+<p>There are many standards for APIs out there, you have REST APIs, JSON RPC, many others, and each API defines its conventions for how you communicate with it. MCP is just another standard for how to make APIs, tailored to the needs of AI applications.</p>
 <p>This realization helped demystify it for me. As someone who has worked in software and data for many years, I know how to use APIs, I know how to build and serve them too.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -513,6 +510,7 @@ VVritten by NEAL RICHARDSON.
 <aside class="notes">
 <p>In particular, people working with coding agents like Claude Code realized that, rather than registering a bunch of MCP tools, one for every thing you might ever want to do, you could give your agent a <code>Bash</code> tool, and it could run anything it could find at the command line.</p>
 <p>Why use GitHub’s MCP if <code>gh</code> is already right there?</p>
+<!-- TODO thin this out -->
 <p>It’s not just about convenience, there are also practical considerations. At the time, agent harnesses would load all MCP tool definitions are loaded up front, which takes up a bunch of tokens. (That’s gotten better since then, harnesses like Claude Code have gotten smarter about this.) But particularly with the smaller size of context windows that models had at the time, that was a real concern.</p>
 <p>So, some took that to the other extreme and declared that MCP is dead, that CLIs were always the way to go.</p>
 <style type="text/css">
@@ -580,6 +578,7 @@ VVritten by NEAL RICHARDSON.
 </ul>
 </div></div>
 <aside class="notes">
+<!-- TODO: this one was a little ragged -->
 <p>The strongest case for using a CLI over MCP, particularly for the case I’m interested in here where we’re trying to connect a remote service to my agent, is when…</p>
 <p>This is the exact case of the <code>gh</code> command line utility I mentioned. You save on lots of context because you don’t even need a Skill to explain how to use it, the model has already been trained on it.</p>
 <p>But the advantages of a CLI over MCP are weaker if the CLI is something new you’re writing: it’s not in the training data, so you have to teach the agent how to use it–that’s context you have to take up. By the time your agent has “learned” how to use your new CLI, you’ve consumed all of the context savings you were hoping to have. Plus, if it is a new CLI you have written, you have a distribution problem, you have to get everyone to install it.</p>
@@ -614,7 +613,8 @@ VVritten by NEAL RICHARDSON.
 </div></div>
 <aside class="notes">
 <p>Plus, there are other tradeoffs that come with the convenience of using an existing CLI.</p>
-<p>Something like <code>gh</code> that can communicate to a remote service, sure it can read issues, but it can also act on your behalf with anything else that you can do in GitHub. It is very difficult to allow the agent to do some things with <code>gh</code> but prevent it from doing other things. Or rather, you can do a reasonable job of managing it with PreToolHooks and such, but what is your risk tolerance? There are plenty of examples on the internet of agents going rogue and deleting the production database and whatnot. If the tool is available, an agent may be able to get at it.</p>
+<!-- TODO Thin this out -->
+<p>Something like <code>gh</code> that can communicate to a remote service, sure it can read issues, but it can also act on your behalf with anything else that you can do in GitHub. It is very difficult to allow the agent to do some things with <code>gh</code> but prevent it from doing other things. Or rather, you can do a reasonable job of managing it with allow lists and PreToolHooks and such, but what is your risk tolerance? There are plenty of examples on the internet of agents going rogue and deleting the production database and whatnot. If the tool is available, an agent may be able to get at it.</p>
 <p>Now that I’ve raised the prospect of rogue agents and our risk tolerance, we need to talk a bit more about security and AI.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -655,9 +655,8 @@ VVritten by NEAL RICHARDSON.
 <p>https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/</p>
 <aside class="notes">
 <p>“If your agent combines these three features, an attacker can easily trick it into accessing your private data and sending it to that attacker.”</p>
-<p>This is true for MCP or CLIs.</p>
 <p>It’s disturbingly easy to get this. Let’s assume that you’re working with private data with your agent. Suppose you’re reading GitHub issues on a public repo, whether with GitHub MCP or the <code>gh</code> CLI. Someone could write a prompt injection into an issue, and that gives you the second of the three of the trifecta. Even just the ability to make an arbitrary HTTP request using WebFetch is enough to satisfy the trifecta.</p>
-<p>Now, we can’t solve this with a well designed MCP server, because it’s about the agent context where you’re using an MCP or CLI, and it may be only in the combination of multiple tools, outside of a single MCP or CLI, that the trifecta is met. But…</p>
+<p>Now, we can’t solve this with a well designed MCP server or CLI, because it’s about the agent context where you’re using it, and it may be only in the combination of multiple tools, outside of a single MCP or CLI, that the trifecta is met. But…</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -710,8 +709,8 @@ VVritten by NEAL RICHARDSON.
 <aside class="notes">
 <p>One reason is for efficiency: fewer tools means less context consumed by tool definitions, and less opportunity for confusion, for the agent to pick the wrong tool.</p>
 <p>Another reason is security: the best way to prevent an agent from calling a dangerous tool is to never give it the tool at all.</p>
-<p>In particular, I would be really mindful of creating tools that allow writes or deletes. Not that you can’t do it, but maybe you don’t want them generally available to all agents using your MCP server. But since we’re talking about writing your own, you can freely write multiple servers that have different combinations of tools, for use in different agents, if you want.</p>
-<p>This is different from how you would design a normal REST API to serve a non-AI application. There, there is no additional cost to having a bunch of endpoints that you don’t need–you just know to ignore them. AI agents can’t just do that.</p>
+<p>In particular, I would be really mindful of creating tools that allow writes or deletes. Not that you can’t do it, but they may not be safe in all contexts: it may be fine if this is the only MCP server your agent has, but not in combination with other tools.</p>
+<p>But since we’re talking about writing your own, you can freely write multiple servers that have different combinations of tools, for use in different agents, if you want.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -729,9 +728,7 @@ VVritten by NEAL RICHARDSON.
 <h3 id="make-responses-concise">2. Make responses concise</h3>
 <aside class="notes">
 <p>Brevity is the soul of wit.</p>
-<p>When you’re working with an API that’s designed for developers to work with, or web apps to build on, the API responses for a given record can include lots of details. And that makes sense when you’re a (human) developer, you can select out the bits you want and ignore the rest.</p>
-<p>But with LLMs, everything you return goes into the context. Again, that’s more tokens, and more confusion. So we want to scope our MCP tools to only return the pieces that matter for the task you’re asking the agent to do.</p>
-<!-- For example, in the Zendesk API for ticket comments, every comment entry includes metadata about whether the comment was sent through the web portal or email or whatever, and potentially things like the user agent string and location of the browser where the person typed their comment. Could be useful for something, I guess, but not for answering the kinds of questions I'm asking. So we can cut it. -->
+<p>Everything the MCP tool returns goes into the context. So if we’re building something in front of an external service’s API, we need to strip out the details that it returns that aren’t useful for our purposes. Extraneous stuff just burns more tokens and can confuse the model.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -978,10 +975,10 @@ VVritten by NEAL RICHARDSON.
 <li><p>Posit Connect is a great place to host them</p></li>
 </ul>
 <aside class="notes">
-<p>It’s just an API — a plain description of what a function needs and what it’s for. The model calls it with no transcription of context into chat. You’ve done this chore</p>
-<p>by hand. So write your own, and by deploying it, give the stalled-out workflow a new spine; the agent that stood helpless starts employing your superpowers. And you draw the line</p>
-<p>where it should stop. Some risk is still inherent: a model cannot tell text from commands, and won’t. But build a server that’s coherent and narrow. Keep your keys out of its hands.</p>
-<p>It’s one day’s work, and you’re the architect of all of it. Your agent helps. Connect.</p>
+<p>It’s just an API. A standard, meant for agents rather than for human hands. You write the functions and declare intent; the model reads those tools and understands</p>
+<p>the rest. So write your own, and by deploying it, give your stalled-out workflows a new spine; an agent that stood helpless starts employing your superpowers. And you draw the line</p>
+<p>where it should stop. That line is your protection, for models can’t distinguish your commands from text a stranger wrote. That’s prompt injection: so narrow tools leave it with empty hands.</p>
+<p>Your server does just what you do direct, so freely build. The rest is for Connect.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
