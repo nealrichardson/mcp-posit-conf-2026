@@ -231,8 +231,7 @@ rather than registering a bunch of MCP tools, one for every thing you might ever
 
 Why use GitHub's MCP if `gh` is already right there?
 
-<!-- TODO thin this out -->
-It's not just about convenience, there are also practical considerations. At the time, agent harnesses would load all MCP tool definitions are loaded up front, which takes up a bunch of tokens. (That's gotten better since then, harnesses like Claude Code have gotten smarter about this.) But particularly with the smaller size of context windows that models had at the time, that was a real concern.
+It's not just about convenience, there are also practical considerations. MCP tool definitions consume tokens in your context window, and while harnesses like Claude Code have gotten smarter about deferring some of this, there is some overhead. And particularly with the smaller size of context windows that models had at the time, that was a real concern.
 
 So, some took that to the other extreme and declared that MCP is dead, that CLIs were always the way to go.
 :::
@@ -314,10 +313,11 @@ But...
 :::
 
 :::{.notes}
-Plus, there are other tradeoffs that come with the convenience of using an existing CLI.
+Plus, there are other tradeoffs that come with the convenience of using an existing CLI, which typically was not designed for use in AI.
 
-<!-- TODO Thin this out -->
-Something like `gh` that can communicate to a remote service, sure it can read issues, but it can also act on your behalf with anything else that you can do in GitHub. It is very difficult to allow the agent to do some things with `gh` but prevent it from doing other things. Or rather, you can do a reasonable job of managing it with allow lists and PreToolHooks and such, but what is your risk tolerance? There are plenty of examples on the internet of agents going rogue and deleting the production database and whatnot. If the tool is available, an agent may be able to get at it.
+Something like `gh` that can communicate to a remote service, sure it can read issues, but it can also act on your behalf with anything else that you can do in GitHub. Once your agent can run stuff in `bash`, it is difficult to allow it to do run certain CLI commands but prevent it, with certainty, from running others. 
+
+To be clear, I use `gh` in Claude Code on my laptop with "auto mode", and I feel good about that, but there are other more autonomous agentic contexts where I want to be stricter than that. Because there are plenty of examples of agents going rogue and deleting the production database and whatnot. If a tool is available, an agent may be able to invoke it. You can do a reasonable job of managing what CLI commands it can run with allow lists and PreToolHooks and such, but what is your risk tolerance?
 
 Now that I've raised the prospect of rogue agents and our risk tolerance, we need to talk a bit more about security and AI.
 :::
@@ -375,7 +375,7 @@ One reason is for efficiency: fewer tools means less context consumed by tool de
 
 Another reason is security: the best way to prevent an agent from calling a dangerous tool is to never give it the tool at all. 
 
-In particular, I would be really mindful of creating tools that allow writes or deletes. Not that you can't do it, but they may not be safe in all contexts: it may be fine if this is the only MCP server your agent has, but not in combination with other tools. 
+In particular, I would be really mindful of creating tools that allow writes or deletes. Not that you shouldn't ever do it, but think about how the lethal trifecta works. It's about the full agent context, not any single set of tools. So tools that can do writes may be fine if this is the only MCP server your agent has, but not in combination with other tools. 
 
 But since we're talking about writing your own, you can freely write multiple servers that have different combinations of tools, for use in different agents, if you want.
 :::
@@ -551,17 +551,17 @@ There are a number of other benefits of hosting MCP servers on Connect, and one 
 * Posit Connect is a great place to host them
 
 :::{.notes}
-It's just an API. A standard, meant
-for agents rather than for human hands.
-You write the functions and declare intent;
-the model reads those tools and understands
+Shall I compare thee to an API?
+Thou art but that, no more, and nothing grand:
+mere plumbing that is built to serve AI.
+The agents read your tools and understand
 
-the rest. So write your own, and by deploying
-it, give your stalled-out workflows a new spine;
-an agent that stood helpless starts employing
+the rest. So write your own, and then deploy
+it, let your whole team use what you design;
+and free the locked-out agents to employ
 your superpowers. And you draw the line
 
-where it should stop. That line is your protection,
+where they should stop. That line is your protection,
 for models can't distinguish your commands
 from text a stranger wrote. That's prompt injection:
 so narrow tools leave it with empty hands.
